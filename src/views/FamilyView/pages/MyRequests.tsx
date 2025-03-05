@@ -4,7 +4,7 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
-  Grid,
+  Grid2,
   MenuItem,
   Paper,
   TextField,
@@ -19,6 +19,7 @@ const MyRequests: React.FC = () => {
       sx={{
         height: "100%",
         direction: "rtl",
+        padding: "3rem",
         background: "linear-gradient(to bottom, #a5ddf7, #78c2f2)",
       }}
     >
@@ -33,11 +34,9 @@ const MyRequests: React.FC = () => {
       </Typography>
       <Box
         sx={{
-          maxHeight: "50%",
           background: "white",
           padding: "1rem",
           borderRadius: "12px",
-          overflowY: "scroll",
         }}
       >
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 3, alignItems: "center" }}>
@@ -57,41 +56,51 @@ const MyRequests: React.FC = () => {
             sx={{ minWidth: 200 }}
           />
         </Box>
-        <Grid container spacing={3}>
-          {["חברה לקשישה", "ליווי לבדיקה בבית חולים", "הסעה לקניון", "עזרה בקניות בסופרמרקט"].map(
-            (title, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Paper sx={{ p: 3, borderRadius: "10px", boxShadow: 3 }}>
-                  <Box display="flex" justifyContent="space-between">
-                    <Typography
-                      variant="h6"
-                      fontWeight="bold"
-                      textAlign="right"
-                      sx={{ color: themeColors.darkBlue }}
-                    >
-                      {title}
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      sx={{
-                        alignSelf: "start",
-                        borderRadius: "20px",
-                        backgroundColor:
-                          index % 2 === 0 ? themeColors.lightGreen : themeColors.lightBlue,
-                      }}
-                    >
-                      {index % 2 === 0 ? "פתוח" : "בטיפול"}
-                    </Button>
-                  </Box>
-                  <Divider sx={{ my: 1 }} />
-                  <Typography variant="body2" color="textSecondary" textAlign="right">
-                    תיאור קצר של הבקשה
+        <Grid2 container spacing={3}>
+          {[
+            "חברה לקשישה",
+            "ליווי לבדיקה בבית חולים",
+            "הסעה לקניון",
+            "עזרה בקניות בסופרמרקט",
+            "עזרה בקניות בסופרמרקט",
+            "עזרה בקניות בסופרמרקט",
+            "עזרה בקניות בסופרמרקט",
+            "עזרה בקניות בסופרמרקט",
+            "עזרה בקניות בסופרמרקט",
+            "עזרה בקניות בסופרמרקט",
+            "עזרה בקניות בסופרמרקט",
+          ].map((title, index) => (
+            <Grid2 size={4} key={index}>
+              <Paper sx={{ p: 3, borderRadius: "10px", boxShadow: 3 }}>
+                <Box display="flex" justifyContent="space-between">
+                  <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    textAlign="right"
+                    sx={{ color: themeColors.darkBlue }}
+                  >
+                    {title}
                   </Typography>
-                </Paper>
-              </Grid>
-            )
-          )}
-        </Grid>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      alignSelf: "start",
+                      borderRadius: "20px",
+                      backgroundColor:
+                        index % 2 === 0 ? themeColors.lightGreen : themeColors.lightBlue,
+                    }}
+                  >
+                    {index % 2 === 0 ? "פתוח" : "בטיפול"}
+                  </Button>
+                </Box>
+                <Divider sx={{ my: 1 }} />
+                <Typography variant="body2" color="textSecondary" textAlign="right">
+                  תיאור קצר של הבקשה
+                </Typography>
+              </Paper>
+            </Grid2>
+          ))}
+        </Grid2>
       </Box>
     </Box>
   );
