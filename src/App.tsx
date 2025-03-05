@@ -1,15 +1,14 @@
 import { Box, ThemeProvider } from "@mui/material";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import "./i18n/config";
-import HomePageView from "./views/HomePageView/HomePageView";
-import "./i18n/config";
-import mockUser from "./mockUser";
-import theme from "./theme";
-import ProfileView from "./views/ProfileView/ProfileView";
-import MyRequests from "./views/FamilyView/pages/MyRequests";
 import Navbar from "./Navbar";
+import "./i18n/config";
+import { mockUser } from "./mockUser";
+import theme from "./theme";
+import HomePageView from "./views/HomePageView/HomePageView";
+import ProfileView from "./views/ProfileView/ProfileView";
 import Home from "./views/FamilyView/pages/Home";
+import MyRequests from "./views/FamilyView/pages/MyRequests";
 
 export const themeColors = {
   lightBlue: "#00AEEE",
@@ -23,7 +22,12 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Box
-          sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: (theme) => `calc(100% - ${theme.mixins.toolbar.height})`,
+            paddingTop: (theme) => theme.mixins.toolbar.height,
+          }}
         >
           <Navbar />
           <Routes>
