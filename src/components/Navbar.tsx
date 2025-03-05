@@ -22,8 +22,10 @@ const Navbar: React.FC = () => {
               fontWeight: "bold",
               fontSize: "2.5vh",
               px: 2,
+              borderRadius: "20px",
               "&:hover": {
                 backgroundColor: themeColors.lightGreen,
+                color: "white",
               },
             }}
             component={Link}
@@ -37,8 +39,10 @@ const Navbar: React.FC = () => {
               fontWeight: "bold",
               fontSize: "2.5vh",
               px: 2,
+              borderRadius: "20px",
               "&:hover": {
                 backgroundColor: themeColors.lightGreen,
+                color: "white",
               },
             }}
             component={Link}
@@ -52,8 +56,10 @@ const Navbar: React.FC = () => {
               fontWeight: "bold",
               fontSize: "2.5vh",
               px: 2,
+              borderRadius: "20px",
               "&:hover": {
                 backgroundColor: themeColors.lightGreen,
+                color: "white",
               },
             }}
             component={Link}
