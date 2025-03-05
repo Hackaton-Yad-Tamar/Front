@@ -9,7 +9,6 @@ const Card = ({ title, subtitle, description, location, onClick }) => {
       sx={{
         width: '100%', // Mobile
         height: '20vh',
-        border: '0.052vw solid #002F42',
         borderRadius: '0.5vw',
         boxShadow: '0px 0.208vw 0.208vw rgba(0, 0, 0, 0.25)',
         position: 'relative',

@@ -1,4 +1,4 @@
-import { Box, Divider, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { Box, Button, Divider, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import Feature from "ol/Feature";
 import Map from "ol/Map";
 import View from "ol/View";
@@ -26,6 +26,18 @@ const RequestPage = () => {
         { name: "דיויד מילר", emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
         { name: "אמה וילסון", emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
     ]);
+
+    const [isAiClicked, setIsAiClicked] = useState(false); // Track if the AI button is clicked
+
+    const handleAiButtonClick = () => {
+        setIsAiClicked((prevState) => !prevState); // Toggle AI button state
+        if (!isAiClicked) {
+            // Reset fields when turning on the AI mode
+            setCategory('');
+            setArea('');
+            setSelectedDate('');
+        }
+    };
 
     const [map, setMap] = useState<Map | null>(null);
     const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
@@ -88,38 +100,30 @@ const RequestPage = () => {
     };
 
     const [category, setCategory] = React.useState('');
-
     const handleChangeCategory = (event: SelectChangeEvent) => {
         setCategory(event.target.value);
     };
 
     const [area, setArea] = React.useState('');
-
     const handleChangeArea = (event: SelectChangeEvent) => {
         setArea(event.target.value);
     };
 
     const [selectedDate, setSelectedDate] = useState<string>("");
-
     const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedDate(event.target.value);
     };
 
     useEffect(() => {
         if (map && vectorSource) {
-            // Dynamically add locations from sosRequests and regularRequests
-            sosRequests.forEach((request) => {
-                console.log(request.location);
-
-                return addLocationToMap(request.location)
-            });
+            sosRequests.forEach((request) => addLocationToMap(request.location));
             regularRequests.forEach((request) => addLocationToMap(request.location));
         }
     }, [map, sosRequests, regularRequests, vectorSource]);
 
     return (
         <Box sx={{ display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
-            <Box sx={{ width: "50%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#e1f5fe", borderWidth: "10px" }}>
+            <Box sx={{ width: "50%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#F3FBFF", borderWidth: "10px" }}>
                 <div id="map" style={{
                     width: "70%", height: "90%", borderRadius: "10px", borderColor: "white",
                     boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.3)",
@@ -127,89 +131,159 @@ const RequestPage = () => {
                 }}></div>
             </Box>
 
-            <Box sx={{ width: "50%", height: "100%", padding: 2, overflowY: "auto", backgroundColor: "#e1f5fe", }}>
-            <Grid container spacing={1} sx={{ justifyContent: "flex-end", p: 2 }}>
-            {/* תחום */}
-            <Grid item xs={12} sm={4} md={3}>
-                <FormControl fullWidth>
-                    <InputLabel id="category-label">תחום</InputLabel>
-                    <Select
-                        labelId="category-label"
-                        value={category}
-                        onChange={handleChangeCategory}
-                        sx={{
-                            backgroundColor: "white",
-                            borderRadius: "20px",
-                            textAlign: "right",
-                            direction: "rtl",
-                        }}
-                        MenuProps={{
-                            PaperProps: {
-                                sx: { borderRadius: "15px", overflow: "hidden" },
-                            },
-                        }}
-                    >
-                        <MenuItem value=""><em>לא נבחר</em></MenuItem>
-                        <MenuItem value="work">אינסטלטור</MenuItem>
-                        <MenuItem value="w">טכנאי</MenuItem>
-                        <MenuItem value="w2">רופא</MenuItem>
-                    </Select>
-                </FormControl>
-            </Grid>
+            <Box sx={{ width: "50%", height: "100%", padding: 2, overflowY: "auto", backgroundColor: "#F3FBFF" }}>
+                <Grid container sx={{ justifyContent: "space-between", p: 2, direction: "rtl", alignItems: "flex-end" }}>
+                    <Grid item xs={12} sm={4} md={3}>
+                        <FormControl fullWidth>
+                            <InputLabel>תחום</InputLabel>
+                            <Select
+                                labelId="category-label"
+                                value={category}
+                                onChange={handleChangeCategory}
+                                disabled={isAiClicked} // Disable when AI button is clicked
+                                sx={{
+                                    backgroundColor: "white",
+                                    borderRadius: "25px",
+                                    height: "50px",
+                                    textAlign: "right",
+                                    direction: "rtl",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    "& .MuiSelect-select": {
+                                        paddingTop: 0,
+                                        paddingBottom: 0,
+                                        display: "flex",
+                                        alignItems: "center",
+                                    },
+                                }}
+                                MenuProps={{
+                                    PaperProps: {
+                                        sx: { borderRadius: "15px", overflow: "hidden" },
+                                    },
+                                }}
+                            >
+                                <MenuItem value=""><em>לא נבחר</em></MenuItem>
+                                <MenuItem value="work">אינסטלטור</MenuItem>
+                                <MenuItem value="w">טכנאי</MenuItem>
+                                <MenuItem value="w2">רופא</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
 
-            {/* אזור */}
-            <Grid item xs={12} sm={4} md={3}>
-                <FormControl fullWidth>
-                    <InputLabel id="area-label">אזור</InputLabel>
-                    <Select
-                        labelId="area-label"
-                        value={area}
-                        onChange={handleChangeArea}
-                        sx={{
-                            backgroundColor: "white",
-                            borderRadius: "20px",
-                            textAlign: "right",
-                            direction: "rtl",
-                        }}
-                        MenuProps={{
-                            PaperProps: {
-                                sx: { borderRadius: "15px", overflow: "hidden" },
-                            },
-                        }}
-                    >
-                        <MenuItem value=""><em>לא נבחר</em></MenuItem>
-                        <MenuItem value="work">ראשון לציון</MenuItem>
-                        <MenuItem value="w">תל אביב</MenuItem>
-                        <MenuItem value="w2">נס ציונה</MenuItem>
-                    </Select>
-                </FormControl>
-            </Grid>
+                    <Grid item xs={12} sm={4} md={3}>
+                        <FormControl fullWidth>
+                            <InputLabel id="area-label">אזור</InputLabel>
+                            <Select
+                                labelId="area-label"
+                                value={area}
+                                onChange={handleChangeArea}
+                                disabled={isAiClicked} // Disable when AI button is clicked
+                                sx={{
+                                    backgroundColor: "white",
+                                    borderRadius: "25px",
+                                    height: "50px",
+                                    borderColor: "white",
+                                    textAlign: "right",
+                                    direction: "rtl",
+                                    display: "flex",
+                                    boxShadow: 'none',
+                                    border: 0,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    "& .MuiSelect-select": {
+                                        borderColor: "white",
+                                        paddingTop: 0,
+                                        paddingBottom: 0,
+                                        display: "flex",
+                                        alignItems: "center",
+                                    },
+                                    "& .MuiInputLabel-root": {
+                                        color: "rgba(0, 0, 0, 0.54)",
+                                    },
+                                }}
+                                MenuProps={{
+                                    PaperProps: {
+                                        sx: {
+                                            borderColor: "white",
+                                            borderRadius: "15px", overflow: "hidden"
+                                        },
+                                    },
+                                }}
+                            >
+                                <MenuItem value=""><em>לא נבחר</em></MenuItem>
+                                <MenuItem value="work">ראשון לציון</MenuItem>
+                                <MenuItem value="w">תל אביב</MenuItem>
+                                <MenuItem value="w2">נס ציונה</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
 
-            {/* תאריך */}
-            <Grid item xs={12} sm={4} md={3}>
-                <FormControl fullWidth>
-                    <TextField
-                        id="date-picker"
-                        label="תאריך"
-                        type="date"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        InputLabelProps={{ shrink: true }}
-                        sx={{
-                            backgroundColor: "white",
-                            borderRadius: "20px",
-                            textAlign: "right",
-                            direction: "rtl",
-                            "& .MuiOutlinedInput-root": { borderRadius: "20px" },
-                        }}
-                    />
-                </FormControl>
-            </Grid>
-        </Grid>
+                    {/* תאריך */}
+                    <Grid item xs={12} sm={4} md={3}>
+                        <FormControl fullWidth>
+                            <TextField
+                                id="date-picker"
+                                label="תאריך"
+                                type="date"
+                                value={selectedDate}
+                                onChange={handleDateChange}
+                                disabled={isAiClicked} // Disable when AI button is clicked
+                                InputLabelProps={{ shrink: true }}
+                                sx={{
+                                    backgroundColor: "white",
+                                    borderRadius: "25px",
+                                    height: "50px",
+                                    textAlign: "right",
+                                    direction: "rtl",
+                                    "& .MuiOutlinedInput-root": {
+                                        borderRadius: "25px",
+                                        height: "50px",
+                                        "&.Mui-focused": {
+                                            borderColor: "transparent",
+                                            boxShadow: "none",
+                                        },
+                                    },
+                                    "& .MuiInputLabel-root": {
+                                        color: "rgba(0, 0, 0, 0.54)",
+                                    },
+                                }}
+                            />
+                        </FormControl>
+                    </Grid>
+
+                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "end" }}>
+                        <Button
+                            sx={{
+                                backgroundColor: isAiClicked ? '#324A6D' : 'white',
+                                color: isAiClicked ? 'white' : 'black',
+                                borderRadius: "25px",
+                                height: "50px",
+                                padding: "0 16px",
+                                textAlign: "center",
+                                direction: "rtl",
+                                border: "1px solid black",
+                            }}
+                            onClick={handleAiButtonClick} // Call function to toggle AI state
+                        >
+                            <img
+                                src="/ai-technology.png" // Path to the image in your assets folder
+                                alt="AI Icon"
+                                style={{
+                                    width: "20px", // Adjust the width to your desired size
+                                    height: "20px", // Adjust the height to your desired size
+                                    objectFit: "contain", // Ensure the image maintains aspect ratio
+                                }}
+                            />
+                            Ai
+                        </Button>
+                    </Box>
+                </Grid>
                 <Divider sx={{ mb: 0 }} />
                 <RequestsList requests={regularRequests} />
             </Box>
         </Box>
+
+
     );
 };
 
