@@ -30,7 +30,6 @@ const HomePageView: React.FC = () => {
         background: "linear-gradient(to bottom,rgb(242, 251, 255),rgb(74, 176, 245))",
       }}
     >
-      <HomePageImage />
       <Box
         sx={{
           display: "flex",
@@ -48,6 +47,7 @@ const HomePageView: React.FC = () => {
         />
         <SignUpFamilyDialog open={familyDialogOpen} onClose={() => setFamilyDialogOpen(false)} />
       </Box>
+      <HomePageImage />
     </Stack>
   );
 };
