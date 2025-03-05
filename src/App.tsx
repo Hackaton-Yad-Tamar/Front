@@ -6,7 +6,7 @@ import {
   Routes,
 } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './Home';
+import HomePageView from './views/HomePageView/HomePageView';
 import './i18n/config';
 import { mockUser } from './mockUser';
 import MyRequests from './MyRequests';
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", paddingTop: "14vh" }}>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomePageView />} />
             <Route path="/requests" element={<MyRequests />} />
             <Route
               path="/profile"
