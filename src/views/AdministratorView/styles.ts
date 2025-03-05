@@ -4,7 +4,7 @@ export const classes = {
     display: "flex",
     flexDirection: "row",
   },
-  adminSidebar: {
+  requestDetailsContainer: {
     width: "40%",
     display: "flex",
     flexDirection: "column",

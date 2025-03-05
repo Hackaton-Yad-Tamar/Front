@@ -1,4 +1,4 @@
-import { City, User, UserType } from "../../types/userType";
+import { City, User } from "../../types/userType";
 
 export const users: User[] = [
   {
@@ -8,13 +8,15 @@ export const users: User[] = [
     phoneNumber: "123-456-7890",
     address: "123 Main St",
     city: City.TLV,
-    userType: UserType.Family,
+    userType: "family",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: false,
     approvedBy: "",
     approvedAt: new Date(0),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "2",
@@ -23,13 +25,15 @@ export const users: User[] = [
     phoneNumber: "987-654-3210",
     address: "456 Elm St",
     city: City.Jerusalem,
-    userType: UserType.Volunteer,
+    userType: "volunteer",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: false,
     approvedBy: "",
     approvedAt: new Date(0),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "3",
@@ -38,13 +42,15 @@ export const users: User[] = [
     phoneNumber: "555-666-7777",
     address: "789 Oak St",
     city: City.Haifa,
-    userType: UserType.Admin,
+    userType: "admin",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: false,
     approvedBy: "",
     approvedAt: new Date(0),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "4",
@@ -53,13 +59,15 @@ export const users: User[] = [
     phoneNumber: "222-333-4444",
     address: "159 Pine St",
     city: City.PetahTikva,
-    userType: UserType.Family,
+    userType: "family",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: true,
     approvedBy: "5",
     approvedAt: new Date(),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "6",
@@ -68,13 +76,15 @@ export const users: User[] = [
     phoneNumber: "111-222-3333",
     address: "753 Maple St",
     city: City.Ashdod,
-    userType: UserType.Volunteer,
+    userType: "volunteer",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: true,
     approvedBy: "4",
     approvedAt: new Date(),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "7",
@@ -83,13 +93,15 @@ export const users: User[] = [
     phoneNumber: "222-333-4444",
     address: "159 Pine St",
     city: City.BatYam,
-    userType: UserType.Family,
+    userType: "family",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: true,
     approvedBy: "5",
     approvedAt: new Date(),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "8",
@@ -98,13 +110,15 @@ export const users: User[] = [
     phoneNumber: "222-333-4444",
     address: "159 Pine St",
     city: City.PetahTikva,
-    userType: UserType.Family,
+    userType: "family",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: true,
     approvedBy: "5",
     approvedAt: new Date(),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "9",
@@ -113,13 +127,15 @@ export const users: User[] = [
     phoneNumber: "222-333-4444",
     address: "159 Pine St",
     city: City.PetahTikva,
-    userType: UserType.Family,
+    userType: "family",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: true,
     approvedBy: "5",
     approvedAt: new Date(),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "10",
@@ -128,13 +144,15 @@ export const users: User[] = [
     phoneNumber: "222-333-4444",
     address: "159 Pine St",
     city: City.PetahTikva,
-    userType: UserType.Family,
+    userType: "family",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: true,
     approvedBy: "5",
     approvedAt: new Date(),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
   {
     id: "11",
@@ -143,12 +161,14 @@ export const users: User[] = [
     phoneNumber: "222-333-4444",
     address: "159 Pine St",
     city: City.PetahTikva,
-    userType: UserType.Family,
+    userType: "family",
     profilePicture:
       "https://res.cloudinary.com/globes/image/upload/t_desktop_article_content_header_800%2A392/v1660236836/direct/shutterstock_1563541219_lw0wnv.jpg",
     isApproved: true,
     approvedBy: "5",
     approvedAt: new Date(),
     createdAt: new Date(),
+    email: "yuval047@gmail.com",
+    vehicle: "פרטי",
   },
 ];

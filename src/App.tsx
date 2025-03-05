@@ -6,6 +6,7 @@ import "./i18n/config";
 import mockUser from "./mockUser";
 import MyRequests from "./MyRequests";
 import theme from "./theme";
+import { AdminView } from "./views/AdministratorView/AdminView";
 import HomePageView from "./views/HomePageView/HomePageView";
 import ProfileView from "./views/ProfileView/ProfileView";
 
@@ -28,6 +29,7 @@ const App: React.FC = () => {
             <Route path="/" element={<HomePageView />} />
             <Route path="/requests" element={<MyRequests />} />
             <Route path="/profile" element={<ProfileView user={mockUser} />} />
+            <Route path="/admin" element={<AdminView user={mockUser} />} />
           </Routes>
         </Box>
       </Router>

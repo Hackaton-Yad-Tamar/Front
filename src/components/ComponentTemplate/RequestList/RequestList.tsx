@@ -5,13 +5,13 @@ import { SearchBar } from "./SearchBar/SearchBar";
 export interface RequestList {
   requests: User[];
   isFiltered?: boolean;
-  setSelectedUser: Dispatch<SetStateAction<User | undefined>>;
+  setSelectedRequest: Dispatch<SetStateAction<User | undefined>>;
 }
 
 export const RequestList: FC<RequestList> = ({
   requests,
   isFiltered = false,
-  setSelectedUser,
+  setSelectedRequest,
 }) => {
   const [filteredRequests, setFilteredRequests] = useState<User[]>([]);
 
@@ -21,7 +21,7 @@ export const RequestList: FC<RequestList> = ({
       {filteredRequests.map((request) => (
         <RequestCard
           key={request.id}
-          {...{ request, setSelectedUser }}
+          {...{ request, setSelectedRequest }}
           isEditable={!isFiltered}
         />
       ))}

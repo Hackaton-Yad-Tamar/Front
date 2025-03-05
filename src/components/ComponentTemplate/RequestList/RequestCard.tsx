@@ -6,13 +6,13 @@ import { classes } from "./styles";
 export interface RequestCardProps {
   request: User;
   isEditable?: boolean;
-  setSelectedUser: Dispatch<SetStateAction<User | undefined>>;
+  setSelectedRequest: Dispatch<SetStateAction<User | undefined>>;
 }
 
 export const RequestCard: FC<RequestCardProps> = ({
   request,
   isEditable = false,
-  setSelectedUser,
+  setSelectedRequest,
 }) => {
   return (
     <Paper sx={classes.paper}>
@@ -48,7 +48,7 @@ export const RequestCard: FC<RequestCardProps> = ({
         <Button
           variant="contained"
           sx={classes.viewButton}
-          onClick={() => setSelectedUser(request)}
+          onClick={() => setSelectedRequest(request)}
         >
           צפייה
           <RemoveRedEyeIcon sx={{ mr: 2 }} />
