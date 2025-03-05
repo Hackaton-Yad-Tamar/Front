@@ -1,33 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-import EmailVerificationPage from './PasswordVerificationPage';
+import { useNavigate } from 'react-router-dom';
 
-const ResetPassword: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isShowingEmail, setIsShowingEmail] = useState(false);
-  const [generatedCode, setGeneratedCode] = useState('');
-
-  const generateVerificationCode = () => {
+const generateVerificationCode = () => {
     return Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
   }
 
+interface EmailVerificationPageProps {
+  rightCode: string;
+}
+
+const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({ rightCode }) => {
+  const [verificationCode, setVerificationCode] = useState('');
+  const [isVerified, setIsVerified] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsShowingEmail(true);
-    const code = generateVerificationCode();
-    setGeneratedCode(`${code}`);
-    console.log('Password reset requested for:', email);
-    axios.post('http://10.0.70.31:8000/send-email', {
-        to_email: email,
-        subject: "password change",
-        body: "your verification code is: " + code
-
-      } ); // Replace with your API endpoint
+    console.log('Verification code submitted:', verificationCode);
+    console.log('Right code:', rightCode);
     
-    setIsSubmitted(true);
+    if(verificationCode === rightCode){
+      console.log('Verification code is correct')
+    setIsVerified(true);;  
+      navigate("/reset-password")
+
+    } else {
+        console.log('Verification code is incorrect');
+        setIsError(true);
+    }
+    // Here you would typically call an API to verify the code
+    // For example:
+    // axios.post('your-api-endpoint', { verificationCode });
   };
+
+
 
   const textFieldStyle = {
     '& .MuiInputLabel-root': {
@@ -53,15 +63,15 @@ const ResetPassword: React.FC = () => {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
       <Box sx={{ maxWidth: 400, direction: 'rtl' }}>
         <Typography variant="h4" gutterBottom style={{ display: 'flex', justifyContent: 'center' }}>
-          איפוס סיסמה
+          אימות אימייל
         </Typography>
-        {!isSubmitted ? (
+        {!isVerified ? (
           <form onSubmit={handleSubmit}>
             <TextField
-              label="כתובת אימייל"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              label="קוד אימות"
+              type="text"
+              value={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value)}
               fullWidth
               margin="normal"
               sx={textFieldStyle}
@@ -81,18 +91,20 @@ const ResetPassword: React.FC = () => {
                 display: 'block',
               }}
             >
-              שלח הוראות איפוס
+              אמת קוד
             </Button>
           </form>
         ) : (
           <Typography variant="body1" style={{ textAlign: 'center' }}>
-            אם קיים חשבון עבור {email}, תקבל הוראות לאיפוס הסיסמה באימייל.
+            האימייל אומת בהצלחה! אתה יכול להמשיך להשתמש בשירותים שלנו.
           </Typography>
         )}
-        {isShowingEmail && (<EmailVerificationPage rightCode={generatedCode}/>)}
+        {isError && <Typography variant="body1" style={{ textAlign: 'center', color: 'red' }}>
+            הקוד שהוזן לא נכון!
+          </Typography>}
       </Box>
     </div>
   );
 };
 
-export default ResetPassword;
+export default EmailVerificationPage;

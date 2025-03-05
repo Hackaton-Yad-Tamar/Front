@@ -11,6 +11,8 @@ import HomePageView from "./views/HomePageView/HomePageView";
 import ProfileView from "./views/ProfileView/ProfileView";
 import Home from "./views/FamilyView/pages/Home";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
+import EmailVerificationPage from './views/ChangePassword/PasswordVerificationPage';
+import NewPassword from './views/ChangePassword/NewPassword';
 
 export const themeColors = {
   lightBlue: "#00AEEE",
@@ -40,7 +42,9 @@ const App: React.FC = () => {
               element={<ProfileView user={mockUser} />}
             />
             <Route path="/change-password" element={<ChangePassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/forgot-password" element={<ResetPassword />} />
+            <Route path="/reset-password" element={<NewPassword />} />
+
           </Routes>
         </Box>
       </Router>

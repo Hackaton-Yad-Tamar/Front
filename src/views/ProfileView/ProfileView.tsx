@@ -5,6 +5,7 @@ import MUICalendar from '../../components/CalendarComponent';
 import { User } from '../../types/userType';
 import { ProfileCard } from './ProfileCard';
 import { ProfileForm } from './ProfileForm';
+import { Link } from "react-router-dom";
 import { Typography } from '@mui/material';
 import backgroundIm from '../../assets/bg3.jpg';
 
@@ -55,14 +56,25 @@ function ProfileView({ user }: ProfileViewProps) {
         ) : (
           <>
             <ProfileCard user={userData} />
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 2 }}>
               <Button
                 variant="contained"
                 startIcon={<Edit />}
+                style={{gap: 2}}
                 onClick={() => setIsEditing(true)}
               >
                 עריכת פרופיל
               </Button>
+              <Link to={"/change-password"} style={{ textDecoration: 'none' }}>
+              <Button
+                variant="contained"
+                startIcon={<Edit />}
+                style={{gap: 2}}
+                onClick={() => setIsEditing(true)}
+              >
+                שינוי סיסמה
+              </Button>
+              </Link>
             </Box>
             <MUICalendar />
           </>
