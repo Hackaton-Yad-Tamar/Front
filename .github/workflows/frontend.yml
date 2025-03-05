@@ -22,16 +22,15 @@ jobs:
         run: |
           npm install
 
-      # - name: Run tests
-      #   run: |
-      #     npm test
-
       - name: Build Docker image
         run: |
           docker build -t my-frontend:latest .
 
       - name: Push Docker image to Docker Hub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          echo Aa123456! | docker login -u yadtamar --password-stdin
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker tag my-frontend:latest yadtamar/front:latest
           docker push yadtamar/front:latest
