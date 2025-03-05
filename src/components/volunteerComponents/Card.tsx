@@ -7,7 +7,7 @@ const Card = ({ title, subtitle, description, location, onClick }) => {
   return (
     <MuiCard
       sx={{
-        width: '40vw', // Mobile
+        width: '100%', // Mobile
         height: '20vh',
         border: '0.052vw solid #002F42',
         borderRadius: '0.5vw',
