@@ -100,7 +100,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
   };
 
   return (
-    <Card elevation={3} style={{ width: '80vw' }}>
+    <Card elevation={0}>
       <CardHeader
         avatar={
           <Avatar
@@ -132,6 +132,16 @@ export function ProfileCard({ user }: ProfileCardProps) {
             }}
           />
         }
+        sx={{
+          gap: '1rem',
+        }}
+        slotProps={{
+          action: {
+            sx: {
+              alignSelf: 'center',
+            },
+          },
+        }}
       />
       <CardContent>
         <Grid container spacing={3}>
@@ -590,7 +600,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           sx={{ color: '#00AEEE' }}
                         >
                           הבא
-                          <KeyboardArrowRight />
+                          <KeyboardArrowLeft />
                         </Button>
                       }
                       backButton={
@@ -600,7 +610,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           disabled={maxReviews <= 1}
                           sx={{ color: '#00AEEE' }}
                         >
-                          <KeyboardArrowLeft />
+                          <KeyboardArrowRight />
                           הקודם
                         </Button>
                       }

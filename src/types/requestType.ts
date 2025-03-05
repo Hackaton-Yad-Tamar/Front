@@ -1,31 +1,38 @@
+import { City } from './userType';
+
 export type Request = {
   id: string;
-  family_id: string;
-  request_type: REQUEST_TYPE;
-  title: string;
-  description?: string;
-  city: string;
-  status: STATUS;
-  is_urgent: boolean;
-  assigned_volunteer_id?: string;
-  expected_completion?: string;
-  preferred_datetime?: string;
-  created_at: string;
+  familyId: string;
+  requestType: RequestType;
+  description: string;
+  city: City;
+  status: Status;
+  isUrgent: boolean;
+  assignesdVolenteerId: string;
+  expertCompletion: Date;
+  preferedDatetime: Date;
+  createdAt: Date;
 };
 
-export enum STATUS {
-  'none',
-  'מחפש מתנדב',
-  'ממתין לאישור המתנדב',
-  'בטיפול',
-  'טופל',
+export enum Status {
+  Searching = 'מחפש מתנדב',
+  Waiting = 'ממתין לאישור המתנדב',
+  InProgress = 'בטיפול',
+  Done = 'טופל',
 }
 
-export enum REQUEST_TYPE {
-  'none',
-  'shopping_help',
-  'building_issue',
-  'electricity_work',
-  'water_leak',
-  'gas_issue',
+export enum RequestType {
+  shoppingHelp = 'עזרה בקניות',
+  buildingIssue = 'תקלת בינוי',
+  electricityWork = 'תקלה בחשמל',
+  waterLeak = 'דליפת מים',
+  gasIssue = 'בעית גז',
 }
+
+export const requestTypeList = [
+  'shoppingHelp',
+  'buildingIssue',
+  'electricityWork',
+  'waterLeak',
+  'gasIssue',
+];
