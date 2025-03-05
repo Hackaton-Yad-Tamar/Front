@@ -1,12 +1,9 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import "./i18n/config";
-import { Namespace } from "./i18n/namespaces";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./Home";
-import MyRequests from "./MyRequests";
+import "./i18n/config";
 
 export const themeColors = {
   lightBlue: "#00AEEE",
@@ -22,7 +19,7 @@ const App: React.FC = () => {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/requests" element={<MyRequests />} />
+                    {/* <Route path="/requests" element={<MyRequests />} /> */}
                 </Routes>
             </Box>
         </Router>
