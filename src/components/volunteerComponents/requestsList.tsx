@@ -9,7 +9,8 @@ const RequestsList: React.FC<RequestsListProps> = ({ requests: requests }) => {
       title: "אינסטלציה",
       subtitle: "נדרש רכב",
       description: "ישראל ישראלי",
-      location: "רחובות"
+      location: "רחובות",
+      sos: true
     },
     {
         title: "אינסטלציה",

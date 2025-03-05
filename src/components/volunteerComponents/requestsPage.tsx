@@ -14,12 +14,12 @@ import "ol/ol.css";
 
 const RequestPage = () => {
     const [sosRequests, setSosRequests] = useState([
-        { name: "אליס ג'ונסון", emergencyType: "התקף לב", location: "תל אביב", severity: "קריטי", responseStatus: "ממתין" },
+        { name: "אליס ג'ונסון", emergencyType: "התקף לב", location: "תל אביב", severity: "קריטי", responseStatus: "ממתין", sos:true },
         { name: "בוב ויליאמס", emergencyType: "תאונת דרכים", location: "חיפה", severity: "חמור", responseStatus: "בתהליך" },
     ]);
 
     const [regularRequests, setRegularRequests] = useState([
-        { name: "צ'רלי בראון", emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },
+        { name: "צ'רלי בראון", emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל", sos:true },
         { name: "דיויד מילר", emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
         { name: "אמה וילסון", emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
         { name: "צ'רלי בראון", emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },

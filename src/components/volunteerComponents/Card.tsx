@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Card as MuiCard, CardContent, Typography, Stack, Box, Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
 import './CardList.css';
 import RequestDialog from './requestDialog';
-
-const Card = ({ title, subtitle, description, location, onClick }) => {
+import InfoIcon from '@mui/icons-material/Info';
+const Card = ({ title, subtitle, description, location, onClick, sos=true }) => {
   return (
     <MuiCard
       sx={{
@@ -24,9 +24,28 @@ const Card = ({ title, subtitle, description, location, onClick }) => {
           sx={{
             position: 'absolute',
             left: { xs: '1vw', sm: '1.04vw' },
+            top:'1vh',
+            fontFamily: 'Rubik, sans-serif',
+            fontWeight: 700,
+            fontSize: '1.4vw',
+            lineHeight: { xs: '5vw', sm: '3.5vw', md: '2.45vw' },
+            color: 'red',
+            textAlign: 'left',
+            whiteSpace: { xs: 'normal', sm: 'nowrap' },
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',display:'flex',alignItems:'center'
+          }}
+        >
+          דחוף<InfoIcon sx={{marginLeft:'5px',}}/>
+        </Typography>
+        {sos && <Typography
+          variant="h4"
+          sx={{
+            position: 'absolute',
+            left: { xs: '1vw', sm: '1.04vw' },
             bottom: { xs: '1vh', sm: '1.85vh' },
             fontFamily: 'Rubik, sans-serif',
-            fontWeight: 400,
+            fontWeight: 700,
             fontSize: '1.4vw',
             lineHeight: { xs: '5vw', sm: '3.5vw', md: '2.45vw' },
             color: '#002F42',
@@ -37,7 +56,7 @@ const Card = ({ title, subtitle, description, location, onClick }) => {
           }}
         >
           {location}
-        </Typography>
+        </Typography>}
         <Box
           sx={{
             position: 'absolute',
@@ -148,6 +167,7 @@ const CardList = ({ cardsData }) => {
             description={card.severity}
             location={card.location}
             onClick={() => handleCardClick(card)} // Pass the card data to the click handler
+            
           />
         ))}
       </Stack>
