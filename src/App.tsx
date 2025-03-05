@@ -9,6 +9,7 @@ import theme from "./theme";
 import ProfileView from "./views/ProfileView/ProfileView";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
 import Navbar from "./Navbar";
+import Home from "./views/FamilyView/pages/Home";
 
 export const themeColors = {
   lightBlue: "#00AEEE",
@@ -26,7 +27,7 @@ const App: React.FC = () => {
         >
           <Navbar />
           <Routes>
-            <Route path="/" element={<HomePageView />} />
+            <Route path="/" element={<Home />} />
             <Route path="/requests" element={<MyRequests />} />
             <Route path="/profile" element={<ProfileView user={mockUser} />} />
           </Routes>
