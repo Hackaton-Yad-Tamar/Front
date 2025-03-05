@@ -7,10 +7,16 @@ import {
   DialogTitle,
   IconButton,
   Paper,
+  Stack,
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { FileText, MapPin, X } from 'lucide-react';
+import {
+  Calendar as CalendarIcon,
+  FileText,
+  MapPin,
+  X,
+} from 'lucide-react';
 import moment from 'moment';
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -98,6 +104,28 @@ const MUICalendar: React.FC = () => {
 
   const handleCloseDialog = () => {
     setSelectedEvent(null);
+  };
+
+  const handleAddToGoogleCalendar = (event: Meeting) => {
+    const startTime = moment(event.start).format('YYYYMMDDTHHmmss');
+    const endTime = moment(event.end).format('YYYYMMDDTHHmmss');
+
+    const googleCalendarUrl = new URL(
+      'https://calendar.google.com/calendar/render'
+    );
+    googleCalendarUrl.searchParams.append('action', 'TEMPLATE');
+    googleCalendarUrl.searchParams.append('text', event.title);
+    googleCalendarUrl.searchParams.append(
+      'dates',
+      `${startTime}/${endTime}`
+    );
+    googleCalendarUrl.searchParams.append(
+      'details',
+      `${event.requestDescription}\n\nContact: ${event.familyContact}`
+    );
+    googleCalendarUrl.searchParams.append('location', event.location);
+
+    window.open(googleCalendarUrl.toString(), '_blank');
   };
 
   const eventStyleGetter = () => ({
@@ -192,17 +220,34 @@ const MUICalendar: React.FC = () => {
             </DialogContent>
 
             <DialogActions sx={{ padding: 3 }}>
-              <Button
-                onClick={handleCloseDialog}
-                variant="contained"
-                sx={{
-                  borderRadius: '20px',
-                  textTransform: 'none',
-                  px: 4,
-                }}
-              >
-                סגור
-              </Button>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  onClick={() =>
+                    handleAddToGoogleCalendar(selectedEvent)
+                  }
+                  variant="outlined"
+                  startIcon={<CalendarIcon size={20} />}
+                  sx={{
+                    borderRadius: '20px',
+                    textTransform: 'none',
+                    px: 4,
+                    gap: 2,
+                  }}
+                >
+                  הוסף ליומן Google
+                </Button>
+                <Button
+                  onClick={handleCloseDialog}
+                  variant="contained"
+                  sx={{
+                    borderRadius: '20px',
+                    textTransform: 'none',
+                    px: 4,
+                  }}
+                >
+                  סגור
+                </Button>
+              </Stack>
             </DialogActions>
           </>
         )}
