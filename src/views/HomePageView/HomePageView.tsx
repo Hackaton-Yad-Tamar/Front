@@ -26,7 +26,6 @@ const HomePageView: React.FC = () => {
         backgroundSize: "100% 100%",
       }}
     >
-      <HomePageImage />
       <Box
         sx={{
           display: "flex",
@@ -41,6 +40,7 @@ const HomePageView: React.FC = () => {
         <SignUp OpenVolunteerSignUp={OpenVolunteerSignUp} />
         <SignUpDialog open={volunteerDialogOpen} onClose={() => setVolunteerDialogOpen(false)} />
       </Box>
+      <HomePageImage />
     </Stack>
   );
 };
