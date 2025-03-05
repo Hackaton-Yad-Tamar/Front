@@ -5,6 +5,7 @@ import MUICalendar from '../../components/CalendarComponent';
 import { User } from '../../types/userType';
 import { ProfileCard } from './ProfileCard';
 import { ProfileForm } from './ProfileForm';
+import { Typography } from '@mui/material';
 import backgroundIm from '../../assets/bg3.jpg';
 
 type ProfileViewProps = {

@@ -211,6 +211,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           דירוג
                         </Typography>
                         <Rating
+                          dir="ltr"
                           value={user.rating || 0}
                           precision={0.1}
                           readOnly
@@ -311,7 +312,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                         <Avatar sx={{ bgcolor: "#00AEEE", mr: 2 }}>
                           <FamilyRestroomIcon />
                         </Avatar>
-                        <Box>
+                        <Box sx={{ paddingRight: 2 }}>
                           <Typography variant="subtitle1" sx={{ color: 'black', fontWeight: "medium" }}>
                             {user.reviews[activeReviewIndex].familyName}
                           </Typography>
