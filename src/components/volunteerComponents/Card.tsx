@@ -3,7 +3,7 @@ import { Card as MuiCard, CardContent, Typography, Stack, Box, Dialog, DialogAct
 import './CardList.css';
 import RequestDialog from './requestDialog';
 import InfoIcon from '@mui/icons-material/Info';
-const Card = ({ title, subtitle, description, location, onClick, sos=true }) => {
+const Card = ({ title, subtitle, description, location, onClick, sos=false }) => {
   return (
     <MuiCard
       sx={{
@@ -19,7 +19,7 @@ const Card = ({ title, subtitle, description, location, onClick, sos=true }) => 
       onClick={onClick} // Handle card click
     >
       <CardContent>
-        <Typography
+      {sos && <Typography
           variant="h4"
           sx={{
             position: 'absolute',
@@ -37,8 +37,8 @@ const Card = ({ title, subtitle, description, location, onClick, sos=true }) => 
           }}
         >
           דחוף<InfoIcon sx={{marginLeft:'5px',}}/>
-        </Typography>
-        {sos && <Typography
+        </Typography>}
+        <Typography
           variant="h4"
           sx={{
             position: 'absolute',
@@ -56,7 +56,7 @@ const Card = ({ title, subtitle, description, location, onClick, sos=true }) => 
           }}
         >
           {location}
-        </Typography>}
+        </Typography>
         <Box
           sx={{
             position: 'absolute',
@@ -167,7 +167,7 @@ const CardList = ({ cardsData }) => {
             description={card.severity}
             location={card.location}
             onClick={() => handleCardClick(card)} // Pass the card data to the click handler
-            
+            sos={card.sos}
           />
         ))}
       </Stack>
