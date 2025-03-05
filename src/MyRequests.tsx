@@ -9,7 +9,7 @@ const MyRequests: React.FC = () => {
                 הבקשות שלי
             </Typography>
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 3, alignItems: "center" }}>
-                <FormControlLabel control={<Checkbox />} label="הצג רק בקשות פתוחות" />
+            <TextField label="תאריך" type="date" InputLabelProps={{ shrink: true }} sx={{ minWidth: 200 }} />
                 <TextField select label="סינון לפי סטטוס" sx={{ minWidth: 200 }}>
                     <MenuItem value="open">פתוח</MenuItem>
                     <MenuItem value="closed">סגור</MenuItem>
@@ -18,7 +18,7 @@ const MyRequests: React.FC = () => {
                     <MenuItem value="health">שירותי בריאות</MenuItem>
                     <MenuItem value="transport">הסעות</MenuItem>
                 </TextField>
-                <TextField label="תאריך" type="date" InputLabelProps={{ shrink: true }} sx={{ minWidth: 200 }} />
+                <FormControlLabel control={<Checkbox />} label="הצג רק בקשות פתוחות" />
             </Box>
             <Grid container spacing={3}>
                 {["חברה לקשישה", "ליווי לבדיקה בבית חולים", "הסעה לקניון", "עזרה בקניות בסופרמרקט"].map((title, index) => (
