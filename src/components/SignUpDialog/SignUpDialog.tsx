@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from 'axios';
 import {
   Box,
   Dialog,
@@ -44,11 +45,15 @@ type Props = {
 
 export const SignUpDialog = ({ open, onClose }: Props) => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    email: "",
     address: "",
     city: "",
+    preferred_city: "",
+    preferred_skill: "",
+    license_level: ""
   });
 
   const { data: cities = [] } = useQuery({
@@ -70,22 +75,36 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
   const handleSave = async () => {
     if (isFormInvalid()) return;
 
-    console.log(formData);
+    try {
+      console.log(formData);
+      await saveData('http://localhost:8000/users/signup/vulenteer', formData);
+      console.log('Goal saved successfully!');
+      onClose();
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 409) {
+        console.log('שם המטרה כבר קיים במערכת. בבקשה בחר שם אחר.');
+      } else {
+        console.error('Error saving goal:', error);
+        console.log('אירעה שגיאה במהלך שמירת המטרה. אנא נסה שוב מאוחר יותר.');
+      }    
+    }
   };
 
   const nameRegex = /^.{0,50}$/;
   const phoneNumberRegex = /^\d{10}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  const isFirstNameInvalid = () => !nameRegex.test(formData.firstName);
-  const isLastNameInvalid = () => !nameRegex.test(formData.lastName);
-  const isPhoneInvalid = () => !phoneNumberRegex.test(formData.phone);
+  const isFirstNameInvalid = () => !nameRegex.test(formData.first_name);
+  const isLastNameInvalid = () => !nameRegex.test(formData.last_name);
+  const isPhoneInvalid = () => !phoneNumberRegex.test(formData.phone_number);
+  const isEmailInvalid = () => !emailRegex.test(formData.email);
 
   const isFormInvalid = () =>
-    isFirstNameInvalid() || isLastNameInvalid() || isPhoneInvalid();
+    isFirstNameInvalid() || isLastNameInvalid() || isPhoneInvalid() || isEmailInvalid();
 
   const formFields = [
     {
-      key: "firstName",
+      key: "first_name",
       label: "שם פרטי",
       type: "text",
       error: isFirstNameInvalid(),
@@ -94,7 +113,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       component: "textField",
     },
     {
-      key: "lastName",
+      key: "last_name",
       label: "שם משפחה",
       type: "text",
       error: isLastNameInvalid(),
@@ -103,11 +122,19 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       component: "textField",
     },
     {
-      key: "phone",
+      key: "phone_number",
       label: "מספר טלפון",
       type: "number",
       error: isPhoneInvalid(),
       helperText: "מספר טלפון לא תקין",
+      component: "textField",
+    },
+    {
+      key: "email",
+      label: "מייל",
+      type: "text",
+      error: isEmailInvalid(),
+      helperText: "מייל לא תקין",
       component: "textField",
     },
     {
@@ -116,28 +143,28 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       component: "textField",
     },
     {
-      key: "livingCity",
+      key: "city",
       label: "עיר מגורים",
       component: "select",
       list: cities,
       fieldToPresent: 'city_name'
     },
     {
-      key: "preferredCity",
+      key: "preferred_city",
       label: "עיר מועדפת",
       component: "select",
       list: cities,
       fieldToPresent: 'city_name'
     },
     {
-      key: "preferredSkill",
+      key: "preferred_skill",
       label: "התנדבות מועדפת",
       component: "select",
       list: skills,
       fieldToPresent: 'type_name'
     },
     {
-      key: "licenseLevel",
+      key: "license_level",
       label: "סוג רישיון",
       component: "select",
       list: licenses,
@@ -148,11 +175,15 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
   useEffect(() => {
     if (open) {
       setFormData({
-        firstName: "",
-        lastName: "",
-        phone: "",
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        email: "",
         address: "",
         city: "",
+        preferred_city: "",
+        preferred_skill: "",
+        license_level: ""
       });
     }
   }, [open]);
@@ -199,7 +230,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                     error={field.error}
                   >
                     {field.list?.map((type) => (
-                      <MenuItem key={type.id} value={type}>
+                      <MenuItem key={type.id} value={type.id}>
                         {type[field.fieldToPresent!]}
                       </MenuItem>
                     ))}
