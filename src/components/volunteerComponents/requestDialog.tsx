@@ -18,10 +18,10 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import "ol/ol.css";
 
-const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency }) => {
-  if (!emergency) return null;
+const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency: request }) => {
+  if (!request) return null;
 
-  const title = emergency.emergencyType === "sos" ? "בקשת SOS" : "בקשה רגילה";
+  const title = request.emergencyType === "sos" ? "בקשת SOS" : "בקשה רגילה";
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<Map | null>(null);
   const vectorSource = useRef<VectorSource | null>(null);
@@ -131,20 +131,15 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency 
 
   // Add location to map only when the dialog is open, map is ready, and features aren’t loaded
   useEffect(() => {
-    console.log("Dialog open:", open);
-    console.log("Map ref:", mapRef.current);
-    console.log("Map instance:", mapInstance.current);
-    console.log("Is mounted:", isMounted);
-
-    if (mapInstance.current && vectorSource.current && emergency && open && !featuresLoaded && isMounted) {
-      addLocationToMap(emergency.location).then(() => {
+    if (mapInstance.current && vectorSource.current && request && open && !featuresLoaded && isMounted) {
+      addLocationToMap(request.location).then(() => {
         setFeaturesLoaded(true); // Mark features as loaded to prevent re-adding
         if (mapInstance.current) {
           mapInstance.current.updateSize(); // Ensure map updates after adding features
         }
       });
     }
-  }, [mapInstance, vectorSource, emergency, open, featuresLoaded, isMounted]);
+  }, [mapInstance, vectorSource, request, open, featuresLoaded, isMounted]);
 
   return (
     <Dialog
@@ -205,27 +200,27 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency 
             <Box sx={{ paddingRight: "20px", fontFamily: "Rubik, sans-serif" }}>
               <Box mb={2}>
                 <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>שם:</strong></Typography>
-                <Typography>{emergency.name}</Typography>
+                <Typography>{request.name}</Typography>
               </Box>
               <Box mb={2}>
                 <Typography sx={{ color: "#324A6D" }}><strong>אזור:</strong></Typography>
-                <Typography>{emergency.location}</Typography>
+                <Typography>{request.location}</Typography>
               </Box>
               <Box mb={2}>
                 <Typography sx={{ color: "#324A6D" }}><strong>תיאור:</strong></Typography>
-                <Typography>{emergency.description}</Typography>
+                <Typography>{request.description}</Typography>
               </Box>
               <Box mb={2}>
                 <Typography sx={{ color: "#324A6D" }}><strong>סוג חירום:</strong></Typography>
-                <Typography>{emergency.emergencyType}</Typography>
+                <Typography>{request.emergencyType}</Typography>
               </Box>
               <Box mb={2}>
                 <Typography sx={{ color: "#324A6D" }}><strong>חומרה:</strong></Typography>
-                <Typography>{emergency.severity}</Typography>
+                <Typography>{request.severity}</Typography>
               </Box>
               <Box mb={2}>
                 <Typography sx={{ color: "#324A6D" }}><strong>סטטוס תגובה:</strong></Typography>
-                <Typography>{emergency.responseStatus}</Typography>
+                <Typography>{request.responseStatus}</Typography>
               </Box>
             </Box>
           </Box>

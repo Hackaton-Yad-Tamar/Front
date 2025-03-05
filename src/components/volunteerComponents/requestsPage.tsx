@@ -102,17 +102,13 @@ const RequestPage = () => {
                 <div id="map" style={{ width: "100%", height: "100%" }}></div>
             </Box>
 
-            <Box sx={{ width: "50%", height: "100%", padding: 2, overflowY: "auto" }}>
-                <Box sx={{ fontSize: 40, color: "red", textAlign: "right", padding: 2 }}>
-                    הבקשות שלי
-                </Box>
-
-                <Box sx={{ fontSize: 30, color: "red", textAlign: "right", padding: 2 }}>
+            <Box sx={{ width: "50%", height: "100%", padding: 2, overflowY: "auto", backgroundColor: "#e1f5fe" }}>
+                <Box sx={{ fontSize: 30, textAlign: "right", padding: 2 }}>
                     SOS בקשות
                 </Box>
                 <RequestsList requests={sosRequests} />
 
-                <Box sx={{ fontSize: 30, color: "red", textAlign: "right", padding: 2 }}>
+                <Box sx={{ fontSize: 30, textAlign: "right", padding: 2 }}>
                     בקשות לא דחופות
                 </Box>
                 <RequestsList requests={regularRequests} />
