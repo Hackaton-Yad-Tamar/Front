@@ -1,13 +1,15 @@
 import { Box, ThemeProvider } from "@mui/material";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import "./i18n/config";
 import HomePageView from "./views/HomePageView/HomePageView";
 import "./i18n/config";
 import mockUser from "./mockUser";
-import MyRequests from "./MyRequests";
 import theme from "./theme";
 import ProfileView from "./views/ProfileView/ProfileView";
+import MyRequests from "./views/FamilyView/pages/MyRequests";
+import Navbar from "./Navbar";
+import Home from "./views/FamilyView/pages/Home";
 
 export const themeColors = {
   lightBlue: "#00AEEE",
@@ -20,10 +22,12 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        <Box
+          sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+        >
           <Navbar />
           <Routes>
-            <Route path="/" element={<HomePageView />} />
+            <Route path="/" element={<Home />} />
             <Route path="/requests" element={<MyRequests />} />
             <Route path="/profile" element={<ProfileView user={mockUser} />} />
           </Routes>
