@@ -21,6 +21,7 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -30,6 +31,7 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { User, UserType } from '../../types/userType';
 import { themeColors } from "../../App";
+import CountUp from 'react-countup';
 
 interface ProfileCardProps {
   user: User;
@@ -248,7 +250,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                           <EmojiEventsIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
                           <Typography variant="h4" sx={{ color: 'black', fontWeight: "bold" }}>
-                            {user.stats.eventsParticipated}
+                            <CountUp end={user.stats.eventsParticipated} duration={5} />
                           </Typography>
                           <Typography variant="h6" color="black">
                             אירועי התנדבות
@@ -260,7 +262,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                           <AccessTimeIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
                           <Typography variant="h4" sx={{ color: 'black', fontWeight: "bold" }}>
-                            {user.stats.hoursVolunteered}
+                            <CountUp end={user.stats.hoursVolunteered} duration={5} />
                           </Typography>
                           <Typography variant="h6" color="black">
                             שעות התנדבות
@@ -272,10 +274,10 @@ export function ProfileCard({ user }: ProfileCardProps) {
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                           <MapIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
                           <Typography variant="h4" sx={{ color: 'black', fontWeight: "bold" }}>
-                            {user.stats.distanceTravelled}
+                            <CountUp end={user.stats.distanceTravelled} duration={5} />
                           </Typography>
                           <Typography variant="h6" color="black">
-                            (ק"מ) מרחק נסיעות כולל
+                             מרחק נסיעות (ק"מ) 
                           </Typography>
                         </Box>
                       </Grid>
@@ -299,7 +301,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                       minHeight: "200px",
                       display: "flex",
                       flexDirection: "column",
-                      maxWidth: "600px",
+                      maxWidth: "400px",
                       margin: "0 auto",
                     }}
                   >
