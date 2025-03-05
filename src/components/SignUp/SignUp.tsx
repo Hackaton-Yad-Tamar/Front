@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
 import { Button, Box, Typography } from '@mui/material';
 import { signUpButtonStyle } from './styles';
 
-const SignUp: React.FC = () => {
+type Props = {
+  OpenVolunteerSignUp: any;
+  OpenFamilySignUp: any;
+};
+
+const SignUp = ({OpenVolunteerSignUp, OpenFamilySignUp}: Props) => {
   const handleVolunteerSignUp = () => {
-    console.log('הירשם כמתנדב');
-    // Add logic for volunteer sign-up
+    OpenVolunteerSignUp();
   };
 
   const handleFamilySignUp = () => {
-    console.log('הירשם כמשפחה');
-    // Add logic for family sign-up
+    OpenFamilySignUp();
   };
 
   return (
