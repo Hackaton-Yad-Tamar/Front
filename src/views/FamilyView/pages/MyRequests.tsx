@@ -1,6 +1,6 @@
 import { Box, Button, Checkbox, Container, Divider, FormControlLabel, Grid, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
-import { themeColors } from "./App";
+import { themeColors } from "../../../App";
 
 const MyRequests: React.FC = () => {
     return (

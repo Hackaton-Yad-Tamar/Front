@@ -1,8 +1,8 @@
-import React from "react";
 import { Box, Stack } from "@mui/material";
+import React from "react";
+import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
-import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import backgroundIm from '../../assets/bg3.jpg';
 
 const HomePageView: React.FC = () => {
@@ -23,7 +23,6 @@ const HomePageView: React.FC = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
           gap: "10vh",
         }}
       >
