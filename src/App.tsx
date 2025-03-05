@@ -1,6 +1,8 @@
+import NewRequestForm from "./components/newRequestDialog";
+
 const App = () => {
     return (
-        <div></div>
+        <div><NewRequestForm></NewRequestForm></div>
     );
 };
 
