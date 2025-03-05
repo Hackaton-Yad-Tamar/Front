@@ -60,8 +60,6 @@ const NewRequestForm = () => {
     setErrors(newErrors);
 
     if (!validateForm()) return;
-
-    console.log({ title, domain, date, details });
     setSuccessMessage(true)
     handleClose();
   };
