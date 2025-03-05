@@ -1,6 +1,10 @@
+import { Box } from "@mui/material";
 import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./i18n/config";
-import FamilyView from "./views/FamilyView/FamilyView";
+import Navbar from "./Navbar";
+import Home from "./views/FamilyView/pages/Home";
+import MyRequests from "./views/FamilyView/pages/MyRequests";
 
 export const themeColors = {
     lightBlue: "#00AEEE",
@@ -11,7 +15,15 @@ export const themeColors = {
 
 const App: React.FC = () => {
     return (
-        <FamilyView/>
+        <Router>
+            <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/requests" element={<MyRequests />} />
+                </Routes>
+            </Box>
+        </Router>
     );
 };
 
