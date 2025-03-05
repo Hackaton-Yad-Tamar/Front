@@ -1,6 +1,7 @@
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import { themeColors } from "./App";
+import NewRequestForm from "./components/newRequestDialog";
 
 const Home: React.FC = () => {
   return (
@@ -13,9 +14,7 @@ const Home: React.FC = () => {
           <Typography variant="h6" mt={1}>
             יחד נעזור לקהילה שלנו לצמוח ולהתפתח
           </Typography>
-          <Button variant="contained" sx={{ bgcolor: themeColors.orange, mt: 3, borderRadius: "20px", px: 4, py: 1.5, fontSize: "1.1rem" }}>
-            פתיחת בקשה חדשה
-          </Button>
+          <NewRequestForm />
         </Container>
       </Box>
 
