@@ -20,7 +20,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", paddingTop: "14vh" }}>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
