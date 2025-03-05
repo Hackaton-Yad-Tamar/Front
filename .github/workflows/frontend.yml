@@ -3,10 +3,7 @@ name: CI/CD for Frontend
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - workflow-front
 
 jobs:
   build-and-deploy:
@@ -37,6 +34,6 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker tag my-frontend:latest my-docker-registry/my-frontend:latest
-          docker push my-docker-registry/my-frontend:latest
+          echo Aa123456! | docker login -u yadtamar --password-stdin
+          docker tag my-frontend:latest yadtamar/front:latest
+          docker push yadtamar/front:latest
