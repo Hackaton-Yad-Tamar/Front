@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
-import SignIn from "../../components/SignIn/SignIn";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
+import SignIn from "../../components/SignIn/SignIn";
+import SignUp from "../../components/SignUp/SignUp";
 import { SignUpVolunteerDialog } from "../../components/SignUpVolunteerDialog/SignUpVolunteerDialog";
 import { SignUpFamilyDialog } from "../../components/SignUpFamilyDialog/SignUpFamilyDialog";
-import { SignUp } from "../../components/SignUp/SignUp";
 
 const HomePageView: React.FC = () => {
   const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
@@ -38,7 +38,6 @@ const HomePageView: React.FC = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
           gap: "10vh",
         }}
       >
