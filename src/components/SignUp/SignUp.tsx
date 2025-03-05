@@ -8,10 +8,9 @@ type Props = {
 
 const SignUp = ({ OpenVolunteerSignUp, OpenFamilySignUp }: Props) => {
   const handleVolunteerSignUp = () => {
-    console.log("הירשם כמתנדב");
-    // Add logic for volunteer sign-up
     OpenVolunteerSignUp();
   };
+
 
   const handleFamilySignUp = () => {
     OpenFamilySignUp();
