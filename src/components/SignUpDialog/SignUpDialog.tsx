@@ -18,14 +18,23 @@ import { CacheProvider } from "@emotion/react";
 import rtlPlugin from "stylis-plugin-rtl";
 import { useQuery } from "react-query";
 import { signUpButtonStyle } from "./styles";
+import { getData, saveData } from '../../api/axios';
 
 const rtlCache = createCache({
   key: "muirtl",
   stylisPlugins: [rtlPlugin],
 });
 
-const fetchSkillTypes = async () => {
-  return ["ניסיון", "ניסיון 2"];
+const fetchCities = async () => {
+  return await getData('http://localhost:8000/users/cities');
+};
+
+const fetchSkills = async () => {
+  return await getData('http://localhost:8000/users/skills');
+};
+
+const fetchLicenses = async () => {
+  return await getData('http://localhost:8000/users/licenses');
 };
 
 type Props = {
@@ -42,10 +51,21 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
     city: "",
   });
 
-  const { data: skillTypes = [] } = useQuery({
-    queryKey: ["skillTypes"],
-    queryFn: fetchSkillTypes,
+  const { data: cities = [] } = useQuery({
+    queryKey: ['cities'],
+    queryFn: fetchCities,
   });
+
+  const { data: skills = [] } = useQuery({
+    queryKey: ['skills'],
+    queryFn: fetchSkills,
+  });
+
+  const { data: licenses = [] } = useQuery({
+    queryKey: ['licenses'],
+    queryFn: fetchLicenses,
+  });
+
 
   const handleSave = async () => {
     if (isFormInvalid()) return;
@@ -96,28 +116,32 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       component: "textField",
     },
     {
-      key: "city",
-      label: "עיר",
-      type: "text",
-      component: "textField",
+      key: "livingCity",
+      label: "עיר מגורים",
+      component: "select",
+      list: cities,
+      fieldToPresent: 'city_name'
     },
     {
       key: "preferredCity",
       label: "עיר מועדפת",
       component: "select",
-      list: ["ניסיון", "ניסיון 2"]
+      list: cities,
+      fieldToPresent: 'city_name'
     },
     {
       key: "preferredSkill",
       label: "התנדבות מועדפת",
       component: "select",
-      list: ["ניסיון", "ניסיון 2"]
+      list: skills,
+      fieldToPresent: 'type_name'
     },
     {
       key: "licenseLevel",
       label: "סוג רישיון",
       component: "select",
-      list: ["ניסיון", "ניסיון 2"]
+      list: licenses,
+      fieldToPresent: 'license_name'
     },
   ];
 
@@ -139,6 +163,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       [key]: event.target.value,
     }));
   };
+
 
   return (
     <Dialog open={open} onClose={onClose} dir="rtl">
@@ -174,8 +199,8 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                     error={field.error}
                   >
                     {field.list?.map((type) => (
-                      <MenuItem key={type} value={type}>
-                        {type}
+                      <MenuItem key={type.id} value={type}>
+                        {type[field.fieldToPresent!]}
                       </MenuItem>
                     ))}
                   </Select>
