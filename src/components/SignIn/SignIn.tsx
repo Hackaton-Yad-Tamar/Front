@@ -3,7 +3,7 @@ import { TextField, Button, Box, Typography, Link } from '@mui/material';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import rtlPlugin from 'stylis-plugin-rtl';
-import { forgotPasswordStyle, signInButtonStyle, signInTextFieldStyle } from './style';
+import { forgotPasswordStyle, signInButtonStyle, signInTextFieldStyle } from './styles';
 
 interface SignInForm {
   email: string;
@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
     let isValid = true;
 
     if (!formData.email) {
-      formErrors.email = 'שם משתמש דרוש';
+      formErrors.email = 'מייל דרוש';
       isValid = false;
     }
 
@@ -62,7 +62,6 @@ const SignIn: React.FC = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
         backgroundColor: '#f5f5f5',
         direction: 'rtl',
       }}
@@ -72,14 +71,14 @@ const SignIn: React.FC = () => {
                 component="form"
                 onSubmit={handleSubmit}
                 sx={{
-                width: '300px',
-                padding: '20px',
+                width: '19vw',
+                padding: '1.5vw',
                 backgroundColor: 'white',
                 borderRadius: '8px',
                 boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
                 }}
             >
-                <Typography variant="h5" sx={{ marginBottom: '20px', textAlign: 'center' }}>
+                <Typography variant="h5" sx={{ marginBottom: '4vh', textAlign: 'center' }}>
                 כניסה למשתמש קיים
                 </Typography>
 

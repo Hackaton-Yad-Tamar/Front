@@ -1,32 +1,35 @@
+const lightGreen = '#67B446';
+const darkGreen = '#4C9A3F';
+
 export const signInTextFieldStyle = {
     marginBottom: '15px',
     '& .MuiOutlinedInput-root': {
         borderRadius: '20px',
         '& fieldset': {
-        borderColor: 'black', // Set the border color to black
+        borderColor: 'black',
         },
         '&.Mui-focused fieldset': {
-        borderColor: 'black', // Keep black border when focused
+        borderColor: 'black',
         },
     }
 };
 
 export const signInButtonStyle = {
     justifySelf: 'center',
-    backgroundColor: '#67B446',
+    backgroundColor: lightGreen,
     borderRadius: '18px',
     '&:hover': {
-        backgroundColor: '#4C9A3F',
+        backgroundColor: darkGreen,
     },
     '&:active': {
-        backgroundColor: '#4C9A3F',
+        backgroundColor: darkGreen,
     },
 };
 
 export const forgotPasswordStyle = {
     textDecoration: 'none',
-    color: '#4C9A3F',
+    color: darkGreen,
     '&:hover': {
-    color: '#67B446',
+    color: lightGreen,
     },
 }
