@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
 import SignIn from "../../components/SignIn/SignIn";
-import SignUp from "../../components/SignUp/SignUp";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
+import { SignUpDialog } from "../../components/SignUpDialog/SignUpDialog";
+import { SignUp } from "../../components/SignUp/SignUp";
 
 const HomePageView: React.FC = () => {
+  const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
+
+  const OpenVolunteerSignUp = () => {
+    setVolunteerDialogOpen(true);
+  };
+
   return (
-    <Stack direction="row" spacing={10}  sx={{
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh",
-      gap: "10vh",
-      backgroundImage: 'url("https://img.freepik.com/premium-vector/palm-leaves-shadow-isolated-white-background-abstract-palm-leaf-shadow_1232255-177.jpg")',
-      backgroundSize: "100% 100%",
-    }}>
-      <HomePageImage />
+    <Stack
+      direction="row"
+      spacing={10}
+      sx={{
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        gap: "10vh",
+        backgroundImage:
+          'url("https://img.freepik.com/premium-vector/palm-leaves-shadow-isolated-white-background-abstract-palm-leaf-shadow_1232255-177.jpg")',
+        backgroundSize: "100% 100%",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -26,8 +37,10 @@ const HomePageView: React.FC = () => {
         }}
       >
         <SignIn />
-        <SignUp />
+        <SignUp OpenVolunteerSignUp={OpenVolunteerSignUp} />
+        <SignUpDialog open={volunteerDialogOpen} onClose={() => setVolunteerDialogOpen(false)} />
       </Box>
+      <HomePageImage />
     </Stack>
   );
 };

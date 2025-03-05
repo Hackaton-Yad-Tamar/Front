@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
 import { Button, Box, Typography } from '@mui/material';
 import { signUpButtonStyle } from './styles';
 
-const SignUp: React.FC = () => {
+type Props = {
+  OpenVolunteerSignUp: any;
+};
+
+export const SignUp = ({OpenVolunteerSignUp}: Props) => {
   const handleVolunteerSignUp = () => {
-    console.log('הירשם כמתנדב');
-    // Add logic for volunteer sign-up
+    OpenVolunteerSignUp();
   };
 
   const handleFamilySignUp = () => {
@@ -63,5 +65,3 @@ const SignUp: React.FC = () => {
     </Box>
   );
 };
-
-export default SignUp;
