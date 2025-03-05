@@ -1,9 +1,21 @@
-import HomePage from "./HomePage";
+import { Box } from "@mui/material";
+import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./HomePage";
 
-const App = () => {
+const App: React.FC = () => {
     return (
-        <HomePage/>
+      <Router>
+        <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "#f5f5f5" }}>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* <Route path="/requests" element={<MyRequests />} /> */}
+          </Routes>
+        </Box>
+      </Router>
     );
-};
-
-export default App;
+  };
+  
+  export default App;

@@ -1,20 +1,9 @@
+import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
-import { AppBar, Toolbar, Typography, Button, Container, Box, Grid, Paper } from "@mui/material";
 
-const HomePage: React.FC = () => {
+const Home: React.FC = () => {
   return (
-    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "#f5f5f5" }}>
-      {/* Header */}
-      <AppBar position="static" color="transparent" elevation={0} sx={{ px: 2, py: 1 }}>
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: "#1976d2", fontWeight: "bold" }}>
-            דף הבית
-          </Typography>
-          <Button color="primary" sx={{ fontWeight: "bold" }}>הבקשות שלי</Button>
-        </Toolbar>
-      </AppBar>
-
-      {/* Main Content */}
+    <>
       <Box sx={{ backgroundColor: "#2196F3", color: "white", py: 8, textAlign: "center" }}>
         <Container>
           <Typography variant="h4" fontWeight="bold">
@@ -30,8 +19,8 @@ const HomePage: React.FC = () => {
       </Box>
 
       {/* Steps Section */}
-      <Container sx={{ flexGrow: 1, my: 6 }}>
-        <Typography variant="h4" textAlign="center" fontWeight="bold" gutterBottom>
+      <Container sx={{ flexGrow: 1, my: 6 , direction:"rtl"}}>
+        <Typography variant="h5" textAlign="center" fontWeight="bold" gutterBottom>
           איך זה עובד?
         </Typography>
         <Grid container spacing={3} justifyContent="center">
@@ -45,8 +34,8 @@ const HomePage: React.FC = () => {
           ))}
         </Grid>
       </Container>
-    </Box>
+    </>
   );
 };
 
-export default HomePage;
+export default Home;
