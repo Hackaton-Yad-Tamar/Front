@@ -1,6 +1,7 @@
 import { Box, Button, Container, Divider, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import { themeColors } from "./App";
+import NewRequestForm from "./components/newRequestDialog";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Home: React.FC = () => {
@@ -42,21 +43,7 @@ const Home: React.FC = () => {
         >
           יחד נעזור לקהילה שלנו לצמוח ולהתפתח
         </Typography>
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: themeColors.orange,
-            mt: 3,
-            borderRadius: "20px",
-            px: 4,
-            py: 1.5,
-            fontSize: "1.1rem",
-            transition: "0.3s",
-            "&:hover": { bgcolor: "#e69500" },
-          }}
-        >
-          פתיחת בקשה חדשה
-        </Button>
+        <NewRequestForm />
       </Box>
 
       {/* Steps Section */}
