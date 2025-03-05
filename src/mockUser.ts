@@ -5,7 +5,7 @@ export const mockUser: User = {
   firstName: 'ישראלה',
   lastName: 'ישראלי',
   userType: 'volunteer' as UserType,
-  phoneNumber: '+972 581234567',
+  phoneNumber: '058-1234567',
   address: 'בן גוריון 100',
   city: City.RamatGan,
   email: 'israella.israeli@example.com',
