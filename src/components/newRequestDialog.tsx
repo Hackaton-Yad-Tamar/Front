@@ -95,7 +95,6 @@ const NewRequestForm = () => {
             onChange={(e) => setTitle(e.target.value)}
             error={errors.title}
             helperText={errors.title ? "שדה חובה" : ""}
-            dir="rtl"
           />
           <TextField
             fullWidth
@@ -122,8 +121,10 @@ const NewRequestForm = () => {
                   margin: "dense",
                   error: errors.date,
                   helperText: errors.date ? "שדה חובה" : "",
+                  dir: "ltr"
                 },
               }}
+              
             />
           </LocalizationProvider>
           <TextField
