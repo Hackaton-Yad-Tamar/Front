@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import "./i18n/config";
 import { mockUser } from "./mockUser";
 import theme from "./theme";
+import { AdminView } from "./views/AdministratorView/AdminView";
 import Home from "./views/FamilyView/pages/Home";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
 import ProfileView from "./views/ProfileView/ProfileView";

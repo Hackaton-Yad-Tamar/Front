@@ -14,7 +14,9 @@ const Navbar: React.FC = () => {
         backgroundColor: "white",
       }}
     >
-      <Toolbar sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}>
+      <Toolbar
+        sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}
+      >
         <Box>
           <Button
             sx={{
@@ -66,6 +68,23 @@ const Navbar: React.FC = () => {
             to="/profile"
           >
             הפרופיל שלי
+          </Button>
+          <Button
+            sx={{
+              color: themeColors.darkBlue,
+              fontWeight: "bold",
+              fontSize: "2.5vh",
+              px: 2,
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: themeColors.lightGreen,
+                color: "white",
+              },
+            }}
+            component={Link}
+            to="/admin"
+          >
+            עמוד ניהול
           </Button>
         </Box>
         <img src=".\public\menu-logo-small.png" width={"5%"} />
