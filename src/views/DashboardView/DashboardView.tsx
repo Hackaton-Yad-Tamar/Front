@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PieChartComponent } from "../../components/Dashboard/PieChart";
 import { BasicDatePicker } from "../../components/Dashboard/DateContainer";
-
+import { CustomBarChart } from "../../components/Dashboard/BarChart";
 
 import { fetchPieData, PieData, PieParameters } from "../../data/Dashboard/DataFatch"; // Assuming data is in TestData
 
@@ -74,6 +74,9 @@ export const Dashboard = () => {
             onPieClick={(request_type) => handleFilter("request_type", request_type)}
           />
         </div>
+        <CustomBarChart
+          data={typeData}
+        />
       </div>
       {/* <DataTable data={filteredTableData} /> */}
     </div>
