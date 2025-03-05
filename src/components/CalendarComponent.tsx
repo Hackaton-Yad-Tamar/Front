@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { FileText, MapPin, Phone, X } from 'lucide-react';
+import { FileText, MapPin, X } from 'lucide-react';
 import moment from 'moment';
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
@@ -181,11 +181,6 @@ const MUICalendar: React.FC = () => {
               <InfoRow>
                 <MapPin />
                 <Typography>{selectedEvent.location}</Typography>
-              </InfoRow>
-
-              <InfoRow>
-                <Phone />
-                <Typography>{selectedEvent.familyContact}</Typography>
               </InfoRow>
 
               <InfoRow>
