@@ -1,15 +1,14 @@
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import { FC, SyntheticEvent, useState } from "react";
 import { RequestList } from "../../components/ComponentTemplate/RequestList/RequestList";
 import { users } from "../../components/ComponentTemplate/constants";
 import { User } from "../../types/userType";
+import { ProfileCard } from "../ProfileView/ProfileCard";
 import { classes } from "./styles";
 
 type ProfileViewProps = {
@@ -24,10 +23,6 @@ export const AdminView: FC<ProfileViewProps> = ({ user }) => {
   };
 
   const [selectedRequest, setSelectedRequest] = useState<User>();
-
-  const handleApprove = (isApproved: boolean) => {
-    // set is approved to true and record approvedBy and approved at columns
-  };
 
   return (
     <Stack sx={classes.adminContainer} direction="row" gap={5}>
@@ -67,30 +62,11 @@ export const AdminView: FC<ProfileViewProps> = ({ user }) => {
         direction="column"
         alignItems="center"
       >
-        <Typography sx={{ mb: "10px" }}>פירוט הבקשה</Typography>
         {!selectedRequest ? (
           <Typography>כדאי לבחור בקשה כדי לראות עוד פרטים מעניינים</Typography>
         ) : (
-          <Typography>{selectedRequest.firstName}</Typography>
+          <ProfileCard user={selectedRequest} />
         )}
-        <Stack direction="row">
-          <Button
-            onClick={() => handleApprove(false)}
-            variant="outlined"
-            sx={{ borderColor: "red", color: "red" }}
-          >
-            <Typography sx={{ ml: "5px" }}>דחה</Typography>
-            <CloseIcon />
-          </Button>
-          <Button
-            onClick={() => handleApprove(true)}
-            variant="contained"
-            sx={{ color: "white", backgroundColor: "green", mr: "15px" }}
-          >
-            <Typography sx={{ ml: "5px" }}>אשר</Typography>
-            <CheckIcon />
-          </Button>
-        </Stack>
       </Stack>
     </Stack>
   );
