@@ -15,7 +15,7 @@ export type User = {
 
   // Volunteer specific fields
   volunteeringArea?: string;
-  vehicle?: VehicleType;
+  vehicle: VehicleType;
   bio?: string;
   stats?: VolunteerStats;
   rating?: number;
@@ -47,8 +47,9 @@ export enum City {
   BeerSheva = "באר שבע",
   Holon = "חולון",
   BatYam = "בת ים",
+  RamatGan = "רמת גן"
 }
 
 export type UserType = "family" | "volunteer" | "admin";
 
-export type VehicleType = "car" | "motorcycle" | "truck";
+export type VehicleType = "פרטי" | "אופנוע" | "משאית";

@@ -28,7 +28,7 @@ function ProfileView({ user }: ProfileViewProps) {
           <ProfileCard user={userData} />
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button variant="contained" startIcon={<Edit />} onClick={() => setIsEditing(true)}>
-              Edit Profile
+              עריכת פרופיל
             </Button>
           </Box>
         </>

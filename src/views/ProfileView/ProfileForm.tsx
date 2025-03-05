@@ -104,7 +104,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
         <CardHeader
           title={
             <Typography variant="h5" sx={{ color: "#00AEEE" }}>
-              Edit Profile
+              עריכת פרופיל
             </Typography>
           }
         />
@@ -143,7 +143,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="First Name"
+                label="שם פרטי"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
@@ -155,7 +155,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Last Name"
+                label="שם משפחה"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
@@ -169,23 +169,23 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
               <TextField
                 fullWidth
                 select
-                label="User Type"
+                label="סוג משתמש"
                 name="userType"
                 value={formData.userType}
                 onChange={handleUserTypeChange}
                 variant="outlined"
                 margin="normal"
               >
-                <MenuItem value="family">Family</MenuItem>
-                <MenuItem value="volunteer">Volunteer</MenuItem>
-                <MenuItem value="admin">Admin</MenuItem>
+                <MenuItem value="family">משפחה</MenuItem>
+                <MenuItem value="volunteer">מתנדב</MenuItem>
+                <MenuItem value="admin">מנהל</MenuItem>
               </TextField>
             </Grid>
 
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="ID"
+                label="ת''ז"
                 name="id"
                 value={formData.id}
                 onChange={handleChange}
@@ -198,7 +198,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Phone Number"
+                label="מספר טלפון"
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
@@ -211,7 +211,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Email"
+                label="מייל"
                 name="email"
                 type="email"
                 value={formData.email}
@@ -225,7 +225,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="Address"
+                label="כתובת"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
@@ -238,7 +238,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label="City of Operation"
+                label="עיר פעילות"
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
@@ -254,14 +254,14 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                 <Grid item xs={12}>
                   <Divider sx={{ my: 2 }} />
                   <Typography variant="h6" sx={{ color: "#00AEEE", mb: 2 }}>
-                    Volunteer Information
+                    מידע על המתנדב
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Area of Volunteering (Geographical)"
+                    label="אזור התנדבות (גיאוגרפי)"
                     name="volunteeringArea"
                     value={formData.volunteeringArea || ""}
                     onChange={handleChange}
@@ -274,24 +274,24 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                   <TextField
                     fullWidth
                     select
-                    label="Vehicle"
+                    label="כלי רכב"
                     name="vehicle"
                     value={formData.vehicle || "none"}
                     onChange={handleVehicleChange}
                     variant="outlined"
                     margin="normal"
                   >
-                    <MenuItem value="car">Car</MenuItem>
-                    <MenuItem value="motorcycle">Motorcycle</MenuItem>
-                    <MenuItem value="truck">Truck</MenuItem>
-                    <MenuItem value="none">None</MenuItem>
+                    <MenuItem value="car">פרטי</MenuItem>
+                    <MenuItem value="motorcycle">אופנוע</MenuItem>
+                    <MenuItem value="truck">משאית</MenuItem>
+                    <MenuItem value="none">אין</MenuItem>
                   </TextField>
                 </Grid>
 
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Bio"
+                    label="אודות"
                     name="bio"
                     value={formData.bio || ""}
                     onChange={handleChange}
@@ -306,14 +306,14 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                 {/* Statistics fields */}
                 <Grid item xs={12}>
                   <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
-                    Volunteer Statistics
+                    נתונים על המתנדב
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} sm={4}>
                   <TextField
                     fullWidth
-                    label="Events Participated"
+                    label="אירועים שביצע"
                     name="stats.eventsParticipated"
                     type="number"
                     value={formData.stats?.eventsParticipated || 0}
@@ -327,7 +327,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                 <Grid item xs={12} sm={4}>
                   <TextField
                     fullWidth
-                    label="Hours Volunteered"
+                    label="שעות התנדבות"
                     name="stats.hoursVolunteered"
                     type="number"
                     value={formData.stats?.hoursVolunteered || 0}
@@ -341,7 +341,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                 <Grid item xs={12} sm={4}>
                   <TextField
                     fullWidth
-                    label="Distance Travelled (km)"
+                    label="מרחק נסיעות כולל (ק''מ)"
                     name="stats.distanceTravelled"
                     type="number"
                     value={formData.stats?.distanceTravelled || 0}
@@ -356,10 +356,10 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                 {formData.reviews && formData.reviews.length > 0 && (
                   <Grid item xs={12}>
                     <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
-                      Family Reviews
+                      מילים מאת המשפחות
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      Reviews are typically managed by the system and cannot be edited directly.
+                      הביקורות מנוהלות ע"י המערכת ולא ניתנות לעריכה
                     </Typography>
 
                     {/* Review slider in edit mode */}
@@ -436,7 +436,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                             disabled={maxReviews <= 1}
                             sx={{ color: "#00AEEE" }}
                           >
-                            Next
+                            הבא
                             <KeyboardArrowRight />
                           </Button>
                         }
@@ -448,7 +448,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                             sx={{ color: "#00AEEE" }}
                           >
                             <KeyboardArrowLeft />
-                            Previous
+                            הקודם
                           </Button>
                         }
                       />
@@ -461,10 +461,10 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
         </CardContent>
         <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
           <Button variant="outlined" onClick={onCancel} sx={{ mr: 1 }}>
-            Cancel
+            ביטול
           </Button>
           <Button variant="contained" type="submit">
-            Save Changes
+            שמירת שינויים
           </Button>
         </CardActions>
       </form>
