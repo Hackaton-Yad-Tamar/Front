@@ -22,6 +22,9 @@ const RequestPage = () => {
         { name: "צ'רלי בראון", emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },
         { name: "דיויד מילר", emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
         { name: "אמה וילסון", emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
+        { name: "צ'רלי בראון", emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },
+        { name: "דיויד מילר", emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
+        { name: "אמה וילסון", emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
     ]);
 
     const [map, setMap] = useState<Map | null>(null);
@@ -97,20 +100,14 @@ const RequestPage = () => {
     }, [map, sosRequests, regularRequests, vectorSource]);
 
     return (
-        <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>
+        <Box sx={{ display: "flex", height: "86vh", overflow: "hidden" , direction:'ltr'}}>
             <Box sx={{ width: "50%", height: "100%" }}>
-                <div id="map" style={{ width: "100%", height: "100%" }}></div>
+                <div id="map" style={{ width: "70%", height: "90%", borderRadius: "10px",
+        boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.3)",
+        overflow: "hidden"  }}></div>
             </Box>
 
-            <Box sx={{ width: "50%", height: "100%", padding: 2, overflowY: "auto", backgroundColor: "#e1f5fe" }}>
-                <Box sx={{ fontSize: 30, textAlign: "right", padding: 2 }}>
-                    SOS בקשות
-                </Box>
-                <RequestsList requests={sosRequests} />
-
-                <Box sx={{ fontSize: 30, textAlign: "right", padding: 2 }}>
-                    בקשות לא דחופות
-                </Box>
+            <Box sx={{ width: "50%", height: "100%", padding: 2, overflowY: "auto", backgroundColor: "#e1f5fe", }}>
                 <RequestsList requests={regularRequests} />
             </Box>
         </Box>

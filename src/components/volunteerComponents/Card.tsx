@@ -137,6 +137,7 @@ const CardList = ({ cardsData }) => {
           flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: { xs: 'center', sm: 'flex-start' },
+           marginBottom:'2vh'
         }}
       >
         {cardsData.map((card, index) => (

@@ -1,6 +1,7 @@
 import React from "react";
 import { RequestsListProps } from "../../types/request.types";
 import CardList from "./Card";
+import { Divider } from "@mui/material";
 
 const RequestsList: React.FC<RequestsListProps> = ({ requests: requests }) => {
   const cardsData = [
