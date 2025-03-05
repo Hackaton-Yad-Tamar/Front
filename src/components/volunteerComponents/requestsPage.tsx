@@ -128,7 +128,7 @@ const RequestPage = () => {
             </Box>
 
             <Box sx={{ width: "50%", height: "100%", padding: 2, overflowY: "auto", backgroundColor: "#e1f5fe", }}>
-            <Grid container spacing={2} sx={{ justifyContent: "flex-end", p: 2 }}>
+            <Grid container spacing={1} sx={{ justifyContent: "flex-end", p: 2 }}>
             {/* תחום */}
             <Grid item xs={12} sm={4} md={3}>
                 <FormControl fullWidth>
