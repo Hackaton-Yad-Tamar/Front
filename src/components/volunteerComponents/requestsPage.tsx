@@ -13,18 +13,13 @@ import React, { useEffect, useState } from "react";
 import RequestsList from "./requestsList";
 
 const RequestPage = () => {
-    const [sosRequests, setSosRequests] = useState([
-        { name: "אליס ג'ונסון", emergencyType: "התקף לב", location: "תל אביב", severity: "קריטי", responseStatus: "ממתין", sos:true },
-        { name: "בוב ויליאמס", emergencyType: "תאונת דרכים", location: "חיפה", severity: "חמור", responseStatus: "בתהליך" },
-    ]);
-
     const [regularRequests, setRegularRequests] = useState([
-        { name: "צ'רלי בראון", emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל", sos:true },
-        { name: "דיויד מילר", emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
-        { name: "אמה וילסון", emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
-        { name: "צ'רלי בראון", emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },
-        { name: "דיויד מילר", emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
-        { name: "אמה וילסון", emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
+        { name: "צ'רלי בראון", isUrgent: true, emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל", sos: true },
+        { name: "דיויד מילר", isUrgent: false, emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
+        { name: "אמה וילסון", isUrgent: false, emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
+        { name: "צ'רלי בראון", isUrgent: true, emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },
+        { name: "דיויד מילר", isUrgent: true, emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
+        { name: "אמה וילסון", isUrgent: true, emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
     ]);
 
     const [isAiClicked, setIsAiClicked] = useState(false); // Track if the AI button is clicked
@@ -41,6 +36,13 @@ const RequestPage = () => {
 
     const [map, setMap] = useState<Map | null>(null);
     const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
+    // const filteredRequests = regularRequests.filter((request) => {
+    //     const isCategoryMatch = category ? request.emergencyType === category : true;
+    //     const isAreaMatch = area ? request.location === area : true;
+    //     // const isDateMatch = selectedDate ? new Date(request.date).toLocaleDateString() === selectedDate : true;
+        
+    //     return isCategoryMatch && isAreaMatch;
+    // });
 
     useEffect(() => {
         const israelCenter = fromLonLat([34.8516, 31.0461]);
@@ -66,6 +68,7 @@ const RequestPage = () => {
         setMap(newMap);
         setVectorSource(newVectorSource);
 
+        
         return () => newMap.setTarget(null);
     }, []);
 
@@ -116,10 +119,9 @@ const RequestPage = () => {
 
     useEffect(() => {
         if (map && vectorSource) {
-            sosRequests.forEach((request) => addLocationToMap(request.location));
             regularRequests.forEach((request) => addLocationToMap(request.location));
         }
-    }, [map, sosRequests, regularRequests, vectorSource]);
+    }, [map, regularRequests, vectorSource]);
 
     return (
         <Box sx={{ display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
