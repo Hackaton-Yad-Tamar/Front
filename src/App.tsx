@@ -1,6 +1,10 @@
+import HomePageView from './views/HomePageView/HomePageView';
+
 const App = () => {
     return (
-        <div></div>
+        <div>
+            <HomePageView />
+        </div>
     );
 };
 
