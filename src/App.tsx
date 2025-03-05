@@ -2,7 +2,8 @@ import { Box } from "@mui/material";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./HomePage";
+import Home from "./Home";
+import MyRequests from "./MyRequests";
 
 const App: React.FC = () => {
     return (
@@ -11,7 +12,7 @@ const App: React.FC = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/requests" element={<MyRequests />} /> */}
+            <Route path="/requests" element={<MyRequests />} />
           </Routes>
         </Box>
       </Router>
