@@ -10,6 +10,7 @@ import ProfileView from "./views/ProfileView/ProfileView";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
 import Navbar from "./Navbar";
 import Home from "./views/FamilyView/pages/Home";
+import RequestDialog from "./views/FamilyView/components/requestInfoDialog";
 
 export const themeColors = {
   lightBlue: "#00AEEE",
