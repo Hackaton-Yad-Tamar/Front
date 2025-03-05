@@ -1,8 +1,8 @@
-import { Box, Button, Container, Divider, Grid, Paper, Typography } from "@mui/material";
-import React from "react";
-import { themeColors } from "./App";
-import NewRequestForm from "./components/newRequestDialog";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Box, Container, Divider, Paper, Typography } from "@mui/material";
+import React from "react";
+import { themeColors } from "../../../App";
+import NewRequestForm from "../components/newRequestDialog";
 
 const Home: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const Home: React.FC = () => {
           height: "30vh",
           minHeight: "200px",
           background: "linear-gradient(to bottom, #a5ddf7, #78c2f2)",
-          borderRadius: 3,
+          borderRadius: "0 0 12px 12px",
           p: 3,
         }}
       >
@@ -47,7 +47,9 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Steps Section */}
-      <Container sx={{ flexGrow: 1, my: 8, textAlign: "center", direction: "rtl", maxWidth: "1200px" }}>
+      <Container
+        sx={{ flexGrow: 1, my: 8, textAlign: "center", direction: "rtl", maxWidth: "1200px" }}
+      >
         {/* Enhanced Title */}
         <Typography
           variant="h3"
@@ -76,7 +78,11 @@ const Home: React.FC = () => {
           gap={3}
           maxWidth="100%"
         >
-          {["פתחו בקשה חדשה ותארו את הצורך שלכם", "מתנדב ייצור איתכם קשר ויתאם את הסיוע", "קבלו את העזרה ותנו משוב על החוויה"].map((text, index) => (
+          {[
+            "פתחו בקשה חדשה ותארו את הצורך שלכם",
+            "מתנדב ייצור איתכם קשר ויתאם את הסיוע",
+            "קבלו את העזרה ותנו משוב על החוויה",
+          ].map((text, index) => (
             <React.Fragment key={index}>
               {/* Step Card */}
               <Paper
@@ -87,7 +93,10 @@ const Home: React.FC = () => {
                   borderRadius: "15px",
                   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.15)",
                   transition: "0.3s",
-                  "&:hover": { boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)", transform: "scale(1.05)" },
+                  "&:hover": {
+                    boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.2)",
+                    transform: "scale(1.05)",
+                  },
                 }}
               >
                 <Typography variant="h5" fontWeight="bold" color={themeColors.orange}>
