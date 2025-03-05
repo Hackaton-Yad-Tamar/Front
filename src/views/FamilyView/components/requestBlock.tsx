@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid2, Paper, Typography } from "@mui/material";
 import { Request } from "../../../types/requestType";
 import { themeColors } from "../../../App";
 import RequestDialog, { getRequestStatusColor } from "./requestInfoDialog";
@@ -10,13 +10,8 @@ const RequestBlock = ({ request }: { request: Request }) => {
   console.log(openDialog);
 
   return (
-    <Grid item xs={12} sm={6} md={4} key={request.id}>
-      <Paper
-        sx={{ p: 3, borderRadius: "10px", boxShadow: 3 }}
-        onClick={() => {
-          setOpenDialog(true);
-        }}
-      >
+    <Grid2 size={4} key={request.id}>
+      <Paper sx={{ p: 3, borderRadius: "10px", boxShadow: 3 }}>
         <Box display="flex" justifyContent="space-between">
           <Typography
             variant="h6"
@@ -47,7 +42,7 @@ const RequestBlock = ({ request }: { request: Request }) => {
         open={openDialog}
         request={mockRequest}
       />
-    </Grid>
+    </Grid2>
   );
 };
 
