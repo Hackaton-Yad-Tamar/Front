@@ -6,6 +6,7 @@ import { Namespace } from "./i18n/namespaces";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./Home";
+import MyRequests from "./MyRequests";
 
 export const themeColors = {
   lightBlue: "#00AEEE",
@@ -15,20 +16,17 @@ export const themeColors = {
 }
 
 const App: React.FC = () => {
-  const { t: tProfileView } = useTranslation(Namespace.profileView)
-  return (
-    <div>
-      <Router>
-        <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "#f5f5f5" }}>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            {/* <Route path="/requests" element={<MyRequests />} /> */}
-          </Routes>
-        </Box>
-      </Router>
-    </div>
-  );
+    return (
+        <Router>
+            <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/requests" element={<MyRequests />} />
+                </Routes>
+            </Box>
+        </Router>
+    );
 };
 
 export default App;
