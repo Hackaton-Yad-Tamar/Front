@@ -5,6 +5,7 @@ import MUICalendar from '../../components/CalendarComponent';
 import { User } from '../../types/userType';
 import { ProfileCard } from './ProfileCard';
 import { ProfileForm } from './ProfileForm';
+import { Typography } from '@mui/material';
 
 type ProfileViewProps = {
   user: User;
@@ -45,7 +46,9 @@ function ProfileView({ user }: ProfileViewProps) {
               startIcon={<Edit />}
               onClick={() => setIsEditing(true)}
             >
-              עריכת פרופיל
+              <Typography sx={{ paddingRight: 1 }}>
+                עריכת פרופיל
+              </Typography>
             </Button>
           </Box>
           <MUICalendar />
