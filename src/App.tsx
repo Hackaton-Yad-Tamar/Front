@@ -1,7 +1,7 @@
 import { Box, ThemeProvider } from "@mui/material";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./Navbar";
 import "./i18n/config";
 import { mockUser } from "./mockUser";
 import theme from "./theme";
