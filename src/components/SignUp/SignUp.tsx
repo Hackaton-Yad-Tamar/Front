@@ -6,7 +6,7 @@ type Props = {
   OpenFamilySignUp: any;
 };
 
-export const SignUp = ({OpenVolunteerSignUp, OpenFamilySignUp}: Props) => {
+const SignUp = ({OpenVolunteerSignUp, OpenFamilySignUp}: Props) => {
   const handleVolunteerSignUp = () => {
     OpenVolunteerSignUp();
   };
@@ -65,3 +65,5 @@ export const SignUp = ({OpenVolunteerSignUp, OpenFamilySignUp}: Props) => {
     </Box>
   );
 };
+
+export default SignUp;
