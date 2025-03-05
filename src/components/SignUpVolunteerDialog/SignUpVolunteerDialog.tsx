@@ -42,7 +42,7 @@ type Props = {
   onClose: any;
 };
 
-export const SignUpDialog = ({ open, onClose }: Props) => {
+export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -183,7 +183,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
     }
   }, [open]);
 
-  const handleChange = (key) => (event) => {
+  const handleChange = (key: any) => (event: any) => {
     setFormData(prevData => ({
       ...prevData,
       [key]: event.target.value,
@@ -225,7 +225,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                     required
                     error={field.error || !formData[field.key as keyof typeof formData]}
                   >
-                    {field.list?.map((type) => (
+                    {field.list?.map((type: any) => (
                       <MenuItem key={type.id} value={type.id}>
                         {type[field.fieldToPresent!]}
                       </MenuItem>

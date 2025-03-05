@@ -2,14 +2,20 @@ import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
 import SignIn from "../../components/SignIn/SignIn";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
-import { SignUpDialog } from "../../components/SignUpDialog/SignUpDialog";
+import { SignUpVolunteerDialog } from "../../components/SignUpVolunteerDialog/SignUpVolunteerDialog";
+import { SignUpFamilyDialog } from "../../components/SignUpFamilyDialog/SignUpFamilyDialog";
 import { SignUp } from "../../components/SignUp/SignUp";
 
 const HomePageView: React.FC = () => {
   const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
+  const [familyDialogOpen, setFamilyDialogOpen] = useState(false);
 
   const OpenVolunteerSignUp = () => {
     setVolunteerDialogOpen(true);
+  };
+
+  const OpenFamilySignUp = () => {
+    setFamilyDialogOpen(true);
   };
 
   return (
@@ -37,8 +43,9 @@ const HomePageView: React.FC = () => {
         }}
       >
         <SignIn />
-        <SignUp OpenVolunteerSignUp={OpenVolunteerSignUp} />
-        <SignUpDialog open={volunteerDialogOpen} onClose={() => setVolunteerDialogOpen(false)} />
+        <SignUp OpenVolunteerSignUp={OpenVolunteerSignUp} OpenFamilySignUp={OpenFamilySignUp} />
+        <SignUpVolunteerDialog open={volunteerDialogOpen} onClose={() => setVolunteerDialogOpen(false)} />
+        <SignUpFamilyDialog open={familyDialogOpen} onClose={() => setFamilyDialogOpen(false)} />
       </Box>
       <HomePageImage />
     </Stack>
