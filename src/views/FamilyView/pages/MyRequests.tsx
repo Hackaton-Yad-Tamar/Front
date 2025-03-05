@@ -15,13 +15,21 @@ import mockRequest from "../../../mockRequest";
 
 const MyRequests: React.FC = () => {
   return (
-    <Container sx={{ flexGrow: 1, my: 6, direction: "rtl" }}>
+    <Container
+      sx={{
+        flexGrow: 1,
+        py: 6,
+        direction: "rtl",
+      }}
+    >
       <Typography
         variant="h4"
         fontWeight="bold"
         textAlign="center"
         gutterBottom
-        sx={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)", color: "white" }}
+        sx={{
+          color: themeColors.darkBlue,
+        }}
       >
         הבקשות שלי
       </Typography>
