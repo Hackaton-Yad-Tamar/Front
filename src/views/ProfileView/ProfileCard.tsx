@@ -62,11 +62,11 @@ export function ProfileCard({ user }: ProfileCardProps) {
   // Get the appropriate vehicle icon
   const getVehicleIcon = () => {
     switch (user.vehicle) {
-      case "car":
+      case "פרטי":
         return <DirectionsCarIcon fontSize="small" sx={{ color: "text.secondary" }} />;
-      case "motorcycle":
+      case "אופנוע":
         return <TwoWheelerIcon fontSize="small" sx={{ color: "text.secondary" }} />;
-      case "truck":
+      case "משאית":
         return <LocalShippingIcon fontSize="small" sx={{ color: "text.secondary" }} />;
       case undefined:
       default:
@@ -106,7 +106,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <BadgeIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="body2" color="text.secondary">
-                  ID:
+                  ת"ז:
                 </Typography>
                 <Typography variant="body1" sx={{ color: "#00AEEE" }}>
                   {user.id}
@@ -116,7 +116,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <PhoneIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="body2" color="text.secondary">
-                  Phone:
+                  טלפון:
                 </Typography>
                 <Typography variant="body1" sx={{ color: "#00AEEE" }}>
                   {user.phoneNumber}
@@ -126,7 +126,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <EmailIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="body2" color="text.secondary">
-                  Email:
+                  מייל:
                 </Typography>
                 <Typography variant="body1" sx={{ color: "#00AEEE" }}>
                   {user.email}
@@ -140,7 +140,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <HomeIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="body2" color="text.secondary">
-                  Address:
+                  כתובת:
                 </Typography>
                 <Typography variant="body1" sx={{ color: "#00AEEE" }}>
                   {user.address}
@@ -150,7 +150,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <LocationOnIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="body2" color="text.secondary">
-                  City:
+                  עיר:
                 </Typography>
                 <Typography variant="body1" sx={{ color: "#00AEEE" }}>
                   {user.city}
@@ -160,7 +160,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <CalendarTodayIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="body2" color="text.secondary">
-                  Joined:
+                  תאריך הצטרפות:
                 </Typography>
                 <Typography variant="body1" sx={{ color: "#00AEEE" }}>
                   {new Date(user.approvedAt).toLocaleDateString()}
@@ -175,7 +175,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               <Grid item xs={12}>
                 <Divider sx={{ my: 2 }} />
                 <Typography variant="h6" sx={{ color: "#00AEEE", mb: 2 }}>
-                  Volunteer Information
+                  מידע על אודות המתנדב
                 </Typography>
 
                 <Grid container spacing={3}>
@@ -184,7 +184,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <MapIcon fontSize="small" sx={{ color: "text.secondary" }} />
                         <Typography variant="body2" color="text.secondary">
-                          Volunteering Area:
+                          אזור התנדבות:
                         </Typography>
                         <Typography variant="body1" sx={{ color: "#00AEEE" }}>
                           {user.volunteeringArea}
@@ -194,17 +194,17 @@ export function ProfileCard({ user }: ProfileCardProps) {
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         {getVehicleIcon()}
                         <Typography variant="body2" color="text.secondary">
-                          Vehicle:
+                          כלי רכב:
                         </Typography>
                         <Typography variant="body1" sx={{ color: "#00AEEE" }}>
-                          {/* {user.vehicle?.charAt(0).toUpperCase() + user.vehicle?.slice(1)} */}
+                          {user.vehicle?.charAt(0).toUpperCase() + user.vehicle?.slice(1)}
                         </Typography>
                       </Box>
 
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <StarIcon fontSize="small" sx={{ color: "text.secondary" }} />
                         <Typography variant="body2" color="text.secondary">
-                          Rating:
+                          דירוג:
                         </Typography>
                         <Rating
                           value={user.rating || 0}
@@ -223,7 +223,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                   {user.bio && (
                     <Grid item xs={12} md={6}>
                       <Typography variant="body2" color="text.secondary">
-                        Bio:
+                        אודות:
                       </Typography>
                       <Typography variant="body1" sx={{ color: "#00AEEE", mt: 1 }}>
                         {user.bio}
@@ -238,7 +238,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                 <Grid item xs={12}>
                   <Paper elevation={1} sx={{ p: 2, bgcolor: "#f5f5f5", mt: 2 }}>
                     <Typography variant="h6" sx={{ color: "#00AEEE", mb: 2 }}>
-                      Volunteer Statistics
+                      סטטיסטיקות של המתנדב
                     </Typography>
                     <Grid container spacing={2}>
                       <Grid item xs={4}>
@@ -250,7 +250,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             {user.stats.eventsParticipated}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            Events
+                            אירועי התנדבות
                           </Typography>
                         </Box>
                       </Grid>
@@ -264,7 +264,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             {user.stats.hoursVolunteered}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            Hours
+                            שעות התנדבות
                           </Typography>
                         </Box>
                       </Grid>
@@ -278,7 +278,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             {user.stats.distanceTravelled}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            Km Travelled
+                             (ק"מ) מרחק נסיעות כולל
                           </Typography>
                         </Box>
                       </Grid>
@@ -291,7 +291,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               {user.reviews && user.reviews.length > 0 && (
                 <Grid item xs={12}>
                   <Typography variant="h6" sx={{ color: "#00AEEE", mt: 3, mb: 2 }}>
-                    Family Reviews
+                    מילים מאת המשפחות
                   </Typography>
 
                   <Paper
@@ -365,7 +365,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           disabled={maxReviews <= 1}
                           sx={{ color: "#00AEEE" }}
                         >
-                          Next
+                          הבא
                           <KeyboardArrowRight />
                         </Button>
                       }
@@ -377,7 +377,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           sx={{ color: "#00AEEE" }}
                         >
                           <KeyboardArrowLeft />
-                          Previous
+                          הקודם
                         </Button>
                       }
                     />
