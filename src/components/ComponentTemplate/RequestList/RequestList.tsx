@@ -1,30 +1,29 @@
-import { FC, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { User } from "../../../types/userType";
 import { RequestCard } from "./RequestCard";
-
+import { SearchBar } from "./SearchBar/SearchBar";
 export interface RequestList {
   requests: User[];
   isFiltered?: boolean;
+  setSelectedUser: Dispatch<SetStateAction<User | undefined>>;
 }
 
 export const RequestList: FC<RequestList> = ({
   requests,
   isFiltered = false,
+  setSelectedUser,
 }) => {
   const [filteredRequests, setFilteredRequests] = useState<User[]>([]);
 
-  useEffect(() => {
-    const updatedRequests = isFiltered
-      ? requests.filter(({ approvedBy }) => approvedBy === "")
-      : requests;
-
-    setFilteredRequests(updatedRequests);
-  }, [requests, isFiltered]);
-
   return (
     <>
+      <SearchBar {...{ setFilteredRequests, requests, isFiltered }} />
       {filteredRequests.map((request) => (
-        <RequestCard key={request.id} {...{ request }} />
+        <RequestCard
+          key={request.id}
+          {...{ request, setSelectedUser }}
+          isEditable={!isFiltered}
+        />
       ))}
     </>
   );

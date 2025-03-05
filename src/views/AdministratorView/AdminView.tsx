@@ -7,24 +7,8 @@ import Tab from "@mui/material/Tab";
 import { SyntheticEvent, useState } from "react";
 import { RequestList } from "../../components/ComponentTemplate/RequestList/RequestList";
 import { users } from "../../components/ComponentTemplate/constants";
-
-const classes = {
-  adminContainer: {
-    padding: "50px",
-    display: "flex",
-    flexDirection: "row",
-  },
-  adminSidebar: {
-    width: "40%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  requestsList: {
-    width: "60%",
-    display: "flex",
-    flexDirection: "column",
-  },
-};
+import { User } from "../../types/userType";
+import { classes } from "./styles";
 
 export const AdminView = () => {
   const [value, setValue] = useState("1");
@@ -32,6 +16,8 @@ export const AdminView = () => {
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  const [selectedUser, setSelectedUser] = useState<User>();
 
   return (
     <Stack sx={classes.adminContainer} direction="row">
@@ -51,16 +37,21 @@ export const AdminView = () => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <RequestList requests={users} isFiltered />
+            <RequestList requests={users} isFiltered {...{ setSelectedUser }} />
           </TabPanel>
           <TabPanel value="2">
-            <RequestList requests={users} />
+            <RequestList requests={users} {...{ setSelectedUser }} />
           </TabPanel>
         </TabContext>
       </Stack>
-      <Stack sx={classes.adminSidebar} direction="column">
-        פה יפתח פרופיל ליוזר
-      </Stack>
+
+      {!selectedUser ? (
+        <Stack sx={classes.adminSidebar} direction="column">
+          בחרו בקשה כדי לראות את פרטי המשתמש
+        </Stack>
+      ) : (
+        <Box>{selectedUser.firstName}</Box>
+      )}
     </Stack>
   );
 };
