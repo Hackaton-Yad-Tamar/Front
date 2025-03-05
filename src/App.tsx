@@ -4,6 +4,10 @@ import { RouterProvider } from "react-router-dom";
 import "./i18n/config";
 import router from "./router";
 import theme from "./theme";
+import ProfileView from "./views/ProfileView/ProfileView";
+import Home from "./views/FamilyView/pages/Home";
+import MyRequests from "./views/FamilyView/pages/MyRequests";
+import RequestPage from "./components/volunteerComponents/requestsPage";
 
 export const themeColors = {
   lightBlue: "#00AEEE",
