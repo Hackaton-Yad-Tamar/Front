@@ -18,7 +18,7 @@ export const themeColors = {
 const App: React.FC = () => {
     return (
         <Router>
-            <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", bgcolor: "#f5f5f5" }}>
+            <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
