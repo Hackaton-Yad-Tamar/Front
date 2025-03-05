@@ -1,10 +1,23 @@
+import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
-import React from "react";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
+import { SignUpVolunteerDialog } from "../../components/SignUpVolunteerDialog/SignUpVolunteerDialog";
+import { SignUpFamilyDialog } from "../../components/SignUpFamilyDialog/SignUpFamilyDialog";
 
 const HomePageView: React.FC = () => {
+  const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
+  const [familyDialogOpen, setFamilyDialogOpen] = useState(false);
+
+  const OpenVolunteerSignUp = () => {
+    setVolunteerDialogOpen(true);
+  };
+
+  const OpenFamilySignUp = () => {
+    setFamilyDialogOpen(true);
+  };
+
   return (
     <Stack
       direction="row"
@@ -28,8 +41,11 @@ const HomePageView: React.FC = () => {
         }}
       >
         <SignIn />
-        <SignUp />
+        <SignUp OpenVolunteerSignUp={OpenVolunteerSignUp} OpenFamilySignUp={OpenFamilySignUp} />
+        <SignUpVolunteerDialog open={volunteerDialogOpen} onClose={() => setVolunteerDialogOpen(false)} />
+        <SignUpFamilyDialog open={familyDialogOpen} onClose={() => setFamilyDialogOpen(false)} />
       </Box>
+      <HomePageImage />
     </Stack>
   );
 };
