@@ -5,6 +5,10 @@ import Navbar from "./components/Navbar";
 import Home from "./Home";
 import "./i18n/config";
 import MyRequests from "./MyRequests";
+import ProfileView from "./views/ProfileView/ProfileView";
+import { ThemeProvider } from "@mui/material";
+import theme from "./theme";
+import mockUser from "./mockUser";
 
 export const themeColors = {
     lightBlue: "#00AEEE",
@@ -21,6 +25,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/requests" element={<MyRequests />} />
+                    <Route path="/profile" element={<ProfileView user={mockUser} />} />
                 </Routes>
             </Box>
         </Router>
