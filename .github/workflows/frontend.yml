@@ -24,7 +24,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cd Front
           npm test
 
       - name: Build Docker image
