@@ -12,6 +12,8 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
+  Checkbox,
+  FormControlLabel
 } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
@@ -29,20 +31,12 @@ const fetchCities = async () => {
   return await getData('http://localhost:8000/users/cities');
 };
 
-const fetchSkills = async () => {
-  return await getData('http://localhost:8000/users/skills');
-};
-
-const fetchLicenses = async () => {
-  return await getData('http://localhost:8000/users/licenses');
-};
-
 type Props = {
   open: boolean;
   onClose: any;
 };
 
-export const SignUpDialog = ({ open, onClose }: Props) => {
+export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -50,24 +44,15 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
     email: "",
     address: "",
     city: "",
-    preferred_city: "",
-    preferred_skill: "",
-    license_level: ""
+    floor_number: "",
+    has_parking: false,
+    has_elevator: false,
+    is_private_house: false
   });
 
   const { data: cities = [] } = useQuery({
     queryKey: ['cities'],
     queryFn: fetchCities,
-  });
-
-  const { data: skills = [] } = useQuery({
-    queryKey: ['skills'],
-    queryFn: fetchSkills,
-  });
-
-  const { data: licenses = [] } = useQuery({
-    queryKey: ['licenses'],
-    queryFn: fetchLicenses,
   });
 
 
@@ -76,7 +61,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
 
     try {
       console.log(formData);
-      await saveData('http://localhost:8000/users/signup/vulenteer', formData);
+      await saveData('http://localhost:8000/users/signup/family', formData);
       console.log('המשתמש נשמר בהצלחה!');
       onClose();
     } catch (error) {
@@ -145,25 +130,28 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       fieldToPresent: 'city_name'
     },
     {
-      key: "preferred_city",
-      label: "עיר מועדפת",
-      component: "select",
-      list: cities,
-      fieldToPresent: 'city_name'
+      key: "floor_number",
+      label: "מספר קומה",
+      type: "number",
+      component: "textField",
     },
     {
-      key: "preferred_skill",
-      label: "התנדבות מועדפת",
-      component: "select",
-      list: skills,
-      fieldToPresent: 'type_name'
+        key: "has_parking",
+        label: "האם יש חניה?",
+        type: "boolean",
+        component: "checkbox",
     },
     {
-      key: "license_level",
-      label: "סוג רישיון",
-      component: "select",
-      list: licenses,
-      fieldToPresent: 'license_name'
+        key: "has_elevator",
+        label: "האם יש מעלית?",
+        type: "boolean",
+        component: "checkbox",
+    },
+    {
+        key: "is_private_house",
+        label: "האם בית פרטי?",
+        type: "boolean",
+        component: "checkbox",
     },
   ];
 
@@ -176,17 +164,18 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
         email: "",
         address: "",
         city: "",
-        preferred_city: "",
-        preferred_skill: "",
-        license_level: ""
+        floor_number: "",
+        has_parking: false,
+        has_elevator: false,
+        is_private_house: false
       });
     }
   }, [open]);
 
-  const handleChange = (key) => (event) => {
+  const handleChange = (key: any) => (event: any) => {
     setFormData(prevData => ({
       ...prevData,
-      [key]: event.target.value,
+      [key]: event.target.type === "checkbox" ? event.target.checked : event.target.value,
     }));
   };
 
@@ -225,7 +214,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                     required
                     error={field.error || !formData[field.key as keyof typeof formData]}
                   >
-                    {field.list?.map((type) => (
+                    {field.list?.map((type: any) => (
                       <MenuItem key={type.id} value={type.id}>
                         {type[field.fieldToPresent!]}
                       </MenuItem>
@@ -233,6 +222,23 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                   </Select>
                 </>
               )}
+              <Box sx={{display:'flex', flexDirection: 'row'}}>
+                {field.component === "checkbox" && (
+                <>
+                <FormControlLabel
+                control={
+                    <Checkbox
+                    checked={formData[field.key as keyof typeof formData]}
+                    onChange={handleChange(field.key)}
+                    color="default"
+                    />
+                }
+                label={field.label}
+                labelPlacement="start" // Places the label on the left of the checkbox
+                />
+                </>
+              )}
+              </Box>
               {field.error && (
                 <FormHelperText sx={{ color: "red" }}>
                   {field.helperText}

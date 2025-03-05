@@ -3,16 +3,16 @@ import { signUpButtonStyle } from './styles';
 
 type Props = {
   OpenVolunteerSignUp: any;
+  OpenFamilySignUp: any;
 };
 
-export const SignUp = ({OpenVolunteerSignUp}: Props) => {
+export const SignUp = ({OpenVolunteerSignUp, OpenFamilySignUp}: Props) => {
   const handleVolunteerSignUp = () => {
     OpenVolunteerSignUp();
   };
 
   const handleFamilySignUp = () => {
-    console.log('הירשם כמשפחה');
-    // Add logic for family sign-up
+    OpenFamilySignUp();
   };
 
   return (
