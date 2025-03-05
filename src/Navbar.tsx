@@ -1,7 +1,7 @@
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import { themeColors } from "../App";
+import { themeColors } from "./App";
 
 const Navbar: React.FC = () => {
   return (
@@ -10,11 +10,7 @@ const Navbar: React.FC = () => {
       color="transparent"
       elevation={1}
       sx={{
-        px: 2,
-        py: 1,
-        marginBottom: "1rem",
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-        height: "13.5vh",
         backgroundColor: "white",
       }}
     >
@@ -27,10 +23,10 @@ const Navbar: React.FC = () => {
               fontSize: "2.5vh",
               px: 2,
               borderRadius: "20px",
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: themeColors.lightGreen,
                 color: "white",
-              }
+              },
             }}
             component={Link}
             to="/"
@@ -44,10 +40,10 @@ const Navbar: React.FC = () => {
               fontSize: "2.5vh",
               px: 2,
               borderRadius: "20px",
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: themeColors.lightGreen,
                 color: "white",
-              }
+              },
             }}
             component={Link}
             to="/requests"
@@ -61,10 +57,10 @@ const Navbar: React.FC = () => {
               fontSize: "2.5vh",
               px: 2,
               borderRadius: "20px",
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: themeColors.lightGreen,
                 color: "white",
-              }
+              },
             }}
             component={Link}
             to="/profile"
