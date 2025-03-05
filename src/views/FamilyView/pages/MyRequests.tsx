@@ -20,19 +20,26 @@ const MyRequests: React.FC = () => {
         height: "100%",
         direction: "rtl",
         background: "linear-gradient(to bottom, #a5ddf7, #78c2f2)",
-        padding: "5rem",
       }}
     >
-      <Box sx={{ height: "100%", background: "white", padding: "1rem", borderRadius: "12px" }}>
-        <Typography
-          variant="h4"
-          fontWeight="bold"
-          textAlign="center"
-          gutterBottom
-          sx={{ color: themeColors.lightBlue }}
-        >
-          הבקשות שלי
-        </Typography>
+      <Typography
+        variant="h4"
+        fontWeight="bold"
+        textAlign="center"
+        gutterBottom
+        sx={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)", color: "white" }}
+      >
+        הבקשות שלי
+      </Typography>
+      <Box
+        sx={{
+          maxHeight: "50%",
+          background: "white",
+          padding: "1rem",
+          borderRadius: "12px",
+          overflowY: "scroll",
+        }}
+      >
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 3, alignItems: "center" }}>
           <FormControlLabel control={<Checkbox />} label="הצג רק בקשות פתוחות" />
           <TextField select label="סינון לפי סטטוס" sx={{ minWidth: 200 }}>
