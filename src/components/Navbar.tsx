@@ -10,11 +10,7 @@ const Navbar: React.FC = () => {
       color="transparent"
       elevation={1}
       sx={{
-        px: 2,
-        py: 1,
-        marginBottom: "1rem",
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-        height: "13.5vh",
         backgroundColor: "white",
       }}
     >
@@ -26,9 +22,9 @@ const Navbar: React.FC = () => {
               fontWeight: "bold",
               fontSize: "2.5vh",
               px: 2,
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: themeColors.lightGreen,
-              }
+              },
             }}
             component={Link}
             to="/"
@@ -41,9 +37,9 @@ const Navbar: React.FC = () => {
               fontWeight: "bold",
               fontSize: "2.5vh",
               px: 2,
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: themeColors.lightGreen,
-              }
+              },
             }}
             component={Link}
             to="/requests"
@@ -56,9 +52,9 @@ const Navbar: React.FC = () => {
               fontWeight: "bold",
               fontSize: "2.5vh",
               px: 2,
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: themeColors.lightGreen,
-              }
+              },
             }}
             component={Link}
             to="/profile"
