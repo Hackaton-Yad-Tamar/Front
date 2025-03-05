@@ -62,7 +62,7 @@ const DutiesCalendar = () => {
     <>
       <div
         className="d-flex justify-content-center"
-        style={{ width: '80%' }}
+        style={{ width: '80%', paddingTop: '5vh' }}
       >
         <div className="d-flex flex-column">
           <div>
