@@ -18,14 +18,23 @@ import { CacheProvider } from "@emotion/react";
 import rtlPlugin from "stylis-plugin-rtl";
 import { useQuery } from "react-query";
 import { signUpButtonStyle } from "./styles";
+import { getData, saveData } from '../../api/axios';
 
 const rtlCache = createCache({
   key: "muirtl",
   stylisPlugins: [rtlPlugin],
 });
 
-const fetchSkillTypes = async () => {
-  return ["ניסיון", "ניסיון 2"];
+const fetchCities = async () => {
+  return await getData('http://localhost:8000/users/cities');
+};
+
+const fetchSkills = async () => {
+  return await getData('http://localhost:8000/users/skills');
+};
+
+const fetchLicenses = async () => {
+  return await getData('http://localhost:8000/users/licenses');
 };
 
 type Props = {
@@ -35,37 +44,62 @@ type Props = {
 
 export const SignUpDialog = ({ open, onClose }: Props) => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    email: "",
     address: "",
     city: "",
+    preferred_city: "",
+    preferred_skill: "",
+    license_level: ""
   });
 
-  const { data: skillTypes = [] } = useQuery({
-    queryKey: ["skillTypes"],
-    queryFn: fetchSkillTypes,
+  const { data: cities = [] } = useQuery({
+    queryKey: ['cities'],
+    queryFn: fetchCities,
   });
+
+  const { data: skills = [] } = useQuery({
+    queryKey: ['skills'],
+    queryFn: fetchSkills,
+  });
+
+  const { data: licenses = [] } = useQuery({
+    queryKey: ['licenses'],
+    queryFn: fetchLicenses,
+  });
+
 
   const handleSave = async () => {
     if (isFormInvalid()) return;
 
-    console.log(formData);
+    try {
+      console.log(formData);
+      await saveData('http://localhost:8000/users/signup/vulenteer', formData);
+      console.log('המשתמש נשמר בהצלחה!');
+      onClose();
+    } catch (error) {
+        console.error('שגיאה בשמירת המשתמש:', error);
+        console.log('אירעה שגיאה במהלך שמירת המשתמש. אנא נסה שוב מאוחר יותר.'); 
+    }
   };
 
   const nameRegex = /^.{0,50}$/;
   const phoneNumberRegex = /^\d{10}$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  const isFirstNameInvalid = () => !nameRegex.test(formData.firstName);
-  const isLastNameInvalid = () => !nameRegex.test(formData.lastName);
-  const isPhoneInvalid = () => !phoneNumberRegex.test(formData.phone);
+  const isFirstNameInvalid = () => !nameRegex.test(formData.first_name);
+  const isLastNameInvalid = () => !nameRegex.test(formData.last_name);
+  const isPhoneInvalid = () => !phoneNumberRegex.test(formData.phone_number);
+  const isEmailInvalid = () => !emailRegex.test(formData.email);
 
   const isFormInvalid = () =>
-    isFirstNameInvalid() || isLastNameInvalid() || isPhoneInvalid();
+    isFirstNameInvalid() || isLastNameInvalid() || isPhoneInvalid() || isEmailInvalid();
 
   const formFields = [
     {
-      key: "firstName",
+      key: "first_name",
       label: "שם פרטי",
       type: "text",
       error: isFirstNameInvalid(),
@@ -74,7 +108,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       component: "textField",
     },
     {
-      key: "lastName",
+      key: "last_name",
       label: "שם משפחה",
       type: "text",
       error: isLastNameInvalid(),
@@ -83,11 +117,19 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       component: "textField",
     },
     {
-      key: "phone",
+      key: "phone_number",
       label: "מספר טלפון",
       type: "number",
       error: isPhoneInvalid(),
       helperText: "מספר טלפון לא תקין",
+      component: "textField",
+    },
+    {
+      key: "email",
+      label: "מייל",
+      type: "text",
+      error: isEmailInvalid(),
+      helperText: "מייל לא תקין",
       component: "textField",
     },
     {
@@ -97,38 +139,46 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
     },
     {
       key: "city",
-      label: "עיר",
-      type: "text",
-      component: "textField",
+      label: "עיר מגורים",
+      component: "select",
+      list: cities,
+      fieldToPresent: 'city_name'
     },
     {
-      key: "preferredCity",
+      key: "preferred_city",
       label: "עיר מועדפת",
       component: "select",
-      list: ["ניסיון", "ניסיון 2"]
+      list: cities,
+      fieldToPresent: 'city_name'
     },
     {
-      key: "preferredSkill",
+      key: "preferred_skill",
       label: "התנדבות מועדפת",
       component: "select",
-      list: ["ניסיון", "ניסיון 2"]
+      list: skills,
+      fieldToPresent: 'type_name'
     },
     {
-      key: "licenseLevel",
+      key: "license_level",
       label: "סוג רישיון",
       component: "select",
-      list: ["ניסיון", "ניסיון 2"]
+      list: licenses,
+      fieldToPresent: 'license_name'
     },
   ];
 
   useEffect(() => {
     if (open) {
       setFormData({
-        firstName: "",
-        lastName: "",
-        phone: "",
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        email: "",
         address: "",
         city: "",
+        preferred_city: "",
+        preferred_skill: "",
+        license_level: ""
       });
     }
   }, [open]);
@@ -139,6 +189,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
       [key]: event.target.value,
     }));
   };
+
 
   return (
     <Dialog open={open} onClose={onClose} dir="rtl">
@@ -161,7 +212,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                   value={formData[field.key as keyof typeof formData]}
                   onChange={handleChange(field.key)}
                   required
-                  error={field.error}
+                  error={field.error || !formData[field.key as keyof typeof formData]}
                 />
               )}
               {field.component === "select" && (
@@ -169,13 +220,14 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                   <InputLabel>{field.label}</InputLabel>
                   <Select
                     label={field.label}
+                    value={formData[field.key as keyof typeof formData] || ""}
                     onChange={handleChange(field.key)}
                     required
-                    error={field.error}
+                    error={field.error || !formData[field.key as keyof typeof formData]}
                   >
                     {field.list?.map((type) => (
-                      <MenuItem key={type} value={type}>
-                        {type}
+                      <MenuItem key={type.id} value={type.id}>
+                        {type[field.fieldToPresent!]}
                       </MenuItem>
                     ))}
                   </Select>
