@@ -1,7 +1,7 @@
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import { themeColors } from "../App";
+import { themeColors } from "../../../App";
 
 const Navbar: React.FC = () => {
   return (
