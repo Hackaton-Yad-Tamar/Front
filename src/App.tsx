@@ -1,13 +1,12 @@
 import { Box, ThemeProvider } from "@mui/material";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./Navbar";
 import "./i18n/config";
-import mockUser from "./mockUser";
-import MyRequests from "./MyRequests";
+import { mockUser } from "./mockUser";
 import theme from "./theme";
-import { AdminView } from "./views/AdministratorView/AdminView";
-import HomePageView from "./views/HomePageView/HomePageView";
+import Home from "./views/FamilyView/pages/Home";
+import MyRequests from "./views/FamilyView/pages/MyRequests";
 import ProfileView from "./views/ProfileView/ProfileView";
 
 export const themeColors = {
@@ -22,11 +21,16 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Box
-          sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: (theme) => `calc(100% - ${theme.mixins.toolbar.height})`,
+            paddingTop: (theme) => theme.mixins.toolbar.height,
+          }}
         >
           <Navbar />
           <Routes>
-            <Route path="/" element={<HomePageView />} />
+            <Route path="/" element={<Home />} />
             <Route path="/requests" element={<MyRequests />} />
             <Route path="/profile" element={<ProfileView user={mockUser} />} />
             <Route path="/admin" element={<AdminView user={mockUser} />} />
