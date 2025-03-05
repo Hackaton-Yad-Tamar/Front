@@ -1,6 +1,7 @@
 import { Box, Button, Checkbox, Container, Divider, FormControlLabel, Grid, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
 import { themeColors } from "../../../App";
+import { Dangerous, Notifications, NotificationsActive, PriorityHigh, ReportProblem } from "@mui/icons-material";
 
 const requests = [
     {
@@ -121,6 +122,9 @@ const MyRequests: React.FC = () => {
                         <Paper sx={{ p: 3, borderRadius: "10px", boxShadow: 3 }} >
                             <Box display="flex" justifyContent="space-between">
                                 <Typography variant="h6" fontWeight="bold" textAlign="right" sx={{ color: themeColors.darkBlue }}>{request.request_type}</Typography>
+                                {request.is_urgent &&
+                                    <ReportProblem sx={{ color: "red", fontSize: 40 }} />
+                                }
                                 <Button variant="contained" sx={{ alignSelf: "start", borderRadius: "20px", backgroundColor: index % 2 === 0 ? themeColors.lightGreen : themeColors.lightBlue }}>
                                     {index % 2 === 0 ? "פתוח" : "בטיפול"}
                                 </Button>
