@@ -20,7 +20,16 @@ function ProfileView({ user }: ProfileViewProps) {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        direction: "rtl",
+        paddingInline: "5rem",
+      }}
+      
+    >
       {isEditing ? (
         <ProfileForm user={userData} onSave={handleSave} onCancel={() => setIsEditing(false)} />
       ) : (
