@@ -5,7 +5,12 @@ import { themeColors } from "../App";
 
 const Navbar: React.FC = () => {
   return (
-    <AppBar position="static" color="transparent" elevation={0} sx={{ px: 2, py: 1 }}>
+    <AppBar
+      position="static"
+      color="transparent"
+      elevation={1}
+      sx={{ px: 2, py: 1, marginBottom: "1rem" }}
+    >
       <Toolbar sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}>
         <Box>
           <Button
