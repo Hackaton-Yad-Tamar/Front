@@ -1,0 +1,9 @@
+/* CardList.css */
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+.MuiCard-root {
+  box-sizing: border-box;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}

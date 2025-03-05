@@ -9,7 +9,7 @@ import ProfileView from "./views/ProfileView/ProfileView";
 export enum Route {
   login = "/login",
   home = "home",
-  volunteer = "/volunteer",
+  volunteer = "/nvoluteer",
   requests = "/requests",
   profile = "/profile",
 }

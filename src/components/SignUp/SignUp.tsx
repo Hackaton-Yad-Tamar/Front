@@ -6,7 +6,7 @@ type Props = {
   OpenFamilySignUp: any;
 };
 
-const SignUp = ({OpenVolunteerSignUp, OpenFamilySignUp}: Props) => {
+const SignUp = ({ OpenVolunteerSignUp, OpenFamilySignUp }: Props) => {
   const handleVolunteerSignUp = () => {
     OpenVolunteerSignUp();
   };
