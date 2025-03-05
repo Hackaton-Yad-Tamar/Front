@@ -210,7 +210,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                         <Typography variant="h6" color="black" fontWeight="light">
                           דירוג
                         </Typography>
-                        <Rating
+                        <Rating dir = "ltr"
                           value={user.rating || 0}
                           precision={0.1}
                           readOnly

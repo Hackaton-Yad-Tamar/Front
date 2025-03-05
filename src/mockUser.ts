@@ -25,7 +25,7 @@ export const mockUser: User = {
     distanceTravelled: 1280,
   },
   // New fields for volunteer rating and reviews
-  rating: 4.7,
+  rating: 3.5,
   reviews: [
     {
       id: 'rev1',
