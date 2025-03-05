@@ -1,8 +1,8 @@
-import { RequestPage } from "@mui/icons-material";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Root from "./components/Root";
 import { mockUser } from "./mockUser";
 import Home from "./views/FamilyView/pages/Home";
+import MyRequests from "./views/FamilyView/pages/MyRequests";
 import HomePageView from "./views/HomePageView/HomePageView";
 import ProfileView from "./views/ProfileView/ProfileView";
 
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: Route.requests,
-        element: <RequestPage />,
+        element: <MyRequests />,
       },
       {
         path: Route.profile,
