@@ -75,7 +75,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
   };
 
   return (
-    <Card elevation={0}>
+    <Card elevation={3} sx={{ borderRadius: 2, overflow: "hidden" }}>
       <CardHeader
         avatar={
           <Avatar src={user.profilePicture || undefined} sx={{ width: 64, height: 64 }}>
@@ -99,6 +99,8 @@ export function ProfileCard({ user }: ProfileCardProps) {
         }
         sx={{
           gap: "1rem",
+          bgcolor: "#f5f5f5",
+          padding: 2,
         }}
         slotProps={{
           action: {
@@ -108,7 +110,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
           },
         }}
       />
-      <CardContent>
+      <CardContent sx={{ padding: 3 }}>
         <Grid container spacing={3}>
           {/* Basic information for all user types */}
           <Grid item xs={12} md={6}>
