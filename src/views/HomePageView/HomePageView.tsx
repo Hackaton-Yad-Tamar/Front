@@ -1,8 +1,9 @@
-import React from "react";
 import { Box, Stack } from "@mui/material";
+import React from "react";
+import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
-import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
+import backgroundIm from '../../assets/bg3.jpg';
 
 const HomePageView: React.FC = () => {
   return (
@@ -11,7 +12,8 @@ const HomePageView: React.FC = () => {
       alignItems: "center",
       height: "100vh",
       gap: "10vh",
-      backgroundImage: 'url("https://img.freepik.com/premium-vector/palm-leaves-shadow-isolated-white-background-abstract-palm-leaf-shadow_1232255-177.jpg")',
+      backgroundImage: `url(${backgroundIm}), linear-gradient(rgba(255, 255, 255, 0.7), rgba(127, 221, 255, 0.68))`,
+      backgroundBlendMode: 'overlay',
       backgroundSize: "100% 100%",
     }}>
       <HomePageImage />
@@ -21,7 +23,6 @@ const HomePageView: React.FC = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
           gap: "10vh",
         }}
       >
