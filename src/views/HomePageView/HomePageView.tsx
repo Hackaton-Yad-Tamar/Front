@@ -1,21 +1,35 @@
+import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
-import React from "react";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
-import backgroundIm from '../../assets/bg3.jpg';
+import { SignUpVolunteerDialog } from "../../components/SignUpVolunteerDialog/SignUpVolunteerDialog";
+import { SignUpFamilyDialog } from "../../components/SignUpFamilyDialog/SignUpFamilyDialog";
 
 const HomePageView: React.FC = () => {
+  const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
+  const [familyDialogOpen, setFamilyDialogOpen] = useState(false);
+
+  const OpenVolunteerSignUp = () => {
+    setVolunteerDialogOpen(true);
+  };
+
+  const OpenFamilySignUp = () => {
+    setFamilyDialogOpen(true);
+  };
+
   return (
-    <Stack direction="row" spacing={10}  sx={{
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh",
-      gap: "10vh",
-      backgroundImage: `url(${backgroundIm}), linear-gradient(rgba(255, 255, 255, 0.7), rgba(127, 221, 255, 0.68))`,
-      backgroundBlendMode: 'overlay',
-      backgroundSize: "100% 100%",
-    }}>
+    <Stack
+      direction="row"
+      spacing={10}
+      sx={{
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        gap: "10vh",
+        background: "linear-gradient(to bottom,rgb(242, 251, 255),rgb(74, 176, 245))",
+      }}
+    >
       <HomePageImage />
       <Box
         sx={{
@@ -27,8 +41,11 @@ const HomePageView: React.FC = () => {
         }}
       >
         <SignIn />
-        <SignUp />
+        <SignUp OpenVolunteerSignUp={OpenVolunteerSignUp} OpenFamilySignUp={OpenFamilySignUp} />
+        <SignUpVolunteerDialog open={volunteerDialogOpen} onClose={() => setVolunteerDialogOpen(false)} />
+        <SignUpFamilyDialog open={familyDialogOpen} onClose={() => setFamilyDialogOpen(false)} />
       </Box>
+      <HomePageImage />
     </Stack>
   );
 };
