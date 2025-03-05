@@ -6,7 +6,7 @@ import mockUser from "./mockUser";
 import ProfileView from "./views/ProfileView/ProfileView";
 import Navbar from "./components/ComponentTemplate/navbar";
 import Homepage from "./views/Homepage/Homepage"; // Import HomePage component
-
+import DutiesCalendar from './components/CalendarComponent';
 
 const App = () => {
   const { t: tProfileView } = useTranslation(Namespace.profileView);
