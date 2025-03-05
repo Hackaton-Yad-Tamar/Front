@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import { themeColors } from "./App";
 
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
 
       {/* Steps Section */}
       <Container sx={{ flexGrow: 1, my: 6, direction: "rtl" }}>
-        <Typography variant="h5" textAlign="center" fontWeight="bold" gutterBottom>
+        <Typography variant="h4" textAlign="center" fontWeight="bold" gutterBottom>
           איך זה עובד?
         </Typography>
         <Grid container spacing={3} justifyContent="center">
@@ -29,6 +29,7 @@ const Home: React.FC = () => {
             <Grid item xs={12} sm={4} key={index}>
               <Paper sx={{ p: 4, textAlign: "center", borderRadius: "15px", boxShadow: 3 }}>
                 <Typography variant="h6" fontWeight="bold">שלב {index + 1}</Typography>
+                <Divider />
                 <Typography mt={1}>{text}</Typography>
               </Paper>
             </Grid>

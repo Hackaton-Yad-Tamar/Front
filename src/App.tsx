@@ -27,7 +27,6 @@ const App: React.FC = () => {
           </Routes>
         </Box>
       </Router>
-      <div>{tProfileView("example")}</div>
     </div>
   );
 };
