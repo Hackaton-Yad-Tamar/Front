@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
 import {
   Box,
   Dialog,
@@ -78,15 +77,11 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
     try {
       console.log(formData);
       await saveData('http://localhost:8000/users/signup/vulenteer', formData);
-      console.log('Goal saved successfully!');
+      console.log('המשתמש נשמר בהצלחה!');
       onClose();
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 409) {
-        console.log('שם המטרה כבר קיים במערכת. בבקשה בחר שם אחר.');
-      } else {
-        console.error('Error saving goal:', error);
-        console.log('אירעה שגיאה במהלך שמירת המטרה. אנא נסה שוב מאוחר יותר.');
-      }    
+        console.error('שגיאה בשמירת המשתמש:', error);
+        console.log('אירעה שגיאה במהלך שמירת המשתמש. אנא נסה שוב מאוחר יותר.'); 
     }
   };
 
@@ -217,7 +212,7 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                   value={formData[field.key as keyof typeof formData]}
                   onChange={handleChange(field.key)}
                   required
-                  error={field.error}
+                  error={field.error || !formData[field.key as keyof typeof formData]}
                 />
               )}
               {field.component === "select" && (
@@ -225,9 +220,10 @@ export const SignUpDialog = ({ open, onClose }: Props) => {
                   <InputLabel>{field.label}</InputLabel>
                   <Select
                     label={field.label}
+                    value={formData[field.key as keyof typeof formData] || ""}
                     onChange={handleChange(field.key)}
                     required
-                    error={field.error}
+                    error={field.error || !formData[field.key as keyof typeof formData]}
                   >
                     {field.list?.map((type) => (
                       <MenuItem key={type.id} value={type.id}>
