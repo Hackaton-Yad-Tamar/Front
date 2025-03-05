@@ -75,7 +75,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
   };
 
   return (
-    <Card elevation={3}>
+    <Card elevation={0}>
       <CardHeader
         avatar={
           <Avatar src={user.profilePicture || undefined} sx={{ width: 64, height: 64 }}>
@@ -97,6 +97,16 @@ export function ProfileCard({ user }: ProfileCardProps) {
             }}
           />
         }
+        sx={{
+          gap: "1rem",
+        }}
+        slotProps={{
+          action: {
+            sx: {
+              alignSelf: "center",
+            },
+          },
+        }}
       />
       <CardContent>
         <Grid container spacing={3}>
@@ -278,7 +288,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             {user.stats.distanceTravelled}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                             (ק"מ) מרחק נסיעות כולל
+                            (ק"מ) מרחק נסיעות כולל
                           </Typography>
                         </Box>
                       </Grid>
@@ -366,7 +376,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           sx={{ color: "#00AEEE" }}
                         >
                           הבא
-                          <KeyboardArrowRight />
+                          <KeyboardArrowLeft />
                         </Button>
                       }
                       backButton={
@@ -376,7 +386,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           disabled={maxReviews <= 1}
                           sx={{ color: "#00AEEE" }}
                         >
-                          <KeyboardArrowLeft />
+                          <KeyboardArrowRight />
                           הקודם
                         </Button>
                       }
