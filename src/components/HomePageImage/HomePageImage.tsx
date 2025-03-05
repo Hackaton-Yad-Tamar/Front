@@ -25,30 +25,26 @@ export const HomePageImage = () => {
             textAlign: "center",
             color: "white",
             filter: opacity,
-            borderRadius: "5px"
+            borderRadius: "5px",
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.25)',
           }}
-          loading="lazy"
           height={600}
           onMouseEnter={handleMouseOver}
         />
         <Fade timeout={350} in={show}>
-          <Typography variant="h1" sx={titleStyle}>
+          <Typography width={400} variant="h1" sx={titleStyle}>
             יד תמר
           </Typography>
         </Fade>
         <Fade timeout={350} in={show}>
-          <Typography variant="h3" sx={subTitleStyle}>
+          <Typography width={400} variant="h3" sx={subTitleStyle}>
             יחד נתגבר על המשבר
           </Typography>
         </Fade>
         <Fade timeout={350} in={show}>
-          <Typography variant="h6" sx={imageTextStyle}>
-            מעניקים לכם מעטפת שלמה של תמיכה, ידע, כלים וניסיון
-          </Typography>
-        </Fade>
-        <Fade timeout={350} in={show}>
-          <Typography variant="h6" sx={{...imageTextStyle, top: "80%"}}>
-            לניהול נכון של התקופה הקשה שאתם עוברים
+          <Typography width={400} variant="h6" sx={imageTextStyle}>
+            מעניקים לכם מעטפת שלמה של תמיכה, ידע, כלים וניסיון לניהול נכון של
+            התקופה הקשה שאתם עוברים
           </Typography>
         </Fade>
       </Box>
