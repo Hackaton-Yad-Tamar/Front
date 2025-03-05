@@ -19,5 +19,6 @@ export interface RequestDialogProps {
         location: string;
         severity: string;
         responseStatus: string;
+        description?: string
     } | null;
 }
