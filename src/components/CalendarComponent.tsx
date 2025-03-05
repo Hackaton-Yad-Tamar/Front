@@ -2,7 +2,9 @@ import moment from 'moment';
 import { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-type Meeting = {
+import { AlertDialogSlide } from './MeetingDialog';
+
+export type Meeting = {
   title: string;
   start: Date;
   end: Date;
@@ -11,14 +13,29 @@ type Meeting = {
   requestDescription: string;
 };
 
+const messages = {
+  today: 'היום', // Change "Today"
+  previous: 'חזור', // Change "Back"
+  next: 'הבא',
+  month: 'חודש',
+  week: 'שבוע',
+  day: 'יום',
+  agenda: "אג'נדה",
+  date: 'תאריך',
+  time: 'שעה',
+  event: 'אירוע',
+  noEventsInRange: 'אין אירועים בטווח זה',
+  showMore: (total: number) => `+ עוד ${total}`,
+};
+
 const FAKE_DATA: Meeting[] = [
   {
-    title: 'פגישה עם משפחת כהן',
+    title: 'פגישה עם מתנדב',
     start: new Date(),
     end: new Date(Date.now() + 10800000),
     location: 'תל אביב',
     familyContact: 'פלאפון: 0526334446',
-    requestDescription: 'פגישה עעם משפחת כהן בפעם השלישית החודש',
+    requestDescription: 'פגישה עם מתנדב בפעם השלישית החודש',
   },
 ];
 
@@ -51,8 +68,6 @@ const DutiesCalendar = () => {
           <div>
             <Calendar
               localizer={localizer}
-              // startAccessor="start"
-              // endAccessor="end"
               culture=""
               enableAutoScroll
               style={{
@@ -67,10 +82,21 @@ const DutiesCalendar = () => {
                   backgroundColor: 'blue',
                 },
               })}
+              onSelectEvent={(event) => handleEventSelect(event)}
+              messages={messages}
             />
           </div>
         </div>
       </div>
+      {showPopup && selectedEvent && (
+        <AlertDialogSlide
+          selectedEvent={selectedEvent}
+          closeDialog={() => {
+            setShowPopup(false);
+            setSelectedEvent(null);
+          }}
+        />
+      )}
     </>
   );
 };
