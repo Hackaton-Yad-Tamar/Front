@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import RequestDialog from "./requestDialog";
 import { Request, RequestsListProps } from "../../types/request.types";
+import CardList from "./Card";
 
 const RequestsList: React.FC<RequestsListProps> = ({ requests: requests }) => {
   const [selectedEmergency, setSelectedEmergency] = React.useState<Request | null>(null);
@@ -17,46 +18,33 @@ const RequestsList: React.FC<RequestsListProps> = ({ requests: requests }) => {
     setSelectedEmergency(emergency);
     setDialogOpen(true);
   };
+  const cardsData = [
+    {
+      title: "אינסטלציה",
+      subtitle: "נדרש רכב",
+      description: "ישראל ישראלי",
+      location: "רחובות"
+    },
+    {
+        title: "אינסטלציה",
+        subtitle: "נדרש רכב",
+        description: "ישראל ישראלי",
+        location: "רחובות"
+      },
+      {
+        title: "אינסטלציה",
+        subtitle: "נדרש רכב",
+        description: "ישראל ישראלי",
+        location: "רחובות"
+      },
+    // Add more cards as needed
+  ];
 
   return (
-    <>
-      <TableContainer component={Paper} sx={{ direction: "rtl" }}>
-        <Table aria-label="collapsible emergency table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: "bold", textAlign: "right" }}>שם</TableCell>
-              <TableCell sx={{ fontWeight: "bold", textAlign: "right" }}>סוג חירום</TableCell>
-              <TableCell sx={{ fontWeight: "bold", textAlign: "right" }}>מקום</TableCell>
-              <TableCell sx={{ fontWeight: "bold", textAlign: "right" }}>זמן שירות</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {requests.map((row: Request) => (
-              <TableRow
-                key={row.name}
-                sx={{
-                  cursor: "pointer",
-                  "&:hover": { backgroundColor: "lightgray" },
-                }}
-                onClick={() => handleRowClick(row)}
-              >
-                <TableCell sx={{ textAlign: "right" }}>{row.name}</TableCell>
-                <TableCell sx={{ textAlign: "right" }}>{row.emergencyType}</TableCell>
-                <TableCell sx={{ textAlign: "right" }}>{row.location}</TableCell>
-                <TableCell sx={{ textAlign: "right" }}>{row.severity}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <RequestDialog
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        emergency={selectedEmergency}
-      />
-    </>
-  );
+    <div>
+      <CardList cardsData={cardsData} />
+    </div>
+  )
 };
 
 export default RequestsList;
