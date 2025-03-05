@@ -1,9 +1,11 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { Box, Button, Link, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import rtlPlugin from "stylis-plugin-rtl";
 import { forgotPasswordStyle, signInButtonStyle, signInTextFieldStyle } from "./styles";
+import { Route } from "../../router";
+import { Link } from "react-router-dom";
 
 interface SignInForm {
   email: string;
@@ -112,7 +114,7 @@ const SignIn: React.FC = () => {
           </Box>
 
           <Box sx={{ marginTop: "10px", textAlign: "center" }}>
-            <Link href="#" variant="body2" sx={forgotPasswordStyle}>
+            <Link to={Route.forgotPassword} style={forgotPasswordStyle}>
               שכחת את הסיסמה?
             </Link>
           </Box>
