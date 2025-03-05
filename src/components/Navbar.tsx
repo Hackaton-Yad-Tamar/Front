@@ -8,14 +8,29 @@ const Navbar: React.FC = () => {
     <AppBar position="static" color="transparent" elevation={0} sx={{ px: 2, py: 1 }}>
       <Toolbar sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}>
         <Box>
-          <Button sx={{ color: themeColors.lightBlue, fontWeight: "bold", fontSize: '2.5vh', px: 2 }} component={Link} to="/">
+          <Button
+            sx={{ color: themeColors.lightBlue, fontWeight: "bold", fontSize: "2.5vh", px: 2 }}
+            component={Link}
+            to="/"
+          >
             דף הבית
           </Button>
-          <Button sx={{ color: themeColors.lightBlue, fontWeight: "bold", fontSize: '2.5vh', px: 2 }} component={Link} to="/requests">
+          <Button
+            sx={{ color: themeColors.lightBlue, fontWeight: "bold", fontSize: "2.5vh", px: 2 }}
+            component={Link}
+            to="/requests"
+          >
             הבקשות שלי
           </Button>
+          <Button
+            sx={{ color: themeColors.lightBlue, fontWeight: "bold", fontSize: "2.5vh", px: 2 }}
+            component={Link}
+            to="/profile"
+          >
+            הפרופיל שלי
+          </Button>
         </Box>
-        <img src=".\public\menu-logo-small.png" width={'5%'} />
+        <img src=".\public\menu-logo-small.png" width={"5%"} />
       </Toolbar>
     </AppBar>
   );
