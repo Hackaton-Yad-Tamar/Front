@@ -7,6 +7,11 @@ import {
   DialogTitle,
   TextField,
   MenuItem,
+  Tooltip,
+  FormControlLabel,
+  Switch,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -21,6 +26,9 @@ const NewRequestForm = () => {
   const [domain, setDomain] = useState("");
   const [date, setDate] = useState<dayjs.Dayjs | null>(null);
   const [details, setDetails] = useState("");
+  const [sos, setSos] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
+
   const [errors, setErrors] = useState({
     title: false,
     domain: false,
@@ -35,6 +43,7 @@ const NewRequestForm = () => {
     setDetails("");
     setDomain("");
     setTitle("");
+    setSos(false);
   };
 
   const validateForm = () => {
@@ -53,6 +62,7 @@ const NewRequestForm = () => {
     if (!validateForm()) return;
 
     console.log({ title, domain, date, details });
+    setSuccessMessage(true)
     handleClose();
   };
 
@@ -85,6 +95,7 @@ const NewRequestForm = () => {
             onChange={(e) => setTitle(e.target.value)}
             error={errors.title}
             helperText={errors.title ? "שדה חובה" : ""}
+            dir="rtl"
           />
           <TextField
             fullWidth
@@ -97,7 +108,7 @@ const NewRequestForm = () => {
             helperText={errors.domain ? "שדה חובה" : ""}
           >
             {requestTypeList.map((type) => (
-              <MenuItem value={type}>{RequestType[type]}</MenuItem>
+              <MenuItem value={type} id={type}>{RequestType[type]}</MenuItem>
             ))}
           </TextField>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -126,6 +137,18 @@ const NewRequestForm = () => {
             error={errors.details}
             helperText={errors.details ? "שדה חובה" : ""}
           />
+          <Tooltip title="!!בקשה דחופה">
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={sos}
+                  onChange={(e) => setSos(e.target.checked)}
+                  color="error"
+                />
+              }
+              label="SOS"
+            />
+          </Tooltip>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
@@ -141,6 +164,11 @@ const NewRequestForm = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar open={successMessage} autoHideDuration={3000} onClose={() => setSuccessMessage(false)}>
+        <Alert onClose={() => setSuccessMessage(false)} severity="success" sx={{ width: '100%' }}>
+          בקשה נשלחה בהצלחה!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
