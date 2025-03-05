@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./Home";
 import "./i18n/config";
-import MyRequests from "./MyRequests";
+import Navbar from "./Navbar";
+import Home from "./views/FamilyView/pages/Home";
+import MyRequests from "./views/FamilyView/pages/MyRequests";
 
 export const themeColors = {
     lightBlue: "#00AEEE",
