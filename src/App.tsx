@@ -1,7 +1,11 @@
+import { AdminView } from "./views/AdministratorView/AdminView";
+
 const App = () => {
-    return (
-        <div></div>
-    );
+  return (
+    <div>
+      <AdminView />
+    </div>
+  );
 };
 
 export default App;
