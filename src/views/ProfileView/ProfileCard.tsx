@@ -211,6 +211,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           דירוג
                         </Typography>
                         <Rating
+                          dir="ltr"
                           value={user.rating || 0}
                           precision={0.1}
                           readOnly
