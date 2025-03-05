@@ -27,11 +27,10 @@ const HomePageView: React.FC = () => {
         alignItems: "center",
         height: "100vh",
         gap: "10vh",
-        backgroundImage:
-          'url("https://img.freepik.com/premium-vector/palm-leaves-shadow-isolated-white-background-abstract-palm-leaf-shadow_1232255-177.jpg")',
-        backgroundSize: "100% 100%",
+        background: "linear-gradient(to bottom,rgb(242, 251, 255),rgb(74, 176, 245))",
       }}
     >
+      <HomePageImage />
       <Box
         sx={{
           display: "flex",
