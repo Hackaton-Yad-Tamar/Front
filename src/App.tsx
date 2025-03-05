@@ -13,6 +13,8 @@ import MyRequests from './MyRequests';
 import theme from './theme';
 import ProfileView from './views/ProfileView/ProfileView';
 import ChangePassword from './views/ChangePassword/ChangePassword';
+import ResetPassword from './views/ChangePassword/ForgotPassword';
+
 
 export const themeColors = {
   lightBlue: '#00AEEE',
@@ -35,6 +37,7 @@ const App: React.FC = () => {
               element={<ProfileView user={mockUser} />}
             />
             <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </Box>
       </Router>
