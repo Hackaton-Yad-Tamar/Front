@@ -20,12 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd Front
           npm install
 
       - name: Run tests
         run: |
-          cd frontend
+          cd Front
           npm test
 
       - name: Build Docker image
