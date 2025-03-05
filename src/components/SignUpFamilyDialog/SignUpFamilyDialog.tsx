@@ -61,7 +61,7 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
 
     try {
       console.log(formData);
-      await saveData('http://localhost:8000/users/signup/vulenteer', formData);
+      await saveData('http://localhost:8000/users/signup/family', formData);
       console.log('המשתמש נשמר בהצלחה!');
       onClose();
     } catch (error) {
@@ -230,6 +230,7 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
                     <Checkbox
                     checked={formData[field.key as keyof typeof formData]}
                     onChange={handleChange(field.key)}
+                    color="default"
                     />
                 }
                 label={field.label}
