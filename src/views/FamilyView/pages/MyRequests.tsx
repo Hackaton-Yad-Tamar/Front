@@ -1,11 +1,11 @@
 import {
-    Box,
-    Checkbox,
-    FormControlLabel,
-    Grid,
-    MenuItem,
-    TextField,
-    Typography
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
@@ -15,7 +15,6 @@ import { AllRequest, RequestStatus, RequestType } from "../../../types/request";
 import RequestCard from "../components/RequestCard";
 import { useUser } from "../../../contexts/userContext";
 
-
 const MyRequests: React.FC = () => {
     const [requests, setRequests] = useState<AllRequest[]>([]);
     const [filteredRequests, setFilteredRequests] = useState<AllRequest[]>([]);
@@ -24,44 +23,65 @@ const MyRequests: React.FC = () => {
     const [statuses, setStatuses] = useState<RequestStatus[]>([]);
     const [filterType, setFilterType] = useState<string>("");
     const [showOpenRequests, setShowOpenRequests] = useState<boolean>(false);
+    const [refresh, setRefresh] = useState(false);
 
-    const { user } = useUser();
+  const { user } = useUser();
 
-    useEffect(() => {
-        axiosInstance.get<AllRequest[]>("/api/request")
-            .then((response) => {
-                user && setRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
-                user && setFilteredRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
-            })
-            .catch((error) => console.error(error));
+  useEffect(() => {
+    axiosInstance
+      .get<AllRequest[]>("/api/request")
+      .then((response) => {
+        user &&
+          setRequests(
+            response.data.filter((request) =>
+              request.request.family_id.includes(user.id)
+            )
+          );
+        user &&
+          setFilteredRequests(
+            response.data.filter((request) =>
+              request.request.family_id.includes(user.id)
+            )
+          );
+      })
+      .catch((error) => console.error(error));
 
-        axiosInstance.get<RequestType[]>("/api/request_type")
-            .then((response) => {
-                setTypes(response.data);
-            })
-            .catch((error) => console.error(error));
+    axiosInstance
+      .get<RequestType[]>("/api/request_type")
+      .then((response) => {
+        setTypes(response.data);
+      })
+      .catch((error) => console.error(error));
 
         axiosInstance.get<RequestStatus[]>("/api/request_status")
             .then((response) => {
                 setStatuses(response.data);
             })
             .catch((error) => console.error(error));
-    }, [user]);
+    }, [user, refresh]);
 
-    useEffect(() => {
-        const filterRequests = [...requests].filter((request) => {
-            return (
-                (!filterDate || dayjs(request.request.created_at).format("YYYY-MM-DD") === filterDate) &&
-                (!filterType || request.request_type.id.toString() === filterType) && (!showOpenRequests || request.status.id !== 3)
-            );
-        });
-        setFilteredRequests(filterRequests);
-    }, [filterDate, filterType, requests, showOpenRequests]);
+  useEffect(() => {
+    const filterRequests = [...requests].filter((request) => {
+      return (
+        (!filterDate ||
+          dayjs(request.request.created_at).format("YYYY-MM-DD") ===
+            filterDate) &&
+        (!filterType || request.request_type.id.toString() === filterType) &&
+        (!showOpenRequests || request.status.id !== 3)
+      );
+    });
+    setFilteredRequests(filterRequests);
+  }, [filterDate, filterType, requests, showOpenRequests]);
 
     const deleteRequest = (reqId: string) => {
-        axiosInstance.delete('request/' + reqId).then().catch((error) => console.error(error));
+        axiosInstance.delete('api/request/' + reqId).then().catch((error) => console.error(error));
+        setRequests(requests.filter(req => req.request.id != reqId))
     }
 
+    const closeRequest = (reqId: string) => {
+        axiosInstance.patch('api/close_reqeust?id=' + reqId).then().catch((error) => console.error(error));
+        setRefresh(!refresh);
+    }
 
     return (
         <Box
@@ -125,7 +145,7 @@ const MyRequests: React.FC = () => {
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
                     {filteredRequests.map((request, index) =>
-                        <RequestCard key={index} allRequest={request} deleteRequest={deleteRequest} />
+                        <RequestCard key={index} allRequest={request} deleteRequest={deleteRequest} closeRequest={closeRequest} />
                     )}
                 </Grid>
             </Box>

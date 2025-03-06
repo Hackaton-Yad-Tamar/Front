@@ -13,7 +13,7 @@ import { themeColors } from "../../../App";
 import { AllRequest } from "../../../types/request";
 import RequestDialog from "../components/RequestDialog";
 
-const RequestCard = ({ allRequest, deleteRequest }: { allRequest: AllRequest, deleteRequest: (reqId: string) => void }) => {
+const RequestCard = ({ allRequest, deleteRequest, closeRequest }: { allRequest: AllRequest, deleteRequest: (reqId: string) => void, closeRequest: (reqId: string) => void }) => {
     const [openRequestDialog, setOpenRequestDialog] = useState(false)
 
     const formatDateTime = (isoString: string) => {
@@ -22,7 +22,7 @@ const RequestCard = ({ allRequest, deleteRequest }: { allRequest: AllRequest, de
 
     return (
         <Grid item xs={12} md={4} key={allRequest.request.id}>
-            <RequestDialog open={openRequestDialog} setOpen={setOpenRequestDialog} request={allRequest} deleteRequest={deleteRequest} />
+            <RequestDialog open={openRequestDialog} setOpen={setOpenRequestDialog} request={allRequest} closeRequest={closeRequest} deleteRequest={deleteRequest} />
             <Paper
                 sx={{
                     p: 3,
