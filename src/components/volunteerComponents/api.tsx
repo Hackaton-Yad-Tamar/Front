@@ -1,5 +1,6 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "http://20.50.143.29:443"
+// const BASE_URL = "http://localhost:8080"
 
 export const getAllRequests = async () => {
     try {
