@@ -85,65 +85,62 @@ const MyRequests: React.FC = () => {
 
     return (
         <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 2,
-            mb: 3,
-            alignItems: "center",
-          }}
-        >
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={showOpenRequests}
-                onChange={(e) => setShowOpenRequests(e.target.checked)}
-              />
-            }
-            label={
-              <Typography
-                sx={{ fontWeight: "bold", color: themeColors.darkBlue }}
-              >
-                הצג רק בקשות פתוחות
-              </Typography>
-            }
             sx={{
-              background: "#f0f8ff",
-              padding: "5px 10px",
-              borderRadius: "8px",
-              marginX: 1,
+                height: "100%",
+                direction: "rtl",
+                padding: "3rem",
+                background: "linear-gradient(to bottom, #a5ddf7, #78c2f2)",
             }}
-          />
-          <TextField select label="סינון לפי סטטוס" sx={{ minWidth: 200 }}>
-            {statuses.map((status) => (
-              <MenuItem key={status.id} value={status.id.toString()}>
-                {status.status_name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            select
-            label="סינון לפי תחום"
-            sx={{ minWidth: 200 }}
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-          >
-            <MenuItem value="">הכל</MenuItem>
-            {types.map((type) => (
-              <MenuItem key={type.id} value={type.id.toString()}>
-                {type.type_name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            label="תאריך יצירה"
-            type="date"
-            InputLabelProps={{ shrink: true }}
-            sx={{ minWidth: 200 }}
-            value={filterDate}
-            onChange={(e) => setFilterDate(e.target.value)}
-          />
-        </Box>
+        >
+            <Typography
+                variant="h4"
+                fontWeight="bold"
+                textAlign="center"
+                gutterBottom
+                sx={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)", color: "white" }}
+            >
+                הבקשות שלי
+            </Typography>
+            <Box
+                sx={{
+                    background: "white",
+                    padding: "1rem",
+                    borderRadius: "12px",
+                }}
+            >
+                {/* שדות סינון */}
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 3, alignItems: "center" }}>
+                    <FormControlLabel
+                        control={<Checkbox checked={showOpenRequests} onChange={(e) => setShowOpenRequests(e.target.checked)} />}
+                        label={<Typography sx={{ fontWeight: "bold", color: themeColors.darkBlue }}>הצג רק בקשות פתוחות</Typography>}
+                        sx={{ background: "#f0f8ff", padding: "5px 10px", borderRadius: "8px", marginX: 1 }}
+                    />
+                    <TextField select label="סינון לפי סטטוס" sx={{ minWidth: 200 }}>
+                        {statuses.map((status) => (
+                            <MenuItem key={status.id} value={status.id.toString()}>{status.status_name}</MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        select
+                        label="סינון לפי תחום"
+                        sx={{ minWidth: 200 }}
+                        value={filterType}
+                        onChange={(e) => setFilterType(e.target.value)}
+                    >
+                        <MenuItem value="">הכל</MenuItem>
+                        {types.map((type) => (
+                            <MenuItem key={type.id} value={type.id.toString()}>{type.type_name}</MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        label="תאריך יצירה"
+                        type="date"
+                        InputLabelProps={{ shrink: true }}
+                        sx={{ minWidth: 200 }}
+                        value={filterDate}
+                        onChange={(e) => setFilterDate(e.target.value)}
+                    />
+                </Box>
 
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
