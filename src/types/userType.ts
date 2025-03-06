@@ -8,7 +8,7 @@ export type User = {
   city: City;
   email: string;
   profilePicture?: string;
-  isApproved: boolean;
+  status: string;
   approvedBy: string;
   approvedAt: Date;
   createdAt: Date;
@@ -47,7 +47,7 @@ export enum City {
   BeerSheva = "באר שבע",
   Holon = "חולון",
   BatYam = "בת ים",
-  RamatGan = "רמת גן"
+  RamatGan = "רמת גן",
 }
 
 export type UserType = "family" | "volunteer" | "admin";

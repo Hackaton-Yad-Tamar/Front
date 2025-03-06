@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 import React from "react";
 import { RouterProvider } from "react-router-dom";
+import { UserProvider } from "./contexts/userContext";
 import "./i18n/config";
 import router from "./router";
 import theme from "./theme";
@@ -14,9 +15,11 @@ export const themeColors = {
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </UserProvider>
   );
 };
 

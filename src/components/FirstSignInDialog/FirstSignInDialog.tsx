@@ -14,6 +14,10 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import rtlPlugin from "stylis-plugin-rtl";
 import { dialogStyle, signInButtonStyle, signInTextFieldStyle } from "./styles";
+import { saveData } from "../../api/axios";
+import { SHA256 } from "crypto-js";
+import { useUser } from "../../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -22,12 +26,16 @@ const rtlCache = createCache({
 
 type Props = {
   open: boolean;
+  onClose: any;
+  email: string;
 };
 
-export const FirstSignInDialog = ({ open }: Props) => {
+export const FirstSignInDialog = ({ open, onClose, email }: Props) => {
   const [password, setPassword] = useState<string>("");
   const [checkPassword, setCheckPassword] = useState<string>();
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const { login } = useUser();
+  const navigate = useNavigate()
 
   const handleSave = async () => {
     if (!isPasswordsMatch()) {
@@ -35,6 +43,13 @@ export const FirstSignInDialog = ({ open }: Props) => {
       return;
     }
 
+    const user = await saveData(`${import.meta.env["VITE_HOST_URL"]}/users/update-password`, {
+      password: SHA256(password).toString(),
+      email,
+    });
+    login(user);
+    navigate("/home")
+    onClose();
     console.log("password changed");
   };
 
