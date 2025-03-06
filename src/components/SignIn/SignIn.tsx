@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Typography, Link } from "@mui/material";
+import { TextField, Button, Box, Typography } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
+import { Link } from "react-router-dom";
 import rtlPlugin from "stylis-plugin-rtl";
 import {
     forgotPasswordStyle,

@@ -8,6 +8,8 @@ function Root() {
       sx={{
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         height: (theme) => `calc(100% - ${theme.mixins.toolbar.height})`,
         paddingTop: (theme) => theme.mixins.toolbar.height,
       }}
