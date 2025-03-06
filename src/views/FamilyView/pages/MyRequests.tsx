@@ -1,22 +1,17 @@
 import {
     Box,
-    Button,
     Checkbox,
-    Divider,
     FormControlLabel,
     Grid,
     MenuItem,
-    Paper,
     TextField,
-    Typography,
+    Typography
 } from "@mui/material";
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { themeColors } from "../../../App";
-import { AccessTimeOutlined, CarCrash, DescriptionOutlined } from "@mui/icons-material";
 import axiosInstance from "../../../axios";
-import { AllRequest, MyRequest, RequestStatus, RequestType } from "../../../types/request";
-import dayjs from "dayjs";
-import RequestDialog from "../components/RequestDialog";
+import { AllRequest, RequestStatus, RequestType } from "../../../types/request";
 import RequestCard from "../components/RequestCard";
 
 const MyRequests: React.FC = () => {
@@ -58,6 +53,10 @@ const MyRequests: React.FC = () => {
         });
         setFilteredRequests(filterRequests);
     }, [filterDate, filterType, requests]);
+
+        const deleteRequest = (reqId: string) => {
+            axiosInstance.delete('request/' + reqId).then().catch((error) => console.error(error));
+        }
 
 
     return (
@@ -122,7 +121,7 @@ const MyRequests: React.FC = () => {
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
                     {filteredRequests.map((request, index) =>
-                        <RequestCard key={index} allRequest={request} />
+                        <RequestCard key={index} allRequest={request}  deleteRequest={deleteRequest}/>
                     )}
                 </Grid>
             </Box>
