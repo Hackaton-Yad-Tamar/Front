@@ -62,9 +62,9 @@ const SignIn: React.FC = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const isFirst = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
-      console.log("הטופס הוגש בהצלחה");
-      setIsFirstTime(isFirst);
+      const user = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
+      
+      setIsFirstTime(user.first_sign_in);
     } else {
       console.log("לטופס יש שגיאות");
     }
@@ -128,7 +128,7 @@ const SignIn: React.FC = () => {
               התחבר
             </Button>
           </Box>
-          <FirstSignInDialog open={isFirstTime} />
+          <FirstSignInDialog email={formData.email} open={isFirstTime} onClose={() => setIsFirstTime(false)} />
           <Box sx={{ marginTop: "10px", textAlign: "center" }}>
             <Link href="#" variant="body2" sx={forgotPasswordStyle}>
               שכחת את הסיסמה?
