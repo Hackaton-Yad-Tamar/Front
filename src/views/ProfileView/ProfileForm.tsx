@@ -81,7 +81,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${formData.firstName.charAt(0)}${formData.lastName.charAt(0)}`;
+    return `${formData.first_name.charAt(0)}${formData.last_name.charAt(0)}`;
   };
 
   // Handle stats changes

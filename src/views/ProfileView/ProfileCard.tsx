@@ -71,7 +71,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
+    return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
   };
 
   // Get the appropriate vehicle icon
@@ -103,7 +103,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
             component="h2"
             sx={{ color: themeColors.darkBlue, fontWeight: "bold" }}
           >
-            {user.firstName} {user.lastName}
+            {user.first_name} {user.last_name}
           </Typography>
         }
         sx={{
