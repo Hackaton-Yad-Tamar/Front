@@ -66,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: Route.adminPAge,
-        element: <AdminView />,
+        element: <PrivateRoute element={<AdminView />} />,
       },
       {
         path: Route.dashboard,
