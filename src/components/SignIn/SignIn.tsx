@@ -128,7 +128,7 @@ const SignIn: React.FC = () => {
               התחבר
             </Button>
           </Box>
-          <FirstSignInDialog email={formData.email} open={isFirstTime} />
+          <FirstSignInDialog email={formData.email} open={isFirstTime} onClose={() => setIsFirstTime(false)} />
           <Box sx={{ marginTop: "10px", textAlign: "center" }}>
             <Link href="#" variant="body2" sx={forgotPasswordStyle}>
               שכחת את הסיסמה?

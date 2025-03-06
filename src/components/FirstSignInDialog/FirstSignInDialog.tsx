@@ -24,10 +24,11 @@ const rtlCache = createCache({
 
 type Props = {
   open: boolean;
+  onClose: any;
   email: string
 };
 
-export const FirstSignInDialog = ({ open, email }: Props) => {
+export const FirstSignInDialog = ({ open, onClose, email }: Props) => {
   const [password, setPassword] = useState<string>("");
   const [checkPassword, setCheckPassword] = useState<string>();
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -39,6 +40,7 @@ export const FirstSignInDialog = ({ open, email }: Props) => {
     }
 
     await saveData('http://localhost:8000/users/update-password', { password: SHA256(password).toString(), email });
+    onClose();
     console.log("password changed");
   };
 

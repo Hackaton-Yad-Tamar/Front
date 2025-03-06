@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { RouterProvider } from "react-router-dom";
 import "./i18n/config";
 import router from "./router";
