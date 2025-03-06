@@ -1,37 +1,43 @@
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import BadgeIcon from '@mui/icons-material/Badge';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
-import EmailIcon from '@mui/icons-material/Email';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
-import HomeIcon from '@mui/icons-material/Home';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MapIcon from '@mui/icons-material/Map';
-import PhoneIcon from '@mui/icons-material/Phone';
-import StarIcon from '@mui/icons-material/Star';
-import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
-import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import { User, UserType } from '../../types/userType';
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import BadgeIcon from "@mui/icons-material/Badge";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
+import EmailIcon from "@mui/icons-material/Email";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
+import HomeIcon from "@mui/icons-material/Home";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import MapIcon from "@mui/icons-material/Map";
+import PhoneIcon from "@mui/icons-material/Phone";
+import StarIcon from "@mui/icons-material/Star";
+import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
+import { CircularProgress, Stack } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import MobileStepper from "@mui/material/MobileStepper";
+import Paper from "@mui/material/Paper";
+import Rating from "@mui/material/Rating";
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import CountUp from "react-countup";
 import { themeColors } from "../../App";
-import CountUp from 'react-countup';
+import {
+  UseApproveRequest,
+  UseDeclineRequest,
+} from "../../components/ComponentTemplate/RequestList/hooks";
+import { User, UserType } from "../../types/userType";
 
 interface ProfileCardProps {
   user: User;
@@ -47,7 +53,18 @@ export function ProfileCard({ user }: ProfileCardProps) {
   };
 
   const handlePrevReview = () => {
-    setActiveReviewIndex((prevIndex) => (prevIndex - 1 + maxReviews) % maxReviews);
+    setActiveReviewIndex(
+      (prevIndex) => (prevIndex - 1 + maxReviews) % maxReviews
+    );
+  };
+
+  const { mutate: approveUser, isLoading: isApproveLoading } =
+    UseApproveRequest();
+  const { mutate: declineUser, isLoading: isDeclineLoading } =
+    UseDeclineRequest();
+
+  const handleApprove = (isApproved: boolean) => {
+    isApproved ? approveUser(user.id) : declineUser(user.id);
   };
 
   const userTypeColors: Record<UserType, { bg: string; color: string }> = {
@@ -58,21 +75,35 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
+    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
   };
 
   // Get the appropriate vehicle icon
   const getVehicleIcon = () => {
     switch (user.vehicle) {
       case "פרטי":
-        return <DirectionsCarIcon fontSize="small" sx={{ color: "text.secondary" }} />;
+        return (
+          <DirectionsCarIcon
+            fontSize="small"
+            sx={{ color: "text.secondary" }}
+          />
+        );
       case "אופנוע":
-        return <TwoWheelerIcon fontSize="small" sx={{ color: "text.secondary" }} />;
+        return (
+          <TwoWheelerIcon fontSize="small" sx={{ color: "text.secondary" }} />
+        );
       case "משאית":
-        return <LocalShippingIcon fontSize="small" sx={{ color: "text.secondary" }} />;
+        return (
+          <LocalShippingIcon
+            fontSize="small"
+            sx={{ color: "text.secondary" }}
+          />
+        );
       case undefined:
       default:
-        return <DoNotDisturbIcon fontSize="small" sx={{ color: "text.secondary" }} />;
+        return (
+          <DoNotDisturbIcon fontSize="small" sx={{ color: "text.secondary" }} />
+        );
     }
   };
 
@@ -80,12 +111,19 @@ export function ProfileCard({ user }: ProfileCardProps) {
     <Card elevation={3} sx={{ borderRadius: 2, overflow: "hidden" }}>
       <CardHeader
         avatar={
-          <Avatar src={user.profilePicture || undefined} sx={{ width: 64, height: 64 }}>
+          <Avatar
+            src={user.profilePicture || undefined}
+            sx={{ width: 64, height: 64 }}
+          >
             {!user.profilePicture && getInitials()}
           </Avatar>
         }
         title={
-          <Typography variant="h3" component="h2" sx={{ color: themeColors.darkBlue, fontWeight: "bold" }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{ color: themeColors.darkBlue, fontWeight: "bold" }}
+          >
             {user.firstName} {user.lastName}
           </Typography>
         }
@@ -112,7 +150,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                 <Typography variant="h6" color="black" fontWeight="light">
                   ת"ז
                 </Typography>
-                <Typography variant="h6" sx={{ color: 'black' }}>
+                <Typography variant="h6" sx={{ color: "black" }}>
                   {user.id}
                 </Typography>
               </Box>
@@ -122,7 +160,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                 <Typography variant="h6" color="black" fontWeight="light">
                   טלפון
                 </Typography>
-                <Typography variant="h6" sx={{ color: 'black' }}>
+                <Typography variant="h6" sx={{ color: "black" }}>
                   {user.phoneNumber}
                 </Typography>
               </Box>
@@ -132,7 +170,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                 <Typography variant="h6" color="black" fontWeight="light">
                   מייל
                 </Typography>
-                <Typography variant="h6" sx={{ color: 'black' }}>
+                <Typography variant="h6" sx={{ color: "black" }}>
                   {user.email}
                 </Typography>
               </Box>
@@ -146,27 +184,33 @@ export function ProfileCard({ user }: ProfileCardProps) {
                 <Typography variant="h6" color="black" fontWeight="light">
                   כתובת
                 </Typography>
-                <Typography variant="h6" sx={{ color: 'black' }}>
+                <Typography variant="h6" sx={{ color: "black" }}>
                   {user.address}
                 </Typography>
               </Box>
 
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <LocationOnIcon fontSize="small" sx={{ color: "text.secondary" }} />
+                <LocationOnIcon
+                  fontSize="small"
+                  sx={{ color: "text.secondary" }}
+                />
                 <Typography variant="h6" color="black" fontWeight="light">
                   עיר
                 </Typography>
-                <Typography variant="h6" sx={{ color: 'black' }}>
+                <Typography variant="h6" sx={{ color: "black" }}>
                   {user.city}
                 </Typography>
               </Box>
 
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <CalendarTodayIcon fontSize="small" sx={{ color: "text.secondary" }} />
+                <CalendarTodayIcon
+                  fontSize="small"
+                  sx={{ color: "text.secondary" }}
+                />
                 <Typography variant="h6" color="black" fontWeight="light">
                   תאריך הצטרפות
                 </Typography>
-                <Typography variant="h6" sx={{ color: 'black' }}>
+                <Typography variant="h6" sx={{ color: "black" }}>
                   {new Date(user.approvedAt).toLocaleDateString()}
                 </Typography>
               </Box>
@@ -178,36 +222,63 @@ export function ProfileCard({ user }: ProfileCardProps) {
             <>
               <Grid item xs={12}>
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="h5" sx={{ color: 'black', mb: 2 }}>
+                <Typography variant="h5" sx={{ color: "black", mb: 2 }}>
                   מידע על אודות המתנדב
                 </Typography>
 
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={6}>
-                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                        <MapIcon fontSize="small" sx={{ color: "text.secondary" }} />
-                        <Typography variant="h6" color="black" fontWeight="light">
+                    <Box
+                      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+                    >
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <MapIcon
+                          fontSize="small"
+                          sx={{ color: "text.secondary" }}
+                        />
+                        <Typography
+                          variant="h6"
+                          color="black"
+                          fontWeight="light"
+                        >
                           אזור התנדבות
                         </Typography>
-                        <Typography variant="h6" sx={{ color: 'black' }}>
+                        <Typography variant="h6" sx={{ color: "black" }}>
                           {user.volunteeringArea}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
                         {getVehicleIcon()}
-                        <Typography variant="h6" color="black" fontWeight="light">
+                        <Typography
+                          variant="h6"
+                          color="black"
+                          fontWeight="light"
+                        >
                           כלי רכב
                         </Typography>
-                        <Typography variant="h6" sx={{ color: 'black' }}>
-                          {user.vehicle?.charAt(0).toUpperCase() + user.vehicle?.slice(1)}
+                        <Typography variant="h6" sx={{ color: "black" }}>
+                          {user.vehicle?.charAt(0).toUpperCase() +
+                            user.vehicle?.slice(1)}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                        <StarIcon fontSize="small" sx={{ color: "text.secondary" }} />
-                        <Typography variant="h6" color="black" fontWeight="light">
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <StarIcon
+                          fontSize="small"
+                          sx={{ color: "text.secondary" }}
+                        />
+                        <Typography
+                          variant="h6"
+                          color="black"
+                          fontWeight="light"
+                        >
                           דירוג
                         </Typography>
                         <Rating
@@ -219,8 +290,8 @@ export function ProfileCard({ user }: ProfileCardProps) {
                           max={5}
                           sx={{ color: "#00AEEE", padding: 1 }}
                         />
-                        <Typography variant="h6" sx={{ color: 'black', ml: 1 }}>
-                         ({user.rating?.toFixed(1)})
+                        <Typography variant="h6" sx={{ color: "black", ml: 1 }}>
+                          ({user.rating?.toFixed(1)})
                         </Typography>
                       </Box>
                     </Box>
@@ -231,7 +302,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                       <Typography variant="h6" color="black" fontWeight="light">
                         אודות
                       </Typography>
-                      <Typography variant="h6" sx={{ color: 'black', mt: 1 }}>
+                      <Typography variant="h6" sx={{ color: "black", mt: 1 }}>
                         {user.bio}
                       </Typography>
                     </Grid>
@@ -243,15 +314,29 @@ export function ProfileCard({ user }: ProfileCardProps) {
               {user.stats && (
                 <Grid item xs={12}>
                   <Paper elevation={1} sx={{ p: 3, bgcolor: "#f5f5f5", mt: 2 }}>
-                    <Typography variant="h5" sx={{ color: 'black', mb: 2 }}>
+                    <Typography variant="h5" sx={{ color: "black", mb: 2 }}>
                       סטטיסטיקות של המתנדב
                     </Typography>
                     <Grid container spacing={2}>
                       <Grid item xs={4}>
-                        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                          <EmojiEventsIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
-                          <Typography variant="h4" sx={{ color: 'black', fontWeight: "bold" }}>
-                            <CountUp end={user.stats.eventsParticipated} duration={5} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <EmojiEventsIcon
+                            sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }}
+                          />
+                          <Typography
+                            variant="h4"
+                            sx={{ color: "black", fontWeight: "bold" }}
+                          >
+                            <CountUp
+                              end={user.stats.eventsParticipated}
+                              duration={5}
+                            />
                           </Typography>
                           <Typography variant="h6" color="black">
                             אירועי התנדבות
@@ -260,10 +345,24 @@ export function ProfileCard({ user }: ProfileCardProps) {
                       </Grid>
 
                       <Grid item xs={4}>
-                        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                          <AccessTimeIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
-                          <Typography variant="h4" sx={{ color: 'black', fontWeight: "bold" }}>
-                            <CountUp end={user.stats.hoursVolunteered} duration={5} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <AccessTimeIcon
+                            sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }}
+                          />
+                          <Typography
+                            variant="h4"
+                            sx={{ color: "black", fontWeight: "bold" }}
+                          >
+                            <CountUp
+                              end={user.stats.hoursVolunteered}
+                              duration={5}
+                            />
                           </Typography>
                           <Typography variant="h6" color="black">
                             שעות התנדבות
@@ -272,13 +371,27 @@ export function ProfileCard({ user }: ProfileCardProps) {
                       </Grid>
 
                       <Grid item xs={4}>
-                        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                          <MapIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
-                          <Typography variant="h4" sx={{ color: 'black', fontWeight: "bold" }}>
-                            <CountUp end={user.stats.distanceTravelled} duration={5} />
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <MapIcon
+                            sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }}
+                          />
+                          <Typography
+                            variant="h4"
+                            sx={{ color: "black", fontWeight: "bold" }}
+                          >
+                            <CountUp
+                              end={user.stats.distanceTravelled}
+                              duration={5}
+                            />
                           </Typography>
                           <Typography variant="h6" color="black">
-                             מרחק נסיעות (ק"מ) 
+                            מרחק נסיעות (ק"מ)
                           </Typography>
                         </Box>
                       </Grid>
@@ -290,7 +403,10 @@ export function ProfileCard({ user }: ProfileCardProps) {
               {/* Reviews slider */}
               {user.reviews && user.reviews.length > 0 && (
                 <Grid item xs={12}>
-                  <Typography variant="h3" sx={{ color: 'black', mt: 3, mb: 2, textAlign: "center" }}>
+                  <Typography
+                    variant="h3"
+                    sx={{ color: "black", mt: 3, mb: 2, textAlign: "center" }}
+                  >
                     התרגשנו ביחד אתכם
                   </Typography>
 
@@ -307,17 +423,26 @@ export function ProfileCard({ user }: ProfileCardProps) {
                     }}
                   >
                     {/* Current review */}
-                    <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                      <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                    <Box
+                      sx={{ flex: 1, display: "flex", flexDirection: "column" }}
+                    >
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", mb: 2 }}
+                      >
                         <Avatar sx={{ bgcolor: themeColors.darkBlue, mr: 2 }}>
                           <FamilyRestroomIcon />
                         </Avatar>
                         <Box sx={{ paddingRight: 2 }}>
-                          <Typography variant="subtitle1" sx={{ color: 'black', fontWeight: "medium" }}>
+                          <Typography
+                            variant="subtitle1"
+                            sx={{ color: "black", fontWeight: "medium" }}
+                          >
                             {user.reviews[activeReviewIndex].familyName}
                           </Typography>
                           <Typography variant="body2" color="black">
-                            {new Date(user.reviews[activeReviewIndex].date).toLocaleDateString()}
+                            {new Date(
+                              user.reviews[activeReviewIndex].date
+                            ).toLocaleDateString()}
                           </Typography>
                         </Box>
                       </Box>
@@ -334,7 +459,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                         variant="body1"
                         component="div"
                         sx={{
-                          color: 'black',
+                          color: "black",
                           flex: 1,
                           mb: 2,
                         }}
@@ -387,6 +512,33 @@ export function ProfileCard({ user }: ProfileCardProps) {
             </>
           )}
         </Grid>
+        <Stack direction="row" justifyContent="flex-end">
+          {isDeclineLoading ? (
+            <CircularProgress sx={{ color: "red", ml: "5px" }} />
+          ) : (
+            <Button
+              onClick={() => handleApprove(false)}
+              variant="outlined"
+              sx={{ borderColor: "red", color: "red" }}
+            >
+              <Typography sx={{ ml: "5px" }}>דחה</Typography>
+              <CloseIcon />
+            </Button>
+          )}
+
+          {isApproveLoading ? (
+            <CircularProgress sx={{ color: "green", mr: "5px" }} />
+          ) : (
+            <Button
+              onClick={() => handleApprove(true)}
+              variant="contained"
+              sx={{ color: "white", backgroundColor: "green", mr: "15px" }}
+            >
+              <Typography sx={{ ml: "5px" }}>אשר</Typography>
+              <CheckIcon />
+            </Button>
+          )}
+        </Stack>
       </CardContent>
     </Card>
   );

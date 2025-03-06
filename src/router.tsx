@@ -1,14 +1,15 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Root from "./components/Root";
+import { AdminView } from "./views/AdministratorView/AdminView.tsx";
 import ChangePassword from "./views/ChangePassword/ChangePassword";
 import ResetPassword from "./views/ChangePassword/ForgotPassword";
 import NewPassword from "./views/ChangePassword/NewPassword";
+import { Dashboard } from "./views/DashboardView/DashboardView.tsx";
 import Home from "./views/FamilyView/pages/Home";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
 import HomePageView from "./views/HomePageView/HomePageView";
 import Leaderboard from "./views/Leaderboard/Leaderboard";
 import ProfileView from "./views/ProfileView/ProfileView";
-import {Dashboard} from "./views/DashboardView/DashboardView.tsx";
 
 export enum Route {
   root = "/",
@@ -21,6 +22,7 @@ export enum Route {
   resetPassword = "/reset-password",
   changePassword = "/change-password",
   forgotPassword = "/forgot-password",
+  adminPAge = "/admin",
   dashboard = "/dashboard",
 }
 const router = createBrowserRouter([
@@ -61,9 +63,13 @@ const router = createBrowserRouter([
         element: <ResetPassword />,
       },
       {
+        path: Route.adminPAge,
+        element: <AdminView />,
+      },
+      {
         path: Route.dashboard,
         element: <Dashboard />,
-      }
+      },
     ],
   },
   {
