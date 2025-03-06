@@ -8,7 +8,6 @@ import { Route } from "./router";
 const Navbar: React.FC = () => {
   const { user } = useUser();
 
-
   return (
     <AppBar
       position="fixed"
@@ -19,7 +18,9 @@ const Navbar: React.FC = () => {
         backgroundColor: "white",
       }}
     >
-      <Toolbar sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}>
+      <Toolbar
+        sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}
+      >
         <Box>
           <Button
             sx={{
@@ -85,13 +86,35 @@ const Navbar: React.FC = () => {
               },
             }}
             component={Link}
+            to={Route.adminPAge}
+          >
+            עמוד ניהול
+          </Button>
+          <Button
+            sx={{
+              color: themeColors.darkBlue,
+              fontWeight: "bold",
+              fontSize: "2.5vh",
+              px: 2,
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: themeColors.lightGreen,
+                color: "white",
+              },
+            }}
+            component={Link}
             to="/community"
           >
             קהילה
           </Button>
         </Box>
         <Box
-          sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "1rem" }}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            gap: "1rem",
+          }}
         >
           <Typography>שלום {user?.first_name}</Typography>
         </Box>

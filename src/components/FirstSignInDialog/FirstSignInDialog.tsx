@@ -48,7 +48,13 @@ export const FirstSignInDialog = ({ open, onClose, email }: Props) => {
       email,
     });
     login(user);
-    navigate("/home")
+    if (user.user_type == 2) {
+      navigate("/home")
+    } else if (user.user_type == 1) {
+      navigate("/home")
+    } else {
+      navigate("/dashboard")
+    }
     onClose();
     console.log("password changed");
   };

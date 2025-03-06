@@ -35,3 +35,13 @@ export const fetchPieData = async (function_name: string, params: PieData) => {
     }));
     return pieData
 }
+
+export const fetcheTableData = async (function_name: string, params: PieData) => {
+    const response = await axios.get(DASHBOARD_ENDPOINT + function_name, {params});
+    console.log("response", response)
+    if (response.status !== 200) {
+        throw new Error('Failed to fetch data');
+    }
+    const pieData = response.data;
+    return pieData
+}
