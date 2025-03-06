@@ -5,7 +5,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { RequestDialogProps } from "../../types/request.types";
 import { Box } from "@mui/material";
 import Map from "ol/Map";
 import View from "ol/View";
@@ -17,40 +16,37 @@ import Point from "ol/geom/Point";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import "ol/ol.css";
+import { RequestDialogProps } from "../../types/request.types";
+import { updateRequest } from "./api";
 
 const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency: request }) => {
   if (!request) return null;
+  const [submit, setSubmit] = React.useState(false);
 
-  const title = request.emergencyType === "sos" ? "בקשת SOS" : "בקשה רגילה";
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<Map | null>(null);
   const vectorSource = useRef<VectorSource | null>(null);
   const [featuresLoaded, setFeaturesLoaded] = useState(false);
-  const [isMounted, setIsMounted] = useState(false); // Track if the component has mounted
+  const [isMounted, setIsMounted] = useState(false);
 
   // Set isMounted when the component mounts
   useEffect(() => {
     setIsMounted(true);
-    return () => setIsMounted(false); // Clean up on unmount
+    return () => setIsMounted(false);
   }, []);
 
-  // Initialize or update the map only when the dialog opens and the component is mounted
+  // Initialize or update the map
   useEffect(() => {
-    console.log("Dialog open:", open);
-    console.log("Map ref:", mapRef.current);
-    console.log("Map instance:", mapInstance.current);
-    console.log("Is mounted:", isMounted);
+
 
     if (!open || !mapRef.current || !isMounted) {
-      // Clean up if the dialog is closing or component isn’t mounted
       if (mapInstance.current) {
         mapInstance.current.setTarget(null);
         mapInstance.current = null;
       }
-      return; // Do nothing if the dialog is closed, ref isn’t ready, or component isn’t mounted
+      return;
     }
 
-    // Initialize or update the map when the dialog opens
     const israelCenter = fromLonLat([34.8516, 31.0461]); // Center on Israel
     const newVectorSource = new VectorSource();
     const vectorLayer = new VectorLayer({
@@ -60,10 +56,10 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
     let newMap: Map;
     if (mapInstance.current) {
       newMap = mapInstance.current;
-      newMap.setTarget(mapRef.current); // Reattach to the DOM
-      newMap.getView().setCenter(israelCenter); // Reset center
-      newMap.getView().setZoom(7); // Reset zoom
-      vectorSource.current = newVectorSource; // Update vector source
+      newMap.setTarget(mapRef.current);
+      newMap.getView().setCenter(israelCenter);
+      newMap.getView().setZoom(7);
+      vectorSource.current = newVectorSource;
       newMap.getLayers().forEach((layer) => {
         if (layer instanceof VectorLayer) {
           layer.setSource(newVectorSource);
@@ -87,17 +83,15 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
       vectorSource.current = newVectorSource;
     }
 
-    // Ensure the map updates its size when the dialog is visible
     newMap.updateSize();
 
-    // Clean up when the dialog closes or component unmounts
     return () => {
       if (mapInstance.current) {
-        mapInstance.current.setTarget(null); // Clean up the map
+        mapInstance.current.setTarget(null);
         mapInstance.current = null;
       }
     };
-  }, [open, isMounted]); // Re-run when `open` or `isMounted` changes
+  }, [open, isMounted]);
 
   const createFeature = (lon: number, lat: number, properties: Record<string, any> = {}) => {
     if (!vectorSource.current) return null;
@@ -129,13 +123,18 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
     return null;
   };
 
-  // Add location to map only when the dialog is open, map is ready, and features aren’t loaded
+  const onSubmit = (id: string) => {
+    updateRequest(id)
+    setSubmit(!submit)
+  }
+
+  // Add location to map
   useEffect(() => {
     if (mapInstance.current && vectorSource.current && request && open && !featuresLoaded && isMounted) {
       addLocationToMap(request.location).then(() => {
-        setFeaturesLoaded(true); // Mark features as loaded to prevent re-adding
+        setFeaturesLoaded(true);
         if (mapInstance.current) {
-          mapInstance.current.updateSize(); // Ensure map updates after adding features
+          mapInstance.current.updateSize();
         }
       });
     }
@@ -147,24 +146,31 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
       open={open}
       onClose={onClose}
       fullWidth
-      maxWidth="lg"
-      disablePortal={false} // Ensure rendering in the DOM immediately
+      maxWidth="sm" // Keep the dialog smaller and thinner
+      disablePortal={false}
       sx={{
-        minHeight: 500,
+        minHeight: 400, // Maintain smaller height
         fontFamily: "Rubik, sans-serif",
       }}
     >
-      <DialogTitle sx={{
-        display: "flex",
-        alignItems: "center",
-        direction: "rtl",
-        backgroundColor: "#e1f5fe",
-        fontFamily: "Rubik, sans-serif",
-      }}>
+      <DialogTitle
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          direction: "rtl",
+          backgroundColor: "#e1f5fe",
+          fontFamily: "Rubik, sans-serif",
+          padding: "10px 20px",
+        }}
+      >
+        <Typography variant="h5" sx={{ color: "#00AEEE", fontFamily: "Rubik, sans-serif" }}>
+          {request.request.is_urgent ? "SOS חירום" : "עזרה לא דחופה"}
+        </Typography>
         <img
-          src="https://yadtamar.org.il/wp-content/uploads/2020/05/menu-logo-small.png"
+          src="https://yadtamar.org.il/wp-content/uploads/2020/05/menu-logo-small.png" // Use the logo from the image or replace with your URL
           alt="Emergency Icon"
-          style={{ width: 40, height: 40, alignItems: "end" }}
+          style={{ width: 40, height: 40 }}
         />
       </DialogTitle>
       <DialogContent
@@ -174,7 +180,7 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
           textAlign: "right",
           padding: "10px 20px",
           backgroundColor: "#e1f5fe",
-          maxHeight: "400px",
+          maxHeight: "300px",
           overflowY: "auto",
           "&::-webkit-scrollbar": {
             width: "6px",
@@ -189,50 +195,68 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
         }}
       >
         <Box sx={{ display: "flex", height: "100%" }}>
-          {/* OpenLayers Map on the left (50% width) */}
-          <Box sx={{ flex: 1, height: "400px" }}>
-            <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
+          {/* Details on the left (50% width) */}
+          <Box sx={{ flex: 1, paddingRight: "10px", fontFamily: "Rubik, sans-serif" }}>
+            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>שם:</strong> {request.user.first_name} {request.last_name}</Typography>
+            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>אזור:</strong> {request.city.city_name}  </Typography>
+            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>תיאור:</strong> {request.request.description}</Typography>
+            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}>
+              <strong>מספר טלפון:</strong> {request.user.phone_number}
+            </Typography>
           </Box>
 
-          {/* Current content on the right (50% width) */}
-          <Box sx={{ flex: 1, paddingLeft: "20px" }}>
-            <Typography sx={{ fontFamily: "Rubik, sans-serif", direction: "rtl", textAlign: "right", color: "#00AEEE" }} variant="h6">{title}</Typography>
-            <Box sx={{ paddingRight: "20px", fontFamily: "Rubik, sans-serif" }}>
-              <Box mb={2}>
-                <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>שם:</strong></Typography>
-                <Typography>{request.name}</Typography>
-              </Box>
-              <Box mb={2}>
-                <Typography sx={{ color: "#324A6D" }}><strong>אזור:</strong></Typography>
-                <Typography>{request.location}</Typography>
-              </Box>
-              <Box mb={2}>
-                <Typography sx={{ color: "#324A6D" }}><strong>תיאור:</strong></Typography>
-                <Typography>{request.description}</Typography>
-              </Box>
-              <Box mb={2}>
-                <Typography sx={{ color: "#324A6D" }}><strong>סוג חירום:</strong></Typography>
-                <Typography>{request.emergencyType}</Typography>
-              </Box>
-              <Box mb={2}>
-                <Typography sx={{ color: "#324A6D" }}><strong>חומרה:</strong></Typography>
-                <Typography>{request.severity}</Typography>
-              </Box>
-              <Box mb={2}>
-                <Typography sx={{ color: "#324A6D" }}><strong>סטטוס תגובה:</strong></Typography>
-                <Typography>{request.responseStatus}</Typography>
-              </Box>
-            </Box>
+          <Box sx={{ flex: 1, height: "300px", pl: 1 }}>
+            <div
+              ref={mapRef}
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "10px",
+                borderColor: "white",
+                boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.3)",
+                overflow: "hidden",
+              }}
+            />
           </Box>
         </Box>
       </DialogContent>
-      <DialogActions sx={{
-        justifyContent: "flex-start",
-        backgroundColor: "#e1f5fe",
-      }}>
-        <Button onClick={onClose} color="primary" sx={{ backgroundColor: "#00AEEE", color: "white", borderRadius: "20px" }}>
-          אישור
+      <DialogActions
+        sx={{
+          justifyContent: "flex-end",
+          backgroundColor: "#e1f5fe",
+          padding: "10px 20px",
+        }}
+      >
+        {submit && <Button
+          onClick={onClose}
+          sx={{
+            backgroundColor: "#FFFFFF",
+            color: "#00AEEE",
+            borderRadius: "20px",
+            border: "1px solid #00AEEE",
+            "&:hover": {
+              backgroundColor: "#e1f5fe",
+            },
+          }}
+        >
+          ביטול התנדבות
+        </Button>}
+        <Button
+          onClick={() => onSubmit(request.request.id)} // Pass the request ID here
+          disabled={submit}
+          sx={{
+            backgroundColor: submit ? "#28A745" : "#00AEEE", // Green when submitted, default otherwise
+            color: "white",
+            borderRadius: "20px",
+            marginRight: "6px",
+            "&:hover": {
+              backgroundColor: submit ? "#218838" : "#007BBD", // Darker green on hover if submitted
+            },
+          }}
+        >
+          {submit ? "✔" : "אישור"}
         </Button>
+
       </DialogActions>
     </Dialog>
   );
