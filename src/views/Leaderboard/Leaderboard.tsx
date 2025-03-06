@@ -1,8 +1,9 @@
-    import React, { useEffect, useState } from "react";
-    import axios from "axios";
-    import { Box, Container, IconButton, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Box, Container, IconButton, Typography } from "@mui/material";
 import { themeColors } from "../../App";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import eventImage from "../../assets/event.jpg";
 
 const categoryDescriptions = {
     "המתנדב החרוץ": "שעות התנדבות",
@@ -174,7 +175,7 @@ const Leaderboard = () => {
 
     return (
         <Container sx={{ flexGrow: 1, my: 6, direction: "rtl" }}>
-            <Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
+            <Typography variant="h2" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
                 מצטייני החודש
             </Typography>
             {lead_volunteers()}
@@ -183,6 +184,34 @@ const Leaderboard = () => {
                 סיפורי קהילה
             </Typography>
             {StoryCarousel()}
+
+
+            <Box >
+`               <Typography variant="h2" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
+                    האירועים המובילים שלנו
+                </Typography>
+                <Typography variant="h3" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
+                    האור שבחושך - ערב התרמה למען משפחות שכולות 
+                </Typography>
+                <Typography variant="body1" textAlign="center" gutterBottom  fontSize={25} lineHeight={2}>
+                    ביישוב קטן בגליל, שבו הקהילה הייתה כמו משפחה אחת גדולה, התאספו התושבים לערב מיוחד במינו - ערב התרמה למען משפחות שכולות שאיבדו את יקיריהן במערכות ישראל.
+
+                    היוזמה יצאה מקבוצת תלמידי תיכון מקומי, שרצו לעשות מעשה משמעותי לזכר אחד מבני היישוב שנפל בקרב. הם פנו לראש המועצה והציעו להפיק אירוע שכל הכנסותיו יוקדשו לקרן סיוע למשפחות השכולות. תוך ימים ספורים, כל היישוב התגייס - בעלי עסקים תרמו פרסים להגרלה, מסעדות מקומיות סיפקו אוכל בהתנדבות, ולהקת הנוער של המתנ"ס החלה בחזרות למופע מרגש.
+
+                    בערב האירוע, האולם היה מלא עד אפס מקום. על הבמה הוקרנו סרטונים על הנופלים, וקרובי משפחה שיתפו סיפורים אישיים. אחד הרגעים המרגשים היה כשאמו של חייל שנפל סיפרה כיצד התמיכה הקהילתית עזרה לה לקום מחדש.
+
+                    לאחר מופע מרגש של להקת הנוער, התקיימה מכירה פומבית שבה נמכרו יצירות של אמנים מקומיים, וחלק מהפריטים הוענקו כמתנה למשפחות השכולות. עד סוף הערב, הצליחו לגייס סכום מרשים, הרבה מעבר לציפיות.
+
+                    אך מעבר לכסף שנאסף, האירוע הותיר רושם עמוק על כל המשתתפים. הוא הוכיח את כוחה של קהילה, את הערבות ההדדית ואת היכולת להפוך כאב לאור של נתינה ואהבה.
+                </Typography>
+                <Box>
+                    <img src={eventImage} alt="event" style={{ width: "100%"}} />
+                </Box>
+            
+
+
+            </Box>
+
         </Container>
         
     );
