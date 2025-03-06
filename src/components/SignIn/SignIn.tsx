@@ -62,9 +62,9 @@ const SignIn: React.FC = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const isFirst = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
+      const user = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
       
-      setIsFirstTime(isFirst.isFirstTime);
+      setIsFirstTime(user.first_sign_in);
     } else {
       console.log("לטופס יש שגיאות");
     }
