@@ -58,7 +58,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
+    return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
   };
 
   // Get the appropriate vehicle icon
