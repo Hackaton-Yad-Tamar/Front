@@ -16,8 +16,8 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { dialogStyle, signInButtonStyle, signInTextFieldStyle } from "./styles";
 import { saveData } from "../../api/axios";
 import { SHA256 } from "crypto-js";
-import { Login } from "@mui/icons-material";
 import { useUser } from "../../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -35,6 +35,7 @@ export const FirstSignInDialog = ({ open, onClose, email }: Props) => {
   const [checkPassword, setCheckPassword] = useState<string>();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const { login } = useUser();
+  const navigate = useNavigate()
 
   const handleSave = async () => {
     if (!isPasswordsMatch()) {
@@ -47,6 +48,7 @@ export const FirstSignInDialog = ({ open, onClose, email }: Props) => {
       email,
     });
     login(user);
+    navigate("/home")
     onClose();
     console.log("password changed");
   };

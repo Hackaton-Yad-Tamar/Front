@@ -7,7 +7,8 @@ import { useUser } from "./contexts/userContext";
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
-
+  
+  
   return (
     <AppBar
       position="fixed"
@@ -74,7 +75,7 @@ const Navbar: React.FC = () => {
             הפרופיל שלי
           </Button>
         </Box>
-        <Typography>שלום {user?.firstName}</Typography>
+        <Typography>שלום {user?.first_name}</Typography>
         <img src=".\public\menu-logo-small.png" width={"5%"} />
       </Toolbar>
     </AppBar>
