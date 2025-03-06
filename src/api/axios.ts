@@ -6,9 +6,10 @@ export const getData = async (url: string) => {
 }
 
 export const saveData = async (url: string, data: object) => {
-    await axios.post(url, data, {
+    const { data: returnedData } = await axios.post(url, data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
+      return returnedData;
 }
