@@ -1,6 +1,6 @@
 import { Edit } from "@mui/icons-material";
-import { Box, Button, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, CircularProgress, Stack } from "@mui/material";
+import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useFamilyRequests } from "../../api/requestsService";
 import MUICalendar from "../../components/CalendarComponent";
@@ -15,11 +15,7 @@ type ProfileViewProps = {};
 function ProfileView({}: ProfileViewProps) {
   const [isEditing, setIsEditing] = useState(false);
   const { user } = useUser();
-  const { data: familyRequests } = useFamilyRequests(user?.id);
-
-  useEffect(() => {
-    console.log(familyRequests);
-  }, [familyRequests]);
+  const { data: familyRequests, isLoading } = useFamilyRequests(user?.id);
 
   const handleSave = (updatedUser: User) => {
     // In a real app, you would save this to your backend
@@ -74,7 +70,7 @@ function ProfileView({}: ProfileViewProps) {
                 </Button>
               </Link>
             </Box>
-            <MUICalendar />
+            {isLoading ? <CircularProgress /> : <MUICalendar familyRequests={familyRequests!} />}
           </>
         )}
       </Box>
