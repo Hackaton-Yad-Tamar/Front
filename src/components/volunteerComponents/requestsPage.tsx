@@ -12,10 +12,42 @@ import VectorSource from "ol/source/Vector";
 import React, { useEffect, useState } from "react";
 import RequestsList from "./requestsList";
 import { regularRequests } from "./mock";
+import { getAllCities, getAllRequests, getAllRequestTypes } from "./api";
 
 const RequestPage = () => {
 
+    const [requestTypes, setRequestTypes] = useState([]);
+    const [request, setRequests] = useState([]);
+    const [cities, setCities] = useState([]);
 
+    useEffect(() => {
+        const fetchRequestTypes = async () => {
+            const types = await getAllRequestTypes();
+            setRequestTypes(types);
+        };
+
+        const fetchAllRequest = async () => {
+            const reqs = await getAllRequests();
+            // console.log(reqs)
+            const sortedRequests = (reqs as []).sort((a, b) => {
+                // Compare is_urgent values inside request object
+                if (a.request.is_urgent === b.request.is_urgent) {
+                    return 0; // If both have the same urgency, leave unchanged
+                }
+                return a.request.is_urgent ? -1 : 1; // Urgent first, non-urgent later
+            });
+            setRequests(sortedRequests);
+        };
+
+        const fetchAllCities = async () => {
+            const cities = await getAllCities();
+            setCities(cities);
+        };
+
+        fetchAllCities()
+        fetchAllRequest()
+        fetchRequestTypes();
+    }, []);
     const [isAiClicked, setIsAiClicked] = useState(false); // Track if the AI button is clicked
 
     const handleAiButtonClick = () => {
@@ -105,16 +137,17 @@ const RequestPage = () => {
 
     useEffect(() => {
         if (map && vectorSource) {
-            regularRequests.forEach((request) => addLocationToMap(request.location));
+            regularRequests.forEach((request) => addLocationToMap(request.city.city_name));
         }
     }, [map, regularRequests, vectorSource]);
 
     // Filter requests based on selected filters inside useEffect or inline when rendering
-    const filteredRequests = regularRequests.filter((request) => {
-        const isCategoryMatch = category ? request.request_type === category : true;
-        const isAreaMatch = area ? request.city === area : true;
+    const filteredRequests = request.filter((request) => {
+        const isCategoryMatch = category ? request.request_type.type_name === category : true;
+        const isAreaMatch = area ? request.city.city_name === area : true;
 
         return isCategoryMatch && isAreaMatch;
+        // return true
     });
 
     return (
@@ -135,7 +168,7 @@ const RequestPage = () => {
                             <Select
                                 labelId="category-label"
                                 value={category}
-                                onChange={handleChangeCategory}
+                                onChange={(event) => setCategory(event.target.value)} // Handle selection change
                                 disabled={isAiClicked} // Disable when AI button is clicked
                                 sx={{
                                     backgroundColor: "white",
@@ -159,11 +192,12 @@ const RequestPage = () => {
                                 }}
                             >
                                 <MenuItem value=""><em>לא נבחר</em></MenuItem>
-                                <MenuItem value="אינסלטור">אינסטלטור</MenuItem>
-                                <MenuItem value="טכנאי">טכנאי</MenuItem>
-                                <MenuItem value="רופא">רופא</MenuItem>
+                                {requestTypes.map((type) => (
+                                    <MenuItem key={type.type_name} value={type.type_name}>{type.type_name}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
+
                     </Grid>
 
                     <Grid item xs={12} sm={4} md={3}>
@@ -206,17 +240,21 @@ const RequestPage = () => {
                                     },
                                 }}
                             >
-                                <MenuItem value=""><em>לא נבחר</em></MenuItem>
+                                {/* <MenuItem value=""><em>לא נבחר</em></MenuItem>
                                 <MenuItem value="ראשון לציון">ראשון לציון</MenuItem>
                                 <MenuItem value="תל אביב">תל אביב</MenuItem>
-                                <MenuItem value="נס ציונה">נס ציונה</MenuItem>
+                                <MenuItem value="נס ציונה">נס ציונה</MenuItem> */}
+                                <MenuItem value=""><em>לא נבחר</em></MenuItem>
+                                {cities.map((city) => (
+                                    <MenuItem key={city.city_name} value={city.city_name}>{city.city_name}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </Grid>
 
                     {/* תאריך */}
                     <Grid item xs={12} sm={4} md={3}>
-                        <FormControl fullWidth>
+                        {/* <FormControl fullWidth>
                             <TextField
                                 id="date-picker"
                                 type="date"
@@ -242,7 +280,7 @@ const RequestPage = () => {
                                     },
                                 }}
                             />
-                        </FormControl>
+                        </FormControl> */}
                     </Grid>
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "end" }}>
                         <Button

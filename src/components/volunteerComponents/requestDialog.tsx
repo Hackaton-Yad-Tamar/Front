@@ -17,6 +17,7 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import "ol/ol.css";
 import { RequestDialogProps } from "../../types/request.types";
+import { updateRequest } from "./api";
 
 const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency: request }) => {
   if (!request) return null;
@@ -122,8 +123,8 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
     return null;
   };
 
-  const onSubmit = () => {
-    console.log("gal")
+  const onSubmit = (id: string) => {
+    updateRequest(id)
     setSubmit(!submit)
   }
 
@@ -196,11 +197,11 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
         <Box sx={{ display: "flex", height: "100%" }}>
           {/* Details on the left (50% width) */}
           <Box sx={{ flex: 1, paddingRight: "10px", fontFamily: "Rubik, sans-serif" }}>
-            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>שם:</strong> {request.first_name} {request.last_name}</Typography>
-            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>אזור:</strong> {request.city}  </Typography>
-            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>תיאור:</strong> {request.description}</Typography>
+            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>שם:</strong> {request.user.first_name} {request.last_name}</Typography>
+            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>אזור:</strong> {request.city.city_name}  </Typography>
+            <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}><strong>תיאור:</strong> {request.request.description}</Typography>
             <Typography sx={{ color: "#324A6D", fontFamily: "Rubik, sans-serif" }}>
-              <strong>מספר טלפון:</strong> {request.phone_number}
+              <strong>מספר טלפון:</strong> {request.user.phone_number}
             </Typography>
           </Box>
 
@@ -241,7 +242,7 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
           ביטול התנדבות
         </Button>}
         <Button
-          onClick={onSubmit}
+          onClick={() => onSubmit(request.request.id)} // Pass the request ID here
           disabled={submit}
           sx={{
             backgroundColor: submit ? "#28A745" : "#00AEEE", // Green when submitted, default otherwise

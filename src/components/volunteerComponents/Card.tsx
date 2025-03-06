@@ -161,13 +161,13 @@ const CardList = ({ cardsData }) => {
         {cardsData.map((card, index) => (
           <Card
             key={index}
-            title={card.request_type}
+            title={card.request_type.type_name}
             last_name={card.last_name}  
             description={card.description}  
             requires_vehical={card.requires_vehical}
-            location={card.city}
+            location={card.city.city_name}
             onClick={() => handleCardClick(card)} // Pass the card data to the click handler
-            is_urgent={card.is_urgent}
+            is_urgent={card.request.is_urgent}
           />
         ))}
       </Stack>
