@@ -16,6 +16,8 @@ import { AccessTimeOutlined, CarCrash, DescriptionOutlined } from "@mui/icons-ma
 import axiosInstance from "../../../axios";
 import { MyRequest, RequestStatus, RequestType } from "../../../types/request";
 import dayjs from "dayjs";
+import RequestDialog from "../components/RequestDialog";
+import RequestCard from "../components/RequestCard";
 
 const MyRequests: React.FC = () => {
     const [requests, setRequests] = useState<MyRequest[]>([]);
@@ -57,9 +59,6 @@ const MyRequests: React.FC = () => {
         setFilteredRequests(filterRequests);
     }, [filterDate, filterType, requests]);
 
-    const formatDateTime = (isoString: string) => {
-        return dayjs(isoString).format("YYYY-MM-DD HH:mm");
-    };
 
     return (
         <Box
@@ -91,7 +90,7 @@ const MyRequests: React.FC = () => {
                     <FormControlLabel
                         control={<Checkbox checked={showOpenRequests} onChange={(e) => setShowOpenRequests(e.target.checked)} />}
                         label={<Typography sx={{ fontWeight: "bold", color: themeColors.darkBlue }}>הצג רק בקשות פתוחות</Typography>}
-                        sx={{ background: "#f0f8ff", padding: "5px 10px", borderRadius: "8px" ,marginX:1}}
+                        sx={{ background: "#f0f8ff", padding: "5px 10px", borderRadius: "8px", marginX: 1 }}
                     />
                     <TextField select label="סינון לפי סטטוס" sx={{ minWidth: 200 }}>
                         {statuses.map((status) => (
@@ -122,83 +121,13 @@ const MyRequests: React.FC = () => {
 
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
-                    {filteredRequests.map((request, index) => (
-                        <Grid item xs={12} md={4} key={index}>
-                            <Paper
-                                sx={{
-                                    p: 3,
-                                    borderRadius: "10px",
-                                    boxShadow: 3,
-                                    position: "relative",
-                                    ...(request.is_urgent && { border: "2px solid red" })
-                                }}
-                            >
-                                <Box display="flex" justifyContent="space-between">
-                                    <Typography
-                                        variant="h6"
-                                        fontWeight="bold"
-                                        textAlign="right"
-                                        sx={{ color: themeColors.darkBlue }}
-                                    >
-                                        {request.request_type_relation.type_name}
-                                    </Typography>
-                                    <Button
-                                        variant="contained"
-                                        sx={{
-                                            alignSelf: "start",
-                                            borderRadius: "20px",
-                                            backgroundColor:
-                                                index % 2 === 0 ? themeColors.lightGreen : themeColors.lightBlue,
-                                        }}
-                                    >
-                                        {index % 2 === 0 ? "פתוח" : "בטיפול"}
-                                    </Button>
-                                </Box>
+                    {filteredRequests.map((request, index) => {
 
-                                <Divider sx={{ my: 1 }} />
-
-                                <Box alignItems="center" display="flex">
-                                    <DescriptionOutlined />
-                                    <Typography variant="h6" color="textSecondary" textAlign="right" marginRight={2}>
-                                        {request.description}
-                                    </Typography>
-                                </Box>
-
-                                <Box alignItems="center" display="flex">
-                                    <AccessTimeOutlined />
-                                    <Typography variant="h6" color="textSecondary" textAlign="right" marginRight={2}>
-                                        {formatDateTime(request.created_at)}
-                                    </Typography>
-                                </Box>
-
-                                {request.requires_vehicle &&
-                                    <Box alignItems="center" display="flex">
-                                        <CarCrash />
-                                        <Typography variant="h6" color="textSecondary" textAlign="right" marginRight={2}>
-                                            נדרש רכב
-                                        </Typography>
-                                    </Box>
-                                }
-
-                                {request.is_urgent && (
-                                    <Typography
-                                        color="red"
-                                        variant="h6"
-                                        sx={{
-                                            position: "absolute",
-                                            bottom: 10,
-                                            left: 10,
-                                            fontWeight: "bold",
-                                        }}
-                                    >
-                                        דחוף
-                                    </Typography>
-                                )}
-                            </Paper>
-                        </Grid>
-                    ))}
+                        return <RequestCard request={request}/>
+                    })}
                 </Grid>
             </Box>
+
         </Box>
     );
 };
