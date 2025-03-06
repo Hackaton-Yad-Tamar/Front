@@ -82,7 +82,7 @@ const SignIn: React.FC = () => {
                 if (!user.first_sign_in) {
                     login(user);
                     if (user.user_type == 2) {
-                        navigate("/home")
+                        navigate("/volunteer")
                     } else if (user.user_type == 1) {
                         navigate("/home")
                     } else {
