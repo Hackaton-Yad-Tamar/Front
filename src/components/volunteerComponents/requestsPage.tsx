@@ -78,7 +78,7 @@ const RequestPage = () => {
     const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
 
     useEffect(() => {
-        const israelCenter = fromLonLat([34.8516, 31.0461]);
+        const israelCenter = fromLonLat([34.8513687, 32.2782612]);
         const newVectorSource = new VectorSource();
         const vectorLayer = new VectorLayer({
             source: newVectorSource,
@@ -94,7 +94,7 @@ const RequestPage = () => {
             ],
             view: new View({
                 center: israelCenter,
-                zoom: 7,
+                zoom: 12,
             }),
         });
 
