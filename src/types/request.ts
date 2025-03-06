@@ -1,9 +1,15 @@
-type RequestTypeRelation = {
-    type_name: string; // Keeping this as it appears in the response
+export type RequestType = {
     id: number;
-  };
-  
-  export type MyRequest = {
+    type_name: string;
+};
+
+export type RequestStatus = {
+    id: number;
+    status_name: string;
+    status_color: string;
+}
+
+export type MyRequest = {
     description: string;
     status: number;
     assigned_volunteer_id: string;
@@ -15,6 +21,6 @@ type RequestTypeRelation = {
     city: number;
     is_urgent: boolean;
     expected_completion: string; // Can be Date if parsed
-    request_type_relation: RequestTypeRelation;
-  };
-  
+    request_type_relation: RequestType;
+    requires_vehicle: boolean;
+};
