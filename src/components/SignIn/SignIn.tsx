@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
@@ -33,6 +33,10 @@ const SignIn: React.FC = () => {
     const [errors, setErrors] = useState<{ email?: string; password?: string }>(
         {}
     );
+
+    useEffect(() => {
+        localStorage.removeItem('user');
+    }, [])
     const [isFirstTime, setIsFirstTime] = useState<boolean>(false);
     const { login } = useUser();
     const navigate = useNavigate()

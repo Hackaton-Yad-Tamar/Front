@@ -10,6 +10,7 @@ import MyRequests from "./views/FamilyView/pages/MyRequests";
 import HomePageView from "./views/HomePageView/HomePageView";
 import Leaderboard from "./views/Leaderboard/Leaderboard";
 import ProfileView from "./views/ProfileView/ProfileView";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute.tsx";
 
 export enum Route {
   root = "/",
@@ -36,19 +37,20 @@ const router = createBrowserRouter([
       },
       {
         path: Route.home,
-        element: <Home />,
+        element: <PrivateRoute element={<Home />} />,
       },
       {
         path: Route.requests,
-        element: <MyRequests />,
+        element: <PrivateRoute element={<MyRequests />} />,
       },
       {
         path: Route.profile,
-        element: <ProfileView />,
+        element: <PrivateRoute element={<ProfileView />} />,
+
       },
       {
         path: Route.community,
-        element: <Leaderboard />,
+        element: <PrivateRoute element={<Leaderboard />} />,
       },
       {
         path: Route.resetPassword,
@@ -68,8 +70,8 @@ const router = createBrowserRouter([
       },
       {
         path: Route.dashboard,
-        element: <Dashboard />,
-      },
+        element: <PrivateRoute element={<Dashboard />} />,
+      }
     ],
   },
   {
