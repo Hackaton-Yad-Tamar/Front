@@ -18,7 +18,7 @@ import { CacheProvider } from "@emotion/react";
 import rtlPlugin from "stylis-plugin-rtl";
 import { useQuery } from "react-query";
 import { signUpButtonStyle } from "./styles";
-import { getData, saveData } from '../../api/axios';
+import { getData, saveData } from "../../api/axios";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -26,15 +26,17 @@ const rtlCache = createCache({
 });
 
 const fetchCities = async () => {
-  return await getData('http://localhost:8000/users/cities');
+  const shely = (await getData("http://back:8000/users/cities")).data;
+  console.log(shely);
+  return await getData("http://localhost:8000/users/cities");
 };
 
 const fetchSkills = async () => {
-  return await getData('http://localhost:8000/users/skills');
+  return await getData("http://localhost:8000/users/skills");
 };
 
 const fetchLicenses = async () => {
-  return await getData('http://localhost:8000/users/licenses');
+  return await getData("http://localhost:8000/users/licenses");
 };
 
 type Props = {
@@ -52,36 +54,35 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
     city: "",
     preferred_city: "",
     preferred_skill: "",
-    license_level: ""
+    license_level: "",
   });
 
   const { data: cities = [] } = useQuery({
-    queryKey: ['cities'],
+    queryKey: ["cities"],
     queryFn: fetchCities,
   });
 
   const { data: skills = [] } = useQuery({
-    queryKey: ['skills'],
+    queryKey: ["skills"],
     queryFn: fetchSkills,
   });
 
   const { data: licenses = [] } = useQuery({
-    queryKey: ['licenses'],
+    queryKey: ["licenses"],
     queryFn: fetchLicenses,
   });
-
 
   const handleSave = async () => {
     if (isFormInvalid()) return;
 
     try {
       console.log(formData);
-      await saveData('http://localhost:8000/users/signup/vulenteer', formData);
-      console.log('המשתמש נשמר בהצלחה!');
+      await saveData("http://localhost:8000/users/signup/vulenteer", formData);
+      console.log("המשתמש נשמר בהצלחה!");
       onClose();
     } catch (error) {
-        console.error('שגיאה בשמירת המשתמש:', error);
-        console.log('אירעה שגיאה במהלך שמירת המשתמש. אנא נסה שוב מאוחר יותר.'); 
+      console.error("שגיאה בשמירת המשתמש:", error);
+      console.log("אירעה שגיאה במהלך שמירת המשתמש. אנא נסה שוב מאוחר יותר.");
     }
   };
 
@@ -95,7 +96,10 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
   const isEmailInvalid = () => !emailRegex.test(formData.email);
 
   const isFormInvalid = () =>
-    isFirstNameInvalid() || isLastNameInvalid() || isPhoneInvalid() || isEmailInvalid();
+    isFirstNameInvalid() ||
+    isLastNameInvalid() ||
+    isPhoneInvalid() ||
+    isEmailInvalid();
 
   const formFields = [
     {
@@ -142,28 +146,28 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
       label: "עיר מגורים",
       component: "select",
       list: cities,
-      fieldToPresent: 'city_name'
+      fieldToPresent: "city_name",
     },
     {
       key: "preferred_city",
       label: "עיר מועדפת",
       component: "select",
       list: cities,
-      fieldToPresent: 'city_name'
+      fieldToPresent: "city_name",
     },
     {
       key: "preferred_skill",
       label: "התנדבות מועדפת",
       component: "select",
       list: skills,
-      fieldToPresent: 'type_name'
+      fieldToPresent: "type_name",
     },
     {
       key: "license_level",
       label: "סוג רישיון",
       component: "select",
       list: licenses,
-      fieldToPresent: 'license_name'
+      fieldToPresent: "license_name",
     },
   ];
 
@@ -178,18 +182,17 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
         city: "",
         preferred_city: "",
         preferred_skill: "",
-        license_level: ""
+        license_level: "",
       });
     }
   }, [open]);
 
   const handleChange = (key: any) => (event: any) => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       [key]: event.target.value,
     }));
-  };
-
+  };
 
   return (
     <Dialog open={open} onClose={onClose} dir="rtl">
@@ -212,7 +215,9 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
                   value={formData[field.key as keyof typeof formData]}
                   onChange={handleChange(field.key)}
                   required
-                  error={field.error || !formData[field.key as keyof typeof formData]}
+                  error={
+                    field.error || !formData[field.key as keyof typeof formData]
+                  }
                 />
               )}
               {field.component === "select" && (
@@ -223,7 +228,10 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
                     value={formData[field.key as keyof typeof formData] || ""}
                     onChange={handleChange(field.key)}
                     required
-                    error={field.error || !formData[field.key as keyof typeof formData]}
+                    error={
+                      field.error ||
+                      !formData[field.key as keyof typeof formData]
+                    }
                   >
                     {field.list?.map((type: any) => (
                       <MenuItem key={type.id} value={type.id}>
@@ -250,7 +258,11 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
           justifyContent: "center",
         }}
       >
-        <Button onClick={handleSave} disabled={isFormInvalid()} sx={signUpButtonStyle}>
+        <Button
+          onClick={handleSave}
+          disabled={isFormInvalid()}
+          sx={signUpButtonStyle}
+        >
           הצטרפות
         </Button>
       </DialogActions>

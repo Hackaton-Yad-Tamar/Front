@@ -3,10 +3,10 @@ name: CI/CD for Frontend
 on:
   push:
     branches:
-      - dev
+      - workflow-front
   pull_request:
     branches:
-      - dev
+      - workflow-front
 
 jobs:
   build-front:

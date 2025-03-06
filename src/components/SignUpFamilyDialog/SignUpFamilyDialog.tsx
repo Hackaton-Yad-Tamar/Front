@@ -13,14 +13,14 @@ import {
   InputLabel,
   FormHelperText,
   Checkbox,
-  FormControlLabel
+  FormControlLabel,
 } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import rtlPlugin from "stylis-plugin-rtl";
 import { useQuery } from "react-query";
 import { signUpButtonStyle } from "./styles";
-import { getData, saveData } from '../../api/axios';
+import { getData, saveData } from "../../api/axios";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -28,7 +28,9 @@ const rtlCache = createCache({
 });
 
 const fetchCities = async () => {
-  return await getData('http://localhost:8000/users/cities');
+  const shely = (await getData("http://back:8000/users/cities")).data;
+  console.log(shely);
+  return await getData("http://localhost:8000/users/cities");
 };
 
 type Props = {
@@ -47,26 +49,25 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
     floor_number: "",
     has_parking: false,
     has_elevator: false,
-    is_private_house: false
+    is_private_house: false,
   });
 
   const { data: cities = [] } = useQuery({
-    queryKey: ['cities'],
+    queryKey: ["cities"],
     queryFn: fetchCities,
   });
-
 
   const handleSave = async () => {
     if (isFormInvalid()) return;
 
     try {
       console.log(formData);
-      await saveData('http://localhost:8000/users/signup/family', formData);
-      console.log('המשתמש נשמר בהצלחה!');
+      await saveData("http://localhost:8000/users/signup/family", formData);
+      console.log("המשתמש נשמר בהצלחה!");
       onClose();
     } catch (error) {
-        console.error('שגיאה בשמירת המשתמש:', error);
-        console.log('אירעה שגיאה במהלך שמירת המשתמש. אנא נסה שוב מאוחר יותר.'); 
+      console.error("שגיאה בשמירת המשתמש:", error);
+      console.log("אירעה שגיאה במהלך שמירת המשתמש. אנא נסה שוב מאוחר יותר.");
     }
   };
 
@@ -80,7 +81,10 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
   const isEmailInvalid = () => !emailRegex.test(formData.email);
 
   const isFormInvalid = () =>
-    isFirstNameInvalid() || isLastNameInvalid() || isPhoneInvalid() || isEmailInvalid();
+    isFirstNameInvalid() ||
+    isLastNameInvalid() ||
+    isPhoneInvalid() ||
+    isEmailInvalid();
 
   const formFields = [
     {
@@ -127,7 +131,7 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
       label: "עיר מגורים",
       component: "select",
       list: cities,
-      fieldToPresent: 'city_name'
+      fieldToPresent: "city_name",
     },
     {
       key: "floor_number",
@@ -136,22 +140,22 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
       component: "textField",
     },
     {
-        key: "has_parking",
-        label: "האם יש חניה?",
-        type: "boolean",
-        component: "checkbox",
+      key: "has_parking",
+      label: "האם יש חניה?",
+      type: "boolean",
+      component: "checkbox",
     },
     {
-        key: "has_elevator",
-        label: "האם יש מעלית?",
-        type: "boolean",
-        component: "checkbox",
+      key: "has_elevator",
+      label: "האם יש מעלית?",
+      type: "boolean",
+      component: "checkbox",
     },
     {
-        key: "is_private_house",
-        label: "האם בית פרטי?",
-        type: "boolean",
-        component: "checkbox",
+      key: "is_private_house",
+      label: "האם בית פרטי?",
+      type: "boolean",
+      component: "checkbox",
     },
   ];
 
@@ -167,18 +171,20 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
         floor_number: "",
         has_parking: false,
         has_elevator: false,
-        is_private_house: false
+        is_private_house: false,
       });
     }
   }, [open]);
 
   const handleChange = (key: any) => (event: any) => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      [key]: event.target.type === "checkbox" ? event.target.checked : event.target.value,
+      [key]:
+        event.target.type === "checkbox"
+          ? event.target.checked
+          : event.target.value,
     }));
-  };
-
+  };
 
   return (
     <Dialog open={open} onClose={onClose} dir="rtl">
@@ -201,7 +207,9 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
                   value={formData[field.key as keyof typeof formData]}
                   onChange={handleChange(field.key)}
                   required
-                  error={field.error || !formData[field.key as keyof typeof formData]}
+                  error={
+                    field.error || !formData[field.key as keyof typeof formData]
+                  }
                 />
               )}
               {field.component === "select" && (
@@ -212,7 +220,10 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
                     value={formData[field.key as keyof typeof formData] || ""}
                     onChange={handleChange(field.key)}
                     required
-                    error={field.error || !formData[field.key as keyof typeof formData]}
+                    error={
+                      field.error ||
+                      !formData[field.key as keyof typeof formData]
+                    }
                   >
                     {field.list?.map((type: any) => (
                       <MenuItem key={type.id} value={type.id}>
@@ -222,22 +233,22 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
                   </Select>
                 </>
               )}
-              <Box sx={{display:'flex', flexDirection: 'row'}}>
+              <Box sx={{ display: "flex", flexDirection: "row" }}>
                 {field.component === "checkbox" && (
-                <>
-                <FormControlLabel
-                control={
-                    <Checkbox
-                    checked={formData[field.key as keyof typeof formData]}
-                    onChange={handleChange(field.key)}
-                    color="default"
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={formData[field.key as keyof typeof formData]}
+                          onChange={handleChange(field.key)}
+                          color="default"
+                        />
+                      }
+                      label={field.label}
+                      labelPlacement="start" // Places the label on the left of the checkbox
                     />
-                }
-                label={field.label}
-                labelPlacement="start" // Places the label on the left of the checkbox
-                />
-                </>
-              )}
+                  </>
+                )}
               </Box>
               {field.error && (
                 <FormHelperText sx={{ color: "red" }}>
@@ -256,7 +267,11 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
           justifyContent: "center",
         }}
       >
-        <Button onClick={handleSave} disabled={isFormInvalid()} sx={signUpButtonStyle}>
+        <Button
+          onClick={handleSave}
+          disabled={isFormInvalid()}
+          sx={signUpButtonStyle}
+        >
           הצטרפות
         </Button>
       </DialogActions>
