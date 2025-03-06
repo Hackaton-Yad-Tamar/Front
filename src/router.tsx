@@ -1,16 +1,16 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Root from "./components/Root";
-import { mockUser } from "./mockUser";
+import ChangePassword from "./views/ChangePassword/ChangePassword";
+import ResetPassword from "./views/ChangePassword/ForgotPassword";
+import NewPassword from "./views/ChangePassword/NewPassword";
 import Home from "./views/FamilyView/pages/Home";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
 import HomePageView from "./views/HomePageView/HomePageView";
-import ProfileView from "./views/ProfileView/ProfileView";
 import Leaderboard from "./views/Leaderboard/Leaderboard";
-import NewPassword from "./views/ChangePassword/NewPassword";
-import ChangePassword from "./views/ChangePassword/ChangePassword";
-import ResetPassword from "./views/ChangePassword/ForgotPassword";
+import ProfileView from "./views/ProfileView/ProfileView";
 
 export enum Route {
+  root = "/",
   login = "/login",
   home = "home",
   volunteer = "/nvoluteer",
@@ -21,10 +21,9 @@ export enum Route {
   changePassword = "/change-password",
   forgotPassword = "/forgot-password",
 }
-
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: Route.root,
     element: <Root />,
     children: [
       {
@@ -41,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path: Route.profile,
-        element: <ProfileView user={mockUser} />,
+        element: <ProfileView />,
       },
       {
         path: Route.community,

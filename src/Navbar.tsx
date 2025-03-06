@@ -89,8 +89,14 @@ const Navbar: React.FC = () => {
             קהילה
           </Button>
         </Box>
-        <Typography>שלום {user?.firstName}</Typography>
-        <img src=".\public\menu-logo-small.png" width={"5%"} />
+        <Box
+          sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "1rem" }}
+        >
+          <Typography>
+            שלום, <Typography fontWeight="bold">{user?.firstName}</Typography>
+          </Typography>
+          <img src=".\public\menu-logo-small.png" width={"30%"} />
+        </Box>
       </Toolbar>
     </AppBar>
   );

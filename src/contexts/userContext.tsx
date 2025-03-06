@@ -1,23 +1,8 @@
-import { createContext, useContext, useState, ReactNode } from "react";
-import { City, UserType } from "../types/userType";
-
-type User = {
-  id: string,
-    firstName: string,
-    lastName: string,
-    userType:  UserType,
-    phoneNumber: string,
-    address: string,
-    city: City,
-    email: string,
-    createdAt: Date,
-    approvedAt: Date,
-    approvedBy: string,
-    isApproved: boolean,
-} | null;
+import { createContext, ReactNode, useContext, useState } from "react";
+import { User } from "../types/userType";
 
 interface UserContextType {
-  user: User;
+  user?: User;
   login: (userData: User) => void;
   logout: () => void;
 }
@@ -27,16 +12,12 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 // Provider component
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<User>();
 
   const login = (userData: User) => setUser(userData);
-  const logout = () => setUser(null);
+  const logout = () => setUser(undefined);
 
-  return (
-    <UserContext.Provider value={{ user, login, logout }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, login, logout }}>{children}</UserContext.Provider>;
 };
 
 // Hook to use the auth context
