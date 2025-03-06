@@ -7,7 +7,8 @@ import { CustomBarChart } from "../../components/Dashboard/BarChart";
 import { DataTable } from "../../components/Dashboard/DataTable";
 
 //data
-import { fetchPieData, PieData, PieParameters ,tableData} from "../../data/Dashboard/DataFatch"; // Assuming data is in TestData
+import { fetchPieData, PieData, PieParameters , fetcheTableData} from "../../data/Dashboard/DataFatch"; // Assuming data is in TestData
+import { Typography, Box } from "@mui/material";
 
 export const Dashboard = () => {
   const [filters, setFilters] = useState<PieData>({
@@ -18,7 +19,7 @@ export const Dashboard = () => {
   const [statusData, setStatusData] = useState<{ category: string; value: number }[]>([]);
   const [cityData, setCityData] = useState<{ category: string; value: number }[]>([]);
   const [typeData, setTypeData] = useState<{ category: string; value: number }[]>([]);
-
+  const [tableData, setTableData] = useState<{ category: string; value: number}[]>([]);
   // update data using the filters
   useEffect(() => {
     const fetchData = async () => {
@@ -28,10 +29,12 @@ export const Dashboard = () => {
       setCityData(cityData);
       const typeData = await fetchPieData("type-count", filters);
       setTypeData(typeData);
+      const tableData = await fetcheTableData("filtered-table", filters);
+      setTableData(tableData);
     };
     fetchData();
   }, [filters]);
-
+  
   const handleFilter = (filterType: keyof PieData, value: string) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -47,48 +50,55 @@ export const Dashboard = () => {
   console.log("tableData:", tableData); // Add log to check data
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4 text-center">📊 Interactive Dashboard</h1>
+    <div dir="ltr">
+    <Box p={6} bgcolor="grey.100" minHeight="100vh">
+      <Typography variant="h4" fontWeight="bold" mb={4} align="center">
+        📊 Management Dashboard
+      </Typography>
+      <Box display="flex" justifyContent="center" flexWrap="wrap">
+      <BasicDatePicker
+            name="From"
+            
+            onDateChange={(start_date) => handleFilter("start_date", start_date)}
+          />
+          <Box width={40} />
+          <BasicDatePicker
+            name="To"
+            onDateChange={(end_date) => handleFilter("end_date", end_date)}
+          />
+      </Box>
+      <Box display="grid" gridTemplateColumns={{ xs: "1fr", md: "repeat(1fr, 3)" }} gap={6} pt={3}>
+        
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-gray-200 p-4">
-          <BasicDatePicker
-              name="start_date"
-              onDateChange={(start_date) => handleFilter("start_date", start_date)}
-            />
-        </div>
-        <div className="bg-gray-200 p-4">
-          <BasicDatePicker
-              name="end_date"
-              onDateChange={(end_date) => handleFilter("end_date", end_date)}
-            />
-        </div>
-        <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
-        <div style={{ width: "30%", minWidth: "300px" }}>
+        <Box display="flex" justifyContent="space-around" flexWrap="wrap">
+          <Box width={{ xs: "100%", sm: "45%", md: "30%" }} minWidth={300}>
             <PieChartComponent
+            name="Status"
               data={statusData}
               onPieClick={(status) => handleFilter("status", status)}
             />
-          </div>
-          <div style={{ width: "30%", minWidth: "300px" }}>
+          </Box>
+          <Box width={{ xs: "100%", sm: "45%", md: "30%" }} minWidth={300}>
             <PieChartComponent
+            name="City"
               data={cityData}
               onPieClick={(city) => handleFilter("city", city)}
             />
-          </div>
-          <div style={{ width: "30%", minWidth: "300px" }}>
+          </Box>
+          <Box width={{ xs: "100%", sm: "45%", md: "30%" }} minWidth={300}>
             <PieChartComponent
+            name="Type"
               data={typeData}
               onPieClick={(request_type) => handleFilter("request_type", request_type)}
             />
-          </div>
-        </div>
-        <CustomBarChart
-          data={typeData}
-        />
-      </div>
-      <DataTable 
-        data={tableData}      />
+          </Box>
+        </Box>
+      </Box>
+      
+      <Box display="flex" justifyContent="space-around" flexWrap="wrap" pt={5} padding={5}>
+        <DataTable data={tableData} />
+      </Box>
+    </Box>
     </div>
   );
 };
