@@ -243,7 +243,6 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
         <Button
           onClick={onSubmit}
           disabled={submit}
-          color="white"
           sx={{
             backgroundColor: submit ? "#28A745" : "#00AEEE", // Green when submitted, default otherwise
             color: "white",
