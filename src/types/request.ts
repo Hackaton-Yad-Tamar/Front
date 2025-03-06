@@ -21,6 +21,11 @@ export type MyRequest = {
     city: number;
     is_urgent: boolean;
     expected_completion: string; // Can be Date if parsed
-    request_type_relation: RequestType;
     requires_vehicle: boolean;
 };
+
+export type AllRequest = {
+    request: MyRequest;
+    request_type: RequestType;
+    status: RequestStatus;
+}

@@ -7,13 +7,14 @@ import {
     Paper,
     Typography
 } from "@mui/material";
-import { themeColors } from "../../../App";
-import RequestDialog from "../components/RequestDialog";
-import { useState } from "react";
-import { MyRequest } from "../../../types/request";
 import dayjs from "dayjs";
+import { useState } from "react";
+import { themeColors } from "../../../App";
+import { AllRequest } from "../../../types/request";
+import RequestDialog from "../components/RequestDialog";
 
-const RequestCard = ({request} : {request : MyRequest}) => {
+const RequestCard = ({ allRequest }: { allRequest: AllRequest }) => {
+    console.log(allRequest)
     const [openRequestDialog, setOpenRequestDialog] = useState(false)
 
     const formatDateTime = (isoString: string) => {
@@ -21,15 +22,15 @@ const RequestCard = ({request} : {request : MyRequest}) => {
     };
 
     return (
-        <Grid item xs={12} md={4} key={request.id}>
-            <RequestDialog open={openRequestDialog} setOpen={setOpenRequestDialog} request={request} />
+        <Grid item xs={12} md={4} key={allRequest.request.id}>
+            <RequestDialog open={openRequestDialog} setOpen={setOpenRequestDialog} request={allRequest} />
             <Paper
                 sx={{
                     p: 3,
                     borderRadius: "10px",
                     boxShadow: 3,
                     position: "relative",
-                    ...(request.is_urgent && { border: "2px solid red" })
+                    ...(allRequest.request.is_urgent && { border: "2px solid red" })
                 }}
                 onClick={() => { setOpenRequestDialog(true) }}
             >
@@ -40,18 +41,17 @@ const RequestCard = ({request} : {request : MyRequest}) => {
                         textAlign="right"
                         sx={{ color: themeColors.darkBlue }}
                     >
-                        {request.request_type_relation.type_name}
+                        {allRequest.request_type.type_name}
                     </Typography>
                     <Button
                         variant="contained"
                         sx={{
                             alignSelf: "start",
                             borderRadius: "20px",
-                            // backgroundColor:
-                                //  % 2 === 0 ? themeColors.lightGreen : themeColors.lightBlue,
+                            backgroundColor: allRequest.status.status_color
                         }}
                     >
-                        {/* {index % 2 === 0 ? "פתוח" : "בטיפול"} */}
+                        {allRequest.status.status_name}
                     </Button>
                 </Box>
 
@@ -60,18 +60,18 @@ const RequestCard = ({request} : {request : MyRequest}) => {
                 <Box alignItems="center" display="flex">
                     <DescriptionOutlined />
                     <Typography variant="h6" color="textSecondary" textAlign="right" marginRight={2}>
-                        {request.description}
+                        {allRequest.request.description}
                     </Typography>
                 </Box>
 
                 <Box alignItems="center" display="flex">
                     <AccessTimeOutlined />
                     <Typography variant="h6" color="textSecondary" textAlign="right" marginRight={2}>
-                        {formatDateTime(request.created_at)}
+                        {formatDateTime(allRequest.request.created_at)}
                     </Typography>
                 </Box>
 
-                {request.requires_vehicle &&
+                {allRequest.request.requires_vehicle &&
                     <Box alignItems="center" display="flex">
                         <CarCrash />
                         <Typography variant="h6" color="textSecondary" textAlign="right" marginRight={2}>
@@ -80,7 +80,7 @@ const RequestCard = ({request} : {request : MyRequest}) => {
                     </Box>
                 }
 
-                {request.is_urgent && (
+                {allRequest.request.is_urgent && (
                     <Typography
                         color="red"
                         variant="h6"

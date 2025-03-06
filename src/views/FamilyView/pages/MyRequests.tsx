@@ -14,14 +14,14 @@ import React, { useEffect, useState } from "react";
 import { themeColors } from "../../../App";
 import { AccessTimeOutlined, CarCrash, DescriptionOutlined } from "@mui/icons-material";
 import axiosInstance from "../../../axios";
-import { MyRequest, RequestStatus, RequestType } from "../../../types/request";
+import { AllRequest, MyRequest, RequestStatus, RequestType } from "../../../types/request";
 import dayjs from "dayjs";
 import RequestDialog from "../components/RequestDialog";
 import RequestCard from "../components/RequestCard";
 
 const MyRequests: React.FC = () => {
-    const [requests, setRequests] = useState<MyRequest[]>([]);
-    const [filteredRequests, setFilteredRequests] = useState<MyRequest[]>([]);
+    const [requests, setRequests] = useState<AllRequest[]>([]);
+    const [filteredRequests, setFilteredRequests] = useState<AllRequest[]>([]);
     const [filterDate, setFilterDate] = useState<string>();
     const [types, setTypes] = useState<RequestType[]>([]);
     const [statuses, setStatuses] = useState<RequestStatus[]>([]);
@@ -29,7 +29,7 @@ const MyRequests: React.FC = () => {
     const [showOpenRequests, setShowOpenRequests] = useState<boolean>(false);
 
     useEffect(() => {
-        axiosInstance.get<MyRequest[]>("/request")
+        axiosInstance.get<AllRequest[]>("/request")
             .then((response) => {
                 setRequests(response.data);
                 setFilteredRequests(response.data);
@@ -52,8 +52,8 @@ const MyRequests: React.FC = () => {
     useEffect(() => {
         const filterRequests = requests.filter((request) => {
             return (
-                (!filterDate || dayjs(request.created_at).format("YYYY-MM-DD") === filterDate) &&
-                (!filterType || request.request_type_relation.id.toString() === filterType)
+                (!filterDate || dayjs(request.request.created_at).format("YYYY-MM-DD") === filterDate) &&
+                (!filterType || request.request_type.id.toString() === filterType)
             );
         });
         setFilteredRequests(filterRequests);
@@ -121,10 +121,9 @@ const MyRequests: React.FC = () => {
 
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
-                    {filteredRequests.map((request, index) => {
-
-                        return <RequestCard request={request}/>
-                    })}
+                    {filteredRequests.map((request, index) =>
+                        <RequestCard key={index} allRequest={request} />
+                    )}
                 </Grid>
             </Box>
 

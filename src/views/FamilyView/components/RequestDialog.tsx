@@ -11,12 +11,12 @@ import {
   Chip,
 } from "@mui/material";
 import { DirectionsCar, AccessTime, Category } from "@mui/icons-material";
-import { MyRequest } from "../../../types/request";
+import { AllRequest, MyRequest } from "../../../types/request";
 
 interface RequestDialogProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  request: MyRequest;
+  request: AllRequest;
 }
 
 const RequestDialog: React.FC<RequestDialogProps> = ({
@@ -34,33 +34,33 @@ const RequestDialog: React.FC<RequestDialogProps> = ({
       maxWidth="sm"
     >
       <DialogTitle sx={{ fontWeight: "bold", color: "#007bff" }}>
-        {request.request_type_relation.type_name}
+        {request.request_type.type_name}
       </DialogTitle>
       <DialogContent>
         <Box display="flex" alignItems="center" gap={1}>
           <Category fontSize="small" />
           <Typography variant="subtitle2" color="textSecondary">
-            תחום: {request.request_type_relation.type_name}
+            תחום: {request.request_type.type_name}
           </Typography>
         </Box>
         <Box display="flex" alignItems="center" gap={1} mt={1}>
           <AccessTime fontSize="small" />
           <Typography variant="subtitle2" color="textSecondary">
-            תאריך: {request.created_at}
+            תאריך: {request.request.created_at}
           </Typography>
         </Box>
         <Typography variant="body1" sx={{ marginTop: 2 }}>
-          {request.description}
+          {request.request.description}
         </Typography>
         <Box display="flex" alignItems="center" gap={1} mt={2}>
           <DirectionsCar fontSize="small" />
           <Typography variant="subtitle2" color="textSecondary">
-            {request.requires_vehicle ? "נדרש רכב" : "לא נדרש רכב"}
+            {request.request.requires_vehicle ? "נדרש רכב" : "לא נדרש רכב"}
           </Typography>
         </Box>
         <Box display="flex" alignItems="center" gap={1} mt={2}>
           <Chip
-            label={request.status}
+            label={request.status.status_name}
           />
         </Box>
         {/* {request.status !== RequestStatus.Done && (
