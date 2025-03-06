@@ -28,9 +28,7 @@ const SignIn: React.FC = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>( {});
   const [isFirstTime, setIsFirstTime] = useState<boolean>(false);
   const { login } = useUser();
 
@@ -85,6 +83,7 @@ const SignIn: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         direction: "rtl",
+        width: "100%",
       }}
     >
       <CacheProvider value={rtlCache}>
@@ -92,16 +91,17 @@ const SignIn: React.FC = () => {
           component="form"
           onSubmit={handleSubmit}
           sx={{
-            width: "19vw",
-            padding: "1.5vw",
+            width: { xs: "80%", sm: "60%", md: "19vw" },  // Responsive width
+            padding: { xs: "5%", sm: "3%" },
             backgroundColor: "white",
             borderRadius: "12px",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+            textAlign: "center",
           }}
         >
           <Typography
             variant="h5"
-            sx={{ marginBottom: "4vh", textAlign: "center" }}
+            sx={{ textAlign: "center" }}
           >
             כניסה למשתמש קיים
           </Typography>
@@ -130,16 +130,19 @@ const SignIn: React.FC = () => {
             helperText={errors.password}
             sx={signInTextFieldStyle}
           />
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          
+          <Box sx={{ display: "flex", justifyContent: "center", marginTop: "2vh" }}>
             <Button variant="contained" type="submit" sx={signInButtonStyle}>
               התחבר
             </Button>
           </Box>
+          
           <FirstSignInDialog
             email={formData.email}
             open={isFirstTime}
             onClose={() => setIsFirstTime(false)}
           />
+
           <Box sx={{ marginTop: "10px", textAlign: "center" }}>
             <Link href="#" variant="body2" sx={forgotPasswordStyle}>
               שכחת את הסיסמה?
