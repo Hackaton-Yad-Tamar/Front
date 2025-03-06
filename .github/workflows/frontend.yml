@@ -9,7 +9,7 @@ on:
       - dev
 
 jobs:
-  build-and-deploy:
+  build-front:
     runs-on: ubuntu-latest
 
     steps:
