@@ -14,6 +14,8 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import rtlPlugin from "stylis-plugin-rtl";
 import { dialogStyle, signInButtonStyle, signInTextFieldStyle } from "./styles";
+import { saveData } from '../../api/axios';
+import { SHA256 } from "crypto-js";
 
 const rtlCache = createCache({
   key: "muirtl",
@@ -35,6 +37,7 @@ export const FirstSignInDialog = ({ open }: Props) => {
       return;
     }
 
+    await saveData('http://localhost:8000/users/update-password', { password:  SHA256(password).toString() });
     console.log("password changed");
   };
 
