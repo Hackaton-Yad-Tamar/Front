@@ -11,7 +11,7 @@ import HomePageView from "./views/HomePageView/HomePageView";
 import Leaderboard from "./views/Leaderboard/Leaderboard";
 import ProfileView from "./views/ProfileView/ProfileView";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.tsx";
-// import RequestPage from "./components/volunteerComponents/requestsPage";
+import RequestPage from "./components/volunteerComponents/requestsPage";
 
 export enum Route {
   root = "/",
@@ -73,10 +73,10 @@ const router = createBrowserRouter([
         path: Route.dashboard,
         element: <PrivateRoute element={<Dashboard />} />,
       },
-      // {
-      //   path: Route.volunteer,
-      //   element: <PrivateRoute element={<RequestPage />} />
-      // }
+      {
+        path: Route.volunteer,
+        element: <PrivateRoute element={<RequestPage />} />
+      }
     ],
   },
   {

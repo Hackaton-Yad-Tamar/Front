@@ -1,18 +1,17 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { AccessTime, Category, DirectionsCar } from "@mui/icons-material";
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Button,
-    Typography,
-    FormControl,
     Box,
+    Button,
     Chip,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    Typography,
 } from "@mui/material";
-import { DirectionsCar, AccessTime, Category } from "@mui/icons-material";
-import { AllRequest, MyRequest } from "../../../types/request";
-import axiosInstance from "../../../axios";
+import React, { Dispatch, SetStateAction } from "react";
+import { AllRequest } from "../../../types/request";
 
 interface RequestDialogProps {
     open: boolean;

@@ -24,6 +24,7 @@ const MyRequests: React.FC = () => {
     const [statuses, setStatuses] = useState<RequestStatus[]>([]);
     const [filterType, setFilterType] = useState<string>("");
     const [showOpenRequests, setShowOpenRequests] = useState<boolean>(false);
+
     const { user } = useUser();
 
     useEffect(() => {
@@ -45,17 +46,17 @@ const MyRequests: React.FC = () => {
                 setStatuses(response.data);
             })
             .catch((error) => console.error(error));
-    }, []);
+    }, [user]);
 
     useEffect(() => {
-        const filterRequests = requests.filter((request) => {
+        const filterRequests = [...requests].filter((request) => {
             return (
                 (!filterDate || dayjs(request.request.created_at).format("YYYY-MM-DD") === filterDate) &&
-                (!filterType || request.request_type.id.toString() === filterType)
+                (!filterType || request.request_type.id.toString() === filterType) && (!showOpenRequests || request.status.id !== 3)
             );
         });
         setFilteredRequests(filterRequests);
-    }, [filterDate, filterType, requests]);
+    }, [filterDate, filterType, requests, showOpenRequests]);
 
     const deleteRequest = (reqId: string) => {
         axiosInstance.delete('request/' + reqId).then().catch((error) => console.error(error));
