@@ -11,7 +11,6 @@ const SignUp = ({ OpenVolunteerSignUp, OpenFamilySignUp }: Props) => {
     OpenVolunteerSignUp();
   };
 
-
   const handleFamilySignUp = () => {
     OpenFamilySignUp();
   };
@@ -23,22 +22,23 @@ const SignUp = ({ OpenVolunteerSignUp, OpenFamilySignUp }: Props) => {
         justifyContent: "center",
         alignItems: "center",
         direction: "rtl",
+        width: "100%",
       }}
     >
       <Box
         sx={{
-          width: "19vw",
-          padding: "1.5vw",
+          width: { xs: "80%", sm: "60%", md: "30vw" },  // Adjusts width for responsiveness
+          padding: "5% 3%",
           backgroundColor: "white",
           borderRadius: "12px",
           boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+          textAlign: "center",
         }}
       >
         <Typography
           variant="h5"
           sx={{
             marginBottom: "4vh",
-            textAlign: "center",
           }}
         >
           צור משתמש חדש
@@ -53,7 +53,12 @@ const SignUp = ({ OpenVolunteerSignUp, OpenFamilySignUp }: Props) => {
           הירשם כמתנדב
         </Button>
 
-        <Button variant="contained" fullWidth sx={signUpButtonStyle} onClick={handleFamilySignUp}>
+        <Button
+          variant="contained"
+          fullWidth
+          sx={signUpButtonStyle}
+          onClick={handleFamilySignUp}
+        >
           הירשם כמשפחה
         </Button>
       </Box>

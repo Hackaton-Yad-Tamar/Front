@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
             gap: "1rem",
           }}
         >
-          <Typography>שלום {user?.firstName}</Typography>
+          <Typography>שלום {user?.first_name}</Typography>
         </Box>
         <img src=".\public\menu-logo-small.png" width={"5%"} />
       </Toolbar>

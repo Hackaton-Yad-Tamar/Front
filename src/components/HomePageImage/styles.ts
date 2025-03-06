@@ -1,17 +1,6 @@
-export const titleStyle = {
-  position: "absolute",
-  top: "30%",
-  left: "50%",
-  transform: " translate(-50%, -50%)",
-  color: "white",
-  padding: "10px",
-  textShadow: "0px 0px 8px black",
-
-};
-
 export const subTitleStyle = {
   position: "absolute",
-  top: "50%",
+  top: "35%",
   left: "50%",
   transform: " translate(-50%, -50%)",
   color: "white",
@@ -22,7 +11,7 @@ export const subTitleStyle = {
 
 export const imageTextStyle = {
   position: "absolute",
-  top: "75%",
+  top: "60%",
   left: "50%",
   transform: " translate(-50%, -50%)",
   color: "white",
