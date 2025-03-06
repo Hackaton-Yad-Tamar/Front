@@ -67,17 +67,17 @@ const RequestDialog: React.FC<RequestDialogProps> = ({
                         label={request.status.status_name}
                     />
                 </Box>
-                {/* {request.status !== RequestStatus.Done && (
-          <FormControl fullWidth sx={{ marginTop: 2 }}>
-            <Button
-              color="success"
-              variant="outlined"
-              sx={{ borderRadius: "10px" }}
-            >
-              שנה סטטוס לטופל
-            </Button>
-          </FormControl>
-        )} */}
+                {request.status.id == 2 && (
+                    <FormControl fullWidth sx={{ marginTop: 2 }}>
+                        <Button
+                            color="success"
+                            variant="outlined"
+                            sx={{ borderRadius: "10px" }}
+                        >
+                            שנה סטטוס לטופל
+                        </Button>
+                    </FormControl>
+                )}
             </DialogContent>
             <DialogActions>
                 <Button
@@ -90,7 +90,10 @@ const RequestDialog: React.FC<RequestDialogProps> = ({
                     סגור
                 </Button>
                 <Button
-                    onClick={() => deleteRequest(request.request.id)}
+                    onClick={() => {
+                        deleteRequest(request.request.id);
+                        setOpen(false);
+                    }}
                     color="error"
                     variant="outlined"
                     sx={{ mr: "3px" }}

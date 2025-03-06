@@ -13,6 +13,8 @@ import { themeColors } from "../../../App";
 import axiosInstance from "../../../axios";
 import { AllRequest, RequestStatus, RequestType } from "../../../types/request";
 import RequestCard from "../components/RequestCard";
+import { useUser } from "../../../contexts/userContext";
+
 
 const MyRequests: React.FC = () => {
     const [requests, setRequests] = useState<AllRequest[]>([]);
@@ -22,12 +24,13 @@ const MyRequests: React.FC = () => {
     const [statuses, setStatuses] = useState<RequestStatus[]>([]);
     const [filterType, setFilterType] = useState<string>("");
     const [showOpenRequests, setShowOpenRequests] = useState<boolean>(false);
+    const { user } = useUser();
 
     useEffect(() => {
         axiosInstance.get<AllRequest[]>("/request")
             .then((response) => {
-                setRequests(response.data);
-                setFilteredRequests(response.data);
+                user && setRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
+                user && setFilteredRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
             })
             .catch((error) => console.error(error));
 
@@ -54,9 +57,9 @@ const MyRequests: React.FC = () => {
         setFilteredRequests(filterRequests);
     }, [filterDate, filterType, requests]);
 
-        const deleteRequest = (reqId: string) => {
-            axiosInstance.delete('request/' + reqId).then().catch((error) => console.error(error));
-        }
+    const deleteRequest = (reqId: string) => {
+        axiosInstance.delete('request/' + reqId).then().catch((error) => console.error(error));
+    }
 
 
     return (
@@ -121,7 +124,7 @@ const MyRequests: React.FC = () => {
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
                     {filteredRequests.map((request, index) =>
-                        <RequestCard key={index} allRequest={request}  deleteRequest={deleteRequest}/>
+                        <RequestCard key={index} allRequest={request} deleteRequest={deleteRequest} />
                     )}
                 </Grid>
             </Box>
