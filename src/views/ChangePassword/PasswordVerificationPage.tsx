@@ -60,7 +60,7 @@ const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({ rightCode
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Box sx={{ maxWidth: 400, direction: 'rtl' }}>
         <Typography variant="h4" gutterBottom style={{ display: 'flex', justifyContent: 'center' }}>
           אימות אימייל
