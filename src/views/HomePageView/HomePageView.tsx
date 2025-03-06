@@ -1,4 +1,4 @@
-import { AppBar, Box, Stack, Toolbar } from "@mui/material";
+import { AppBar, Box, Stack, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import SignIn from "../../components/SignIn/SignIn";

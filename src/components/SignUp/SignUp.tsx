@@ -27,7 +27,7 @@ const SignUp = ({ OpenVolunteerSignUp, OpenFamilySignUp }: Props) => {
     >
       <Box
         sx={{
-          width: { xs: "80%", sm: "60%", md: "19vw" },  // Adjusts width for responsiveness
+          width: { xs: "80%", sm: "60%", md: "30vw" },  // Adjusts width for responsiveness
           padding: "5% 3%",
           backgroundColor: "white",
           borderRadius: "12px",
