@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
             קהילה
           </Button>
         </Box>
-        <img src=".\public\menu-logo-small.png" width={"5%"} />
+        <img src="/menu-logo-small.png" width={"5%"} />
       </Toolbar>
     </AppBar>
   );
