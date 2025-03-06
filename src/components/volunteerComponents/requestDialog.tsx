@@ -165,7 +165,7 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
         }}
       >
         <Typography variant="h5" sx={{ color: "#00AEEE", fontFamily: "Rubik, sans-serif" }}>
-          {request.is_urgent ? "SOS חירום" : "עזרה לא דחופה"}
+          {request.request.is_urgent ? "SOS חירום" : "עזרה לא דחופה"}
         </Typography>
         <img
           src="https://yadtamar.org.il/wp-content/uploads/2020/05/menu-logo-small.png" // Use the logo from the image or replace with your URL

@@ -55,7 +55,7 @@ const RequestPage = () => {
         if (!isAiClicked) {
             // Reset fields when turning on the AI mode
             setCategory('');
-            setArea('');
+            setArea('נתניה');
             setSelectedDate('');
         }
     };
