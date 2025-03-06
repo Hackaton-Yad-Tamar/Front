@@ -1,10 +1,13 @@
-import { AppBar, Box, Button, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { themeColors } from "./App";
 import { Route } from "./router";
+import { useUser } from "./contexts/userContext";
 
 const Navbar: React.FC = () => {
+  const { user } = useUser();
+
   return (
     <AppBar
       position="fixed"
@@ -15,7 +18,9 @@ const Navbar: React.FC = () => {
         backgroundColor: "white",
       }}
     >
-      <Toolbar sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}>
+      <Toolbar
+        sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}
+      >
         <Box>
           <Button
             sx={{
@@ -69,6 +74,7 @@ const Navbar: React.FC = () => {
             הפרופיל שלי
           </Button>
         </Box>
+        <Typography>שלום {user?.firstName}</Typography>
         <img src=".\public\menu-logo-small.png" width={"5%"} />
       </Toolbar>
     </AppBar>
