@@ -31,7 +31,9 @@ interface ProfileFormProps {
 
 export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
   const [formData, setFormData] = useState<User>({ ...user });
-  const [previewImage, setPreviewImage] = useState<string | null>(user.profilePicture || null);
+  const [previewImage, setPreviewImage] = useState<string | null>(
+    user.profilePicture || null
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [activeReviewIndex, setActiveReviewIndex] = useState(0);
   const maxReviews = formData.reviews?.length || 0;
@@ -41,10 +43,14 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
   };
 
   const handlePrevReview = () => {
-    setActiveReviewIndex((prevIndex) => (prevIndex - 1 + maxReviews) % maxReviews);
+    setActiveReviewIndex(
+      (prevIndex) => (prevIndex - 1 + maxReviews) % maxReviews
+    );
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -54,7 +60,10 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
   };
 
   const handleVehicleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, vehicle: e.target.value as VehicleType }));
+    setFormData((prev) => ({
+      ...prev,
+      vehicle: e.target.value as VehicleType,
+    }));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +102,11 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
     setFormData((prev) => ({
       ...prev,
       stats: {
-        ...(prev.stats || { eventsParticipated: 0, hoursVolunteered: 0, distanceTravelled: 0 }),
+        ...(prev.stats || {
+          eventsParticipated: 0,
+          hoursVolunteered: 0,
+          distanceTravelled: 0,
+        }),
         [statField]: numValue,
       },
     }));
@@ -110,9 +123,19 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
           }
         />
         <CardContent>
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 4 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              mb: 4,
+            }}
+          >
             <Box sx={{ position: "relative" }}>
-              <Avatar src={previewImage || undefined} sx={{ width: 100, height: 100, mb: 1 }}>
+              <Avatar
+                src={previewImage || undefined}
+                sx={{ width: 100, height: 100, mb: 1 }}
+              >
                 {!previewImage && getInitials()}
               </Avatar>
               <input
@@ -359,7 +382,11 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                     <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
                       מילים מאת המשפחות
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mb: 2 }}
+                    >
                       הביקורות מנוהלות ע"י המערכת ולא ניתנות לעריכה
                     </Typography>
 
@@ -376,8 +403,16 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                       }}
                     >
                       {/* Current review */}
-                      <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                        <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                      <Box
+                        sx={{
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <Box
+                          sx={{ display: "flex", alignItems: "center", mb: 2 }}
+                        >
                           <Avatar sx={{ bgcolor: themeColors.darkBlue, mr: 2 }}>
                             <FamilyRestroomIcon />
                           </Avatar>
