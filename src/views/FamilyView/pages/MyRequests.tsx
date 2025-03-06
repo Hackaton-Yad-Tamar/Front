@@ -28,20 +28,20 @@ const MyRequests: React.FC = () => {
     const { user } = useUser();
 
     useEffect(() => {
-        axiosInstance.get<AllRequest[]>("/request")
+        axiosInstance.get<AllRequest[]>("/api/request")
             .then((response) => {
                 user && setRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
                 user && setFilteredRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
             })
             .catch((error) => console.error(error));
 
-        axiosInstance.get<RequestType[]>("/request_type")
+        axiosInstance.get<RequestType[]>("/api/request_type")
             .then((response) => {
                 setTypes(response.data);
             })
             .catch((error) => console.error(error));
 
-        axiosInstance.get<RequestStatus[]>("/request_status")
+        axiosInstance.get<RequestStatus[]>("/api/request_status")
             .then((response) => {
                 setStatuses(response.data);
             })
