@@ -11,6 +11,7 @@ import {
 import { FirstSignInDialog } from "../FirstSignInDialog/FirstSignInDialog";
 import { saveData } from '../../api/axios';
 import { SHA256 } from "crypto-js";
+import { useUser } from "../../contexts/userContext";
 
 interface SignInForm {
   email: string;
@@ -31,6 +32,7 @@ const SignIn: React.FC = () => {
     {}
   );
   const [isFirstTime, setIsFirstTime] = useState<boolean>(false);
+  const {login} = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,7 +66,11 @@ const SignIn: React.FC = () => {
     if (validateForm()) {
       const user = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
       
+      if(!user.first_sign_in){
+        login(user)
+      }
       setIsFirstTime(user.first_sign_in);
+    
     } else {
       console.log("לטופס יש שגיאות");
     }
