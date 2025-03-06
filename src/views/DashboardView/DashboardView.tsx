@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+
+//componants
 import { PieChartComponent } from "../../components/Dashboard/PieChart";
 import { BasicDatePicker } from "../../components/Dashboard/DateContainer";
+import { CustomBarChart } from "../../components/Dashboard/BarChart";
+import { DataTable } from "../../components/Dashboard/DataTable";
 
-
-import { fetchPieData, PieData, PieParameters } from "../../data/Dashboard/DataFatch"; // Assuming data is in TestData
+//data
+import { fetchPieData, PieData, PieParameters ,tableData} from "../../data/Dashboard/DataFatch"; // Assuming data is in TestData
 
 export const Dashboard = () => {
   const [filters, setFilters] = useState<PieData>({
@@ -39,6 +43,8 @@ export const Dashboard = () => {
   console.log("filters:", filters); // Add log to check data
   console.log("Filtered Status Data:", statusData); // Add log to check data
   console.log("Filtered City Data:", cityData); // Add log to check data
+  console.log("Filtered Type Data:", typeData); // Add log to check data
+  console.log("tableData:", tableData); // Add log to check data
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -74,8 +80,12 @@ export const Dashboard = () => {
             onPieClick={(request_type) => handleFilter("request_type", request_type)}
           />
         </div>
+        <CustomBarChart
+          data={typeData}
+        />
       </div>
-      {/* <DataTable data={filteredTableData} /> */}
+      <DataTable 
+        data={tableData}      />
     </div>
   );
 };
