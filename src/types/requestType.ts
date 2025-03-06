@@ -1,4 +1,4 @@
-import { City } from './userType';
+import { City } from "./userType";
 
 export type Request = {
   id: string;
@@ -6,7 +6,7 @@ export type Request = {
   requestType: RequestType;
   description: string;
   city: City;
-  status: Status;
+  status: RequestStatus;
   isUrgent: boolean;
   assignesdVolenteerId: string;
   expertCompletion: Date;
@@ -14,25 +14,38 @@ export type Request = {
   createdAt: Date;
 };
 
-export enum Status {
-  Searching = 'מחפש מתנדב',
-  Waiting = 'ממתין לאישור המתנדב',
-  InProgress = 'בטיפול',
-  Done = 'טופל',
+export enum RequestStatus {
+  Searching = 1,
+  InProgress = 2,
+  Done = 3,
 }
+
+export const requestStatusMapper: Record<RequestStatus, string> = {
+  [RequestStatus.Searching]: "מחפש מתנדב",
+  [RequestStatus.InProgress]: "בטיפול",
+  [RequestStatus.Done]: "טופל",
+};
 
 export enum RequestType {
-  shoppingHelp = 'עזרה בקניות',
-  buildingIssue = 'תקלת בינוי',
-  electricityWork = 'תקלה בחשמל',
-  waterLeak = 'דליפת מים',
-  gasIssue = 'בעית גז',
+  shoppingHelp = 1,
+  buildingIssue = 2,
+  electricityWork = 3,
+  waterLeak = 4,
+  gasIssue = 5,
 }
 
+export const requestTypeMapper: Record<RequestType, string> = {
+  [RequestType.shoppingHelp]: "עזרה בקניות",
+  [RequestType.buildingIssue]: "תקלת בינוי",
+  [RequestType.electricityWork]: "תקלת חשמל",
+  [RequestType.waterLeak]: "דליפת מים",
+  [RequestType.gasIssue]: "תקלת גז",
+};
+
 export const requestTypeList = [
-  'shoppingHelp',
-  'buildingIssue',
-  'electricityWork',
-  'waterLeak',
-  'gasIssue',
+  "shoppingHelp",
+  "buildingIssue",
+  "electricityWork",
+  "waterLeak",
+  "gasIssue",
 ];
