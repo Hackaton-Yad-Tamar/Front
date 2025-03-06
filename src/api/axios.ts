@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const HOST_URL: string = "http://back:8000";
+export const HOST_URL: string = "http://20.50.143.29:8000";
 
 export const getData = async (url: string) => {
   const { data } = await axios.get(url);
