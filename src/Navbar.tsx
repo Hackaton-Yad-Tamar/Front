@@ -107,6 +107,23 @@ const Navbar: React.FC = () => {
           >
             קהילה
           </Button>
+          {user?.user_type == 3 &&<Button
+            sx={{
+              color: themeColors.darkBlue,
+              fontWeight: "bold",
+              fontSize: "2.5vh",
+              px: 2,
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: themeColors.lightGreen,
+                color: "white",
+              },
+            }}
+            component={Link}
+            to="/dashboard"
+          >
+            דאשבורד
+          </Button>}
         </Box>
         <Box
           sx={{
