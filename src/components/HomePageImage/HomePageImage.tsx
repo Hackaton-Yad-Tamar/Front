@@ -1,6 +1,6 @@
 import { Box, Typography, Fade } from "@mui/material";
 import { useState } from "react";
-import { imageTextStyle, subTitleStyle, titleStyle } from "./styles";
+import { imageTextStyle, subTitleStyle } from "./styles";
 
 export const HomePageImage = () => {
   const [show, setShow] = useState(false);
@@ -28,14 +28,9 @@ export const HomePageImage = () => {
             borderRadius: "5px",
             boxShadow: '0 4px 10px rgba(0, 0, 0, 0.25)',
           }}
-          height={600}
+          height={550}
           onMouseEnter={handleMouseOver}
         />
-        <Fade timeout={350} in={show}>
-          <Typography width={400} variant="h1" sx={titleStyle}>
-            יד תמר
-          </Typography>
-        </Fade>
         <Fade timeout={350} in={show}>
           <Typography width={400} variant="h3" sx={subTitleStyle}>
             יחד נתגבר על המשבר
