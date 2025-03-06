@@ -19,11 +19,11 @@ export const RequestCard: FC<RequestCardProps> = ({
       <Stack direction="row" alignItems="center" gap={3}>
         <Avatar
           src={request.profilePicture}
-          alt={`${request.firstName} ${request.lastName}`}
+          alt={`${request.first_name} ${request.last_name}`}
           sx={{ width: 56, height: 56 }}
         />
         <Stack direction="column">
-          <Typography variant="h6">{` ${request.firstName} ${request.lastName}`}</Typography>
+          <Typography variant="h6">{` ${request.first_name} ${request.last_name}`}</Typography>
         </Stack>
         <Stack direction="column">
           <Typography sx={{ textDecoration: "underline" }}>עיר מגורים:</Typography>
