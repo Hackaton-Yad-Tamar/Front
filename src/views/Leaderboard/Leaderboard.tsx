@@ -109,10 +109,12 @@ const lead_volunteers = () => {
             alt={achievement.achievement_name} 
             style={{ width: "64px", height: "64px", borderRadius: "50%", border: "2px solid #ccc" }}
         />
-        <Box fontWeight="bold" fontSize="1.2rem" textAlign="center">{achievement.achievement_name}</Box>
-        <Box fontSize="0.9rem" color="gray.600">{achievement.volunteer_name}</Box>
+        <Box fontWeight="bold" textAlign="center">
+            <Typography fontSize="2rem">{achievement.achievement_name}</Typography></Box>
+        <Box fontSize="0.9rem" color="gray.600">
+            <Typography> {achievement.volunteer_name} </Typography> </Box>
         <Box fontSize="1.5rem" fontWeight="bold" bgcolor="primary.main" color="white" px={3} py={1} borderRadius={4} textAlign="center">
-            {achievement.value} {categoryDescriptions[achievement.achievement_name] || ""}
+            <Typography>{achievement.value} {categoryDescriptions[achievement.achievement_name] || ""}</Typography>
         </Box>
         </Box>
         ))}
@@ -155,10 +157,10 @@ const StoryCarousel = () => {
         </IconButton>
   
         <Box sx={{ maxWidth: 500, textAlign: "center" }}>
-          <Typography variant="h6" fontWeight="bold" mb={2}>
+          <Typography variant="h4" fontWeight="bold" mb={2}>
             משפחת {family_names[currentIndex]}
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" fontSize="1.3rem">
             {stories[currentIndex]}
           </Typography>
         </Box>
@@ -175,19 +177,19 @@ const Leaderboard = () => {
 
     return (
         <Container sx={{ flexGrow: 1, my: 6, direction: "rtl" }}>
-            <Typography variant="h2" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
+            <Typography variant="h1" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
                 מצטייני החודש
             </Typography>
             {lead_volunteers()}
             
-            <Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
+            <Typography variant="h1" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue, paddingTop: "5rem" }}>
                 סיפורי קהילה
             </Typography>
             {StoryCarousel()}
 
 
             <Box >
-`               <Typography variant="h2" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
+`               <Typography variant="h1" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue, paddingTop: "5rem" }}>
                     האירועים המובילים שלנו
                 </Typography>
                 <Typography variant="h3" fontWeight="bold" textAlign="center" gutterBottom sx={{ color: themeColors.lightBlue }}>
@@ -205,7 +207,7 @@ const Leaderboard = () => {
                     אך מעבר לכסף שנאסף, האירוע הותיר רושם עמוק על כל המשתתפים. הוא הוכיח את כוחה של קהילה, את הערבות ההדדית ואת היכולת להפוך כאב לאור של נתינה ואהבה.
                 </Typography>
                 <Box>
-                    <img src={eventImage} alt="event" style={{ width: "100%"}} />
+                    <img src={eventImage} alt="event" style={{ width: "100%" }} />
                 </Box>
             
 

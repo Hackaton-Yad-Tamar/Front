@@ -8,18 +8,20 @@ import MyRequests from "./views/FamilyView/pages/MyRequests";
 import HomePageView from "./views/HomePageView/HomePageView";
 import Leaderboard from "./views/Leaderboard/Leaderboard";
 import ProfileView from "./views/ProfileView/ProfileView";
+import {Dashboard} from "./views/DashboardView/DashboardView.tsx";
 
 export enum Route {
   root = "/",
   login = "/login",
   home = "home",
-  volunteer = "/nvoluteer",
+  volunteer = "/volunteer",
   requests = "/requests",
   profile = "/profile",
   community = "/community",
   resetPassword = "/reset-password",
   changePassword = "/change-password",
   forgotPassword = "/forgot-password",
+  dashboard = "/dashboard",
 }
 const router = createBrowserRouter([
   {
@@ -58,6 +60,10 @@ const router = createBrowserRouter([
         path: Route.forgotPassword,
         element: <ResetPassword />,
       },
+      {
+        path: Route.dashboard,
+        element: <Dashboard />,
+      }
     ],
   },
   {
