@@ -18,13 +18,15 @@ interface RequestDialogProps {
     setOpen: Dispatch<SetStateAction<boolean>>;
     request: AllRequest;
     deleteRequest: (reqId: string) => void;
+    closeRequest: (reqId: string) => void;
 }
 
 const RequestDialog: React.FC<RequestDialogProps> = ({
     open,
     setOpen,
     request,
-    deleteRequest
+    deleteRequest,
+    closeRequest
 }) => {
 
     return (
@@ -72,6 +74,7 @@ const RequestDialog: React.FC<RequestDialogProps> = ({
                             color="success"
                             variant="outlined"
                             sx={{ borderRadius: "10px" }}
+                            onClick={() => closeRequest(request.request.id)}
                         >
                             שנה סטטוס לטופל
                         </Button>

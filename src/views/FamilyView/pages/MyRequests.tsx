@@ -24,6 +24,7 @@ const MyRequests: React.FC = () => {
     const [statuses, setStatuses] = useState<RequestStatus[]>([]);
     const [filterType, setFilterType] = useState<string>("");
     const [showOpenRequests, setShowOpenRequests] = useState<boolean>(false);
+    const [refresh, setRefresh] = useState(false);
 
     const { user } = useUser();
 
@@ -46,7 +47,7 @@ const MyRequests: React.FC = () => {
                 setStatuses(response.data);
             })
             .catch((error) => console.error(error));
-    }, [user]);
+    }, [user, refresh]);
 
     useEffect(() => {
         const filterRequests = [...requests].filter((request) => {
@@ -59,9 +60,14 @@ const MyRequests: React.FC = () => {
     }, [filterDate, filterType, requests, showOpenRequests]);
 
     const deleteRequest = (reqId: string) => {
-        axiosInstance.delete('request/' + reqId).then().catch((error) => console.error(error));
+        axiosInstance.delete('api/request/' + reqId).then().catch((error) => console.error(error));
+        setRequests(requests.filter(req => req.request.id != reqId))
     }
 
+    const closeRequest = (reqId: string) => {
+        axiosInstance.patch('api/close_reqeust?id=' + reqId).then().catch((error) => console.error(error));
+        setRefresh(!refresh);
+    }
 
     return (
         <Box
@@ -125,7 +131,7 @@ const MyRequests: React.FC = () => {
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
                     {filteredRequests.map((request, index) =>
-                        <RequestCard key={index} allRequest={request} deleteRequest={deleteRequest} />
+                        <RequestCard key={index} allRequest={request} deleteRequest={deleteRequest} closeRequest={closeRequest} />
                     )}
                 </Grid>
             </Box>
