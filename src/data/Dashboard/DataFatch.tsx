@@ -65,18 +65,16 @@ export interface PieData {
 }
 
 export const fetchPieData = async (function_name: string, params: PieData) => {
-  console.log("Hi");
-  console.log((await axios.get("http://back:8000")).data);
-  // const response = await axios.get(DASHBOARD_ENDPOINT + function_name, {
-  //   params,
-  // });
-  // console.log("response", response);
-  // if (response.status !== 200) {
-  //   throw new Error("Failed to fetch data");
-  // }
-  // const pieData = Object.keys(response.data).map((category) => ({
-  //   category,
-  //   value: response.data[category] as number,
-  // }));
-  // return pieData;
+  const response = await axios.get(DASHBOARD_ENDPOINT + function_name, {
+    params,
+  });
+  console.log("response", response);
+  if (response.status !== 200) {
+    throw new Error("Failed to fetch data");
+  }
+  const pieData = Object.keys(response.data).map((category) => ({
+    category,
+    value: response.data[category] as number,
+  }));
+  return pieData;
 };
