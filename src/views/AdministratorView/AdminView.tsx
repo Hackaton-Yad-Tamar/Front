@@ -5,8 +5,8 @@ import { Stack, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import { FC, SyntheticEvent, useState } from "react";
+import { UseGetRequests } from "../../components/ComponentTemplate/RequestList/hooks";
 import { RequestList } from "../../components/ComponentTemplate/RequestList/RequestList";
-import { users } from "../../components/ComponentTemplate/constants";
 import { User } from "../../types/userType";
 import { ProfileCard } from "../ProfileView/ProfileCard";
 import { classes } from "./styles";
@@ -17,12 +17,12 @@ type ProfileViewProps = {
 
 export const AdminView: FC<ProfileViewProps> = ({ user }) => {
   const [value, setValue] = useState("1");
+  const { data: requests = [] } = UseGetRequests();
+  const [selectedRequest, setSelectedRequest] = useState<User>();
 
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-
-  const [selectedRequest, setSelectedRequest] = useState<User>();
 
   return (
     <Stack sx={classes.adminContainer} direction="row" gap={5}>
@@ -45,14 +45,10 @@ export const AdminView: FC<ProfileViewProps> = ({ user }) => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <RequestList
-              requests={users}
-              isFiltered
-              {...{ setSelectedRequest }}
-            />
+            <RequestList isFiltered {...{ setSelectedRequest, requests }} />
           </TabPanel>
           <TabPanel value="2">
-            <RequestList requests={users} {...{ setSelectedRequest }} />
+            <RequestList {...{ setSelectedRequest, requests }} />
           </TabPanel>
         </TabContext>
       </Stack>

@@ -8,7 +8,7 @@ export type User = {
   city: City;
   email: string;
   profilePicture?: string;
-  isApproved: boolean;
+  status: string;
   approvedBy: string;
   approvedAt: Date;
   createdAt: Date;

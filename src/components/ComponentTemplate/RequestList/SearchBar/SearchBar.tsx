@@ -48,8 +48,8 @@ export const SearchBar: FC<SearchBarProps> = ({
 
   useEffect(() => {
     const filteredRequests = requests
-      .filter(({ approvedBy }) =>
-        isFiltered ? approvedBy === "" : approvedBy !== ""
+      .filter(({ status }) =>
+        isFiltered ? status === "PENDING" : status !== "PENDING"
       )
       .filter(
         ({

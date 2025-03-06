@@ -44,7 +44,26 @@ export const RequestCard: FC<RequestCardProps> = ({
           <Typography variant="h6">{` ${request.userType}`}</Typography>
         </Stack>
       </Stack>
-      <Box>
+
+      <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+        <Typography
+          sx={{
+            backgroundColor:
+              request.status !== "PENDING"
+                ? request.status === "APPROVED"
+                  ? "green"
+                  : "red"
+                : "orange",
+            padding: "7px",
+            borderRadius: "10px",
+          }}
+        >
+          {request.status !== "PENDING"
+            ? request.status === "APPROVED"
+              ? "מאושרת"
+              : "נדחתה"
+            : "ממתין"}
+        </Typography>
         <Button
           variant="contained"
           sx={classes.viewButton}

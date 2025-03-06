@@ -17,7 +17,7 @@ import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
 import StarIcon from "@mui/icons-material/Star";
 import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
-import { Stack } from "@mui/material";
+import { CircularProgress, Stack } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -33,6 +33,10 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import CountUp from "react-countup";
 import { themeColors } from "../../App";
+import {
+  UseApproveRequest,
+  UseDeclineRequest,
+} from "../../components/ComponentTemplate/RequestList/hooks";
 import { User, UserType } from "../../types/userType";
 
 interface ProfileCardProps {
@@ -54,8 +58,13 @@ export function ProfileCard({ user }: ProfileCardProps) {
     );
   };
 
+  const { mutate: approveUser, isLoading: isApproveLoading } =
+    UseApproveRequest();
+  const { mutate: declineUser, isLoading: isDeclineLoading } =
+    UseDeclineRequest();
+
   const handleApprove = (isApproved: boolean) => {
-    // set is approved to true and record approvedBy and approved at columns
+    isApproved ? approveUser(user.id) : declineUser(user.id);
   };
 
   const userTypeColors: Record<UserType, { bg: string; color: string }> = {
@@ -504,22 +513,31 @@ export function ProfileCard({ user }: ProfileCardProps) {
           )}
         </Grid>
         <Stack direction="row" justifyContent="flex-end">
-          <Button
-            onClick={() => handleApprove(false)}
-            variant="outlined"
-            sx={{ borderColor: "red", color: "red" }}
-          >
-            <Typography sx={{ ml: "5px" }}>דחה</Typography>
-            <CloseIcon />
-          </Button>
-          <Button
-            onClick={() => handleApprove(true)}
-            variant="contained"
-            sx={{ color: "white", backgroundColor: "green", mr: "15px" }}
-          >
-            <Typography sx={{ ml: "5px" }}>אשר</Typography>
-            <CheckIcon />
-          </Button>
+          {isDeclineLoading ? (
+            <CircularProgress sx={{ color: "red", ml: "5px" }} />
+          ) : (
+            <Button
+              onClick={() => handleApprove(false)}
+              variant="outlined"
+              sx={{ borderColor: "red", color: "red" }}
+            >
+              <Typography sx={{ ml: "5px" }}>דחה</Typography>
+              <CloseIcon />
+            </Button>
+          )}
+
+          {isApproveLoading ? (
+            <CircularProgress sx={{ color: "green", mr: "5px" }} />
+          ) : (
+            <Button
+              onClick={() => handleApprove(true)}
+              variant="contained"
+              sx={{ color: "white", backgroundColor: "green", mr: "15px" }}
+            >
+              <Typography sx={{ ml: "5px" }}>אשר</Typography>
+              <CheckIcon />
+            </Button>
+          )}
         </Stack>
       </CardContent>
     </Card>
