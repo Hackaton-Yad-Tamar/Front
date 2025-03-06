@@ -49,6 +49,7 @@ export const Dashboard = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold mb-4 text-center">📊 Interactive Dashboard</h1>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-gray-200 p-4">
           <BasicDatePicker
@@ -62,23 +63,25 @@ export const Dashboard = () => {
               onDateChange={(end_date) => handleFilter("end_date", end_date)}
             />
         </div>
-        <div className="bg-gray-200 p-4">
-          <PieChartComponent
-            data={statusData}
-            onPieClick={(status) => handleFilter("status", status)}
-          />
-        </div>
-        <div className="bg-gray-200 p-4">
-          <PieChartComponent
-            data={cityData}
-            onPieClick={(city) => handleFilter("city", city)}
-          />
-        </div>
-        <div className="bg-gray-200 p-4">
-          <PieChartComponent
-            data={typeData}
-            onPieClick={(request_type) => handleFilter("request_type", request_type)}
-          />
+        <div style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap" }}>
+        <div style={{ width: "30%", minWidth: "300px" }}>
+            <PieChartComponent
+              data={statusData}
+              onPieClick={(status) => handleFilter("status", status)}
+            />
+          </div>
+          <div style={{ width: "30%", minWidth: "300px" }}>
+            <PieChartComponent
+              data={cityData}
+              onPieClick={(city) => handleFilter("city", city)}
+            />
+          </div>
+          <div style={{ width: "30%", minWidth: "300px" }}>
+            <PieChartComponent
+              data={typeData}
+              onPieClick={(request_type) => handleFilter("request_type", request_type)}
+            />
+          </div>
         </div>
         <CustomBarChart
           data={typeData}
