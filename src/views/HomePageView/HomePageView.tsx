@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { AppBar, Box, Stack, Toolbar, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import SignIn from "../../components/SignIn/SignIn";
@@ -19,13 +19,30 @@ const HomePageView: React.FC = () => {
   };
 
   return (
+    <AppBar
+    position="fixed"
+    color="transparent"
+    elevation={1}
+    sx={{
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+      backgroundColor: "white",
+    }}
+    
+  >
+     <Toolbar
+        sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}
+      >
+        <Box>
+        </Box>
+        <img src=".\public\menu-logo-small.png" width={"5%"} />
+      </Toolbar>
     <Stack
       direction="row"
       spacing={10}
       sx={{
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "90vh",
         gap: "10vh",
         background: "linear-gradient(to bottom,rgb(242, 251, 255),rgb(74, 176, 245))",
       }}
@@ -36,7 +53,7 @@ const HomePageView: React.FC = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          gap: "10vh",
+          gap: "4vh",
         }}
       >
         <SignIn />
@@ -49,6 +66,7 @@ const HomePageView: React.FC = () => {
       </Box>
       <HomePageImage />
     </Stack>
+    </AppBar>
   );
 };
 
