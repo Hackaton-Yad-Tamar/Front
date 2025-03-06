@@ -5,12 +5,12 @@ export const classes = {
     flexDirection: "row",
   },
   requestDetailsContainer: {
-    width: "40%",
+    width: "40vw",
     display: "flex",
     flexDirection: "column",
   },
   requestsList: {
-    width: "60%",
+    width: "60vw",
     display: "flex",
     flexDirection: "column",
   },
