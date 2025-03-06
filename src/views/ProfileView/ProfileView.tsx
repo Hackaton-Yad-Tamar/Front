@@ -1,11 +1,11 @@
-import { Edit } from "@mui/icons-material";
-import { Box, Button, Stack } from "@mui/material";
-import { useState } from "react";
-import MUICalendar from "../../components/CalendarComponent";
-import { User } from "../../types/userType";
-import { ProfileCard } from "./ProfileCard";
-import { ProfileForm } from "./ProfileForm";
-import { Typography } from "@mui/material";
+import { Edit } from '@mui/icons-material';
+import { Box, Button, Stack } from '@mui/material';
+import { useState } from 'react';
+import MUICalendar from '../../components/CalendarComponent';
+import { User } from '../../types/userType';
+import { ProfileCard } from './ProfileCard';
+import { ProfileForm } from './ProfileForm';
+import { Link } from "react-router-dom";
 
 type ProfileViewProps = {
   user: User;
@@ -47,10 +47,25 @@ function ProfileView({ user }: ProfileViewProps) {
         ) : (
           <>
             <ProfileCard user={userData} />
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button variant="contained" startIcon={<Edit />} onClick={() => setIsEditing(true)}>
-              <Typography sx={{ paddingRight: 1}} > עריכת פרופיל</Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 2 }}>
+              <Button
+                variant="contained"
+                startIcon={<Edit />}
+                style={{gap: 2}}
+                onClick={() => setIsEditing(true)}
+              >
+                עריכת פרופיל
               </Button>
+              <Link to={"/change-password"} style={{ textDecoration: 'none' }}>
+              <Button
+                variant="contained"
+                startIcon={<Edit />}
+                style={{gap: 2}}
+                onClick={() => setIsEditing(true)}
+              >
+                שינוי סיסמה
+              </Button>
+              </Link>
             </Box>
             <MUICalendar />
           </>

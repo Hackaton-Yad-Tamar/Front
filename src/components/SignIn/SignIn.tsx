@@ -1,9 +1,12 @@
+import React, { useState } from "react";
+import { TextField, Button, Box, Typography } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-import { Box, Button, Link, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import rtlPlugin from "stylis-plugin-rtl";
 import { forgotPasswordStyle, signInButtonStyle, signInTextFieldStyle } from "./styles";
+import { Route } from "../../router";
+import { Link } from "react-router-dom";
+import rtlPlugin from "stylis-plugin-rtl";
+import { FirstSignInDialog } from "../FirstSignInDialog/FirstSignInDialog";
 
 interface SignInForm {
   email: string;
@@ -16,8 +19,14 @@ const rtlCache = createCache({
 });
 
 const SignIn: React.FC = () => {
-  const [formData, setFormData] = useState<SignInForm>({ email: "", password: "" });
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [formData, setFormData] = useState<SignInForm>({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
+  const [isFirstTime, setIsFirstTime] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,6 +59,7 @@ const SignIn: React.FC = () => {
 
     if (validateForm()) {
       console.log("הטופס הוגש בהצלחה");
+      setIsFirstTime(true);
       // Perform sign-in logic here (e.g., make API calls)
     } else {
       console.log("לטופס יש שגיאות");
@@ -62,6 +72,7 @@ const SignIn: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#f5f5f5",
         direction: "rtl",
       }}
     >
@@ -72,12 +83,15 @@ const SignIn: React.FC = () => {
           sx={{
             width: "19vw",
             padding: "1.5vw",
-            borderRadius: "12px",
-            background: "white",
+            backgroundColor: "white",
+            borderRadius: "8px",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Typography variant="h5" sx={{ marginBottom: "4vh", textAlign: "center" }}>
+          <Typography
+            variant="h5"
+            sx={{ marginBottom: "4vh", textAlign: "center" }}
+          >
             כניסה למשתמש קיים
           </Typography>
 
@@ -110,9 +124,9 @@ const SignIn: React.FC = () => {
               התחבר
             </Button>
           </Box>
-
+          <FirstSignInDialog open={isFirstTime} />
           <Box sx={{ marginTop: "10px", textAlign: "center" }}>
-            <Link href="#" variant="body2" sx={forgotPasswordStyle}>
+            <Link to={Route.forgotPassword} style={forgotPasswordStyle}>
               שכחת את הסיסמה?
             </Link>
           </Box>
