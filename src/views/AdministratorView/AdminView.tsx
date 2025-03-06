@@ -11,11 +11,7 @@ import { User } from "../../types/userType";
 import { ProfileCard } from "../ProfileView/ProfileCard";
 import { classes } from "./styles";
 
-type ProfileViewProps = {
-  user: User;
-};
-
-export const AdminView: FC<ProfileViewProps> = ({ user }) => {
+export const AdminView: FC = () => {
   const [value, setValue] = useState("1");
   const { data: requests = [] } = UseGetRequests();
   const [selectedRequest, setSelectedRequest] = useState<User>();
