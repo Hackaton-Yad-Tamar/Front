@@ -53,10 +53,24 @@ const RequestPage = () => {
     const handleAiButtonClick = () => {
         setIsAiClicked((prevState) => !prevState); // Toggle AI button state
         if (!isAiClicked) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                    },
+                    (error) => {
+                        console.error("Error getting location:", error);
+                    }
+                );
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
             // Reset fields when turning on the AI mode
             setCategory('');
-            setArea('נתניה');
             setSelectedDate('');
+            setArea('נתניה');
         }
     };
 
@@ -64,7 +78,7 @@ const RequestPage = () => {
     const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
 
     useEffect(() => {
-        const israelCenter = fromLonLat([34.8516, 31.0461]);
+        const israelCenter = fromLonLat([34.8513687, 32.2782612]);
         const newVectorSource = new VectorSource();
         const vectorLayer = new VectorLayer({
             source: newVectorSource,
@@ -80,7 +94,7 @@ const RequestPage = () => {
             ],
             view: new View({
                 center: israelCenter,
-                zoom: 7,
+                zoom: 12,
             }),
         });
 
@@ -151,7 +165,7 @@ const RequestPage = () => {
     });
 
     return (
-        <Box sx={{ display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
+        <Box sx={{ width: "100%", display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
             <Box sx={{ width: "50%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#F3FBFF", borderWidth: "10px" }}>
                 <div id="map" style={{
                     width: "70%", height: "90%", borderRadius: "10px", borderColor: "white",

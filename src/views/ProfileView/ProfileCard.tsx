@@ -53,15 +53,11 @@ export function ProfileCard({ user }: ProfileCardProps) {
   };
 
   const handlePrevReview = () => {
-    setActiveReviewIndex(
-      (prevIndex) => (prevIndex - 1 + maxReviews) % maxReviews
-    );
+    setActiveReviewIndex((prevIndex) => (prevIndex - 1 + maxReviews) % maxReviews);
   };
 
-  const { mutate: approveUser, isLoading: isApproveLoading } =
-    UseApproveRequest();
-  const { mutate: declineUser, isLoading: isDeclineLoading } =
-    UseDeclineRequest();
+  const { mutate: approveUser, isLoading: isApproveLoading } = UseApproveRequest();
+  const { mutate: declineUser, isLoading: isDeclineLoading } = UseDeclineRequest();
 
   const handleApprove = (isApproved: boolean) => {
     isApproved ? approveUser(user.id) : declineUser(user.id);
@@ -75,35 +71,21 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
+    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
   };
 
   // Get the appropriate vehicle icon
   const getVehicleIcon = () => {
     switch (user.vehicle) {
       case "פרטי":
-        return (
-          <DirectionsCarIcon
-            fontSize="small"
-            sx={{ color: "text.secondary" }}
-          />
-        );
+        return <DirectionsCarIcon fontSize="small" sx={{ color: "text.secondary" }} />;
       case "אופנוע":
-        return (
-          <TwoWheelerIcon fontSize="small" sx={{ color: "text.secondary" }} />
-        );
+        return <TwoWheelerIcon fontSize="small" sx={{ color: "text.secondary" }} />;
       case "משאית":
-        return (
-          <LocalShippingIcon
-            fontSize="small"
-            sx={{ color: "text.secondary" }}
-          />
-        );
+        return <LocalShippingIcon fontSize="small" sx={{ color: "text.secondary" }} />;
       case undefined:
       default:
-        return (
-          <DoNotDisturbIcon fontSize="small" sx={{ color: "text.secondary" }} />
-        );
+        return <DoNotDisturbIcon fontSize="small" sx={{ color: "text.secondary" }} />;
     }
   };
 
@@ -111,10 +93,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
     <Card elevation={3} sx={{ borderRadius: 2, overflow: "hidden" }}>
       <CardHeader
         avatar={
-          <Avatar
-            src={user.profilePicture || undefined}
-            sx={{ width: 64, height: 64 }}
-          >
+          <Avatar src={user.profilePicture || undefined} sx={{ width: 64, height: 64 }}>
             {!user.profilePicture && getInitials()}
           </Avatar>
         }
@@ -124,7 +103,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
             component="h2"
             sx={{ color: themeColors.darkBlue, fontWeight: "bold" }}
           >
-            {user.first_name} {user.last_name}
+            {user.firstName} {user.lastName}
           </Typography>
         }
         sx={{
@@ -190,10 +169,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               </Box>
 
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <LocationOnIcon
-                  fontSize="small"
-                  sx={{ color: "text.secondary" }}
-                />
+                <LocationOnIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="h6" color="black" fontWeight="light">
                   עיר
                 </Typography>
@@ -203,10 +179,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
               </Box>
 
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <CalendarTodayIcon
-                  fontSize="small"
-                  sx={{ color: "text.secondary" }}
-                />
+                <CalendarTodayIcon fontSize="small" sx={{ color: "text.secondary" }} />
                 <Typography variant="h6" color="black" fontWeight="light">
                   תאריך הצטרפות
                 </Typography>
@@ -228,21 +201,10 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={6}>
-                    <Box
-                      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-                    >
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                      >
-                        <MapIcon
-                          fontSize="small"
-                          sx={{ color: "text.secondary" }}
-                        />
-                        <Typography
-                          variant="h6"
-                          color="black"
-                          fontWeight="light"
-                        >
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                        <MapIcon fontSize="small" sx={{ color: "text.secondary" }} />
+                        <Typography variant="h6" color="black" fontWeight="light">
                           אזור התנדבות
                         </Typography>
                         <Typography variant="h6" sx={{ color: "black" }}>
@@ -250,35 +212,19 @@ export function ProfileCard({ user }: ProfileCardProps) {
                         </Typography>
                       </Box>
 
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                      >
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         {getVehicleIcon()}
-                        <Typography
-                          variant="h6"
-                          color="black"
-                          fontWeight="light"
-                        >
+                        <Typography variant="h6" color="black" fontWeight="light">
                           כלי רכב
                         </Typography>
                         <Typography variant="h6" sx={{ color: "black" }}>
-                          {user.vehicle?.charAt(0).toUpperCase() +
-                            user.vehicle?.slice(1)}
+                          {user.vehicle?.charAt(0).toUpperCase() + user.vehicle?.slice(1)}
                         </Typography>
                       </Box>
 
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                      >
-                        <StarIcon
-                          fontSize="small"
-                          sx={{ color: "text.secondary" }}
-                        />
-                        <Typography
-                          variant="h6"
-                          color="black"
-                          fontWeight="light"
-                        >
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                        <StarIcon fontSize="small" sx={{ color: "text.secondary" }} />
+                        <Typography variant="h6" color="black" fontWeight="light">
                           דירוג
                         </Typography>
                         <Rating
@@ -326,17 +272,9 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             alignItems: "center",
                           }}
                         >
-                          <EmojiEventsIcon
-                            sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }}
-                          />
-                          <Typography
-                            variant="h4"
-                            sx={{ color: "black", fontWeight: "bold" }}
-                          >
-                            <CountUp
-                              end={user.stats.eventsParticipated}
-                              duration={5}
-                            />
+                          <EmojiEventsIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
+                          <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                            <CountUp end={user.stats.eventsParticipated} duration={5} />
                           </Typography>
                           <Typography variant="h6" color="black">
                             אירועי התנדבות
@@ -352,17 +290,9 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             alignItems: "center",
                           }}
                         >
-                          <AccessTimeIcon
-                            sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }}
-                          />
-                          <Typography
-                            variant="h4"
-                            sx={{ color: "black", fontWeight: "bold" }}
-                          >
-                            <CountUp
-                              end={user.stats.hoursVolunteered}
-                              duration={5}
-                            />
+                          <AccessTimeIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
+                          <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                            <CountUp end={user.stats.hoursVolunteered} duration={5} />
                           </Typography>
                           <Typography variant="h6" color="black">
                             שעות התנדבות
@@ -378,17 +308,9 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             alignItems: "center",
                           }}
                         >
-                          <MapIcon
-                            sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }}
-                          />
-                          <Typography
-                            variant="h4"
-                            sx={{ color: "black", fontWeight: "bold" }}
-                          >
-                            <CountUp
-                              end={user.stats.distanceTravelled}
-                              duration={5}
-                            />
+                          <MapIcon sx={{ fontSize: 50, color: "#00AEEE", mb: 1 }} />
+                          <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                            <CountUp end={user.stats.distanceTravelled} duration={5} />
                           </Typography>
                           <Typography variant="h6" color="black">
                             מרחק נסיעות (ק"מ)
@@ -423,12 +345,8 @@ export function ProfileCard({ user }: ProfileCardProps) {
                     }}
                   >
                     {/* Current review */}
-                    <Box
-                      sx={{ flex: 1, display: "flex", flexDirection: "column" }}
-                    >
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", mb: 2 }}
-                      >
+                    <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                      <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                         <Avatar sx={{ bgcolor: themeColors.darkBlue, mr: 2 }}>
                           <FamilyRestroomIcon />
                         </Avatar>
@@ -440,9 +358,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                             {user.reviews[activeReviewIndex].familyName}
                           </Typography>
                           <Typography variant="body2" color="black">
-                            {new Date(
-                              user.reviews[activeReviewIndex].date
-                            ).toLocaleDateString()}
+                            {new Date(user.reviews[activeReviewIndex].date).toLocaleDateString()}
                           </Typography>
                         </Box>
                       </Box>
