@@ -2,8 +2,8 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { themeColors } from "./App";
-import { Route } from "./router";
 import { useUser } from "./contexts/userContext";
+import { Route } from "./router";
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
@@ -18,9 +18,7 @@ const Navbar: React.FC = () => {
         backgroundColor: "white",
       }}
     >
-      <Toolbar
-        sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}
-      >
+      <Toolbar sx={{ display: "flex", gap: 3, justifyContent: "space-between" }}>
         <Box>
           <Button
             sx={{
@@ -73,9 +71,32 @@ const Navbar: React.FC = () => {
           >
             הפרופיל שלי
           </Button>
+          <Button
+            sx={{
+              color: themeColors.darkBlue,
+              fontWeight: "bold",
+              fontSize: "2.5vh",
+              px: 2,
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: themeColors.lightGreen,
+                color: "white",
+              },
+            }}
+            component={Link}
+            to="/community"
+          >
+            קהילה
+          </Button>
         </Box>
-        <Typography>שלום {user?.firstName}</Typography>
-        <img src=".\public\menu-logo-small.png" width={"5%"} />
+        <Box
+          sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "1rem" }}
+        >
+          <Typography>
+            שלום, <Typography fontWeight="bold">{user?.firstName}</Typography>
+          </Typography>
+          <img src=".\public\menu-logo-small.png" width={"30%"} />
+        </Box>
       </Toolbar>
     </AppBar>
   );

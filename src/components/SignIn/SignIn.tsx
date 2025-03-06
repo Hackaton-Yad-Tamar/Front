@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Typography, Link } from "@mui/material";
+import { TextField, Button, Box, Typography } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
+import { forgotPasswordStyle, signInButtonStyle, signInTextFieldStyle } from "./styles";
+import { Route } from "../../router";
+import { Link } from "react-router-dom";
 import rtlPlugin from "stylis-plugin-rtl";
-import {
-  forgotPasswordStyle,
-  signInButtonStyle,
-  signInTextFieldStyle,
-} from "./styles";
 import { FirstSignInDialog } from "../FirstSignInDialog/FirstSignInDialog";
 import { saveData } from '../../api/axios';
 import { SHA256 } from "crypto-js";
@@ -130,7 +128,7 @@ const SignIn: React.FC = () => {
           </Box>
           <FirstSignInDialog open={isFirstTime} />
           <Box sx={{ marginTop: "10px", textAlign: "center" }}>
-            <Link href="#" variant="body2" sx={forgotPasswordStyle}>
+            <Link to={Route.forgotPassword} style={forgotPasswordStyle}>
               שכחת את הסיסמה?
             </Link>
           </Box>
