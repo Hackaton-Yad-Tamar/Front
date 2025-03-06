@@ -9,7 +9,7 @@ import {
   signInTextFieldStyle,
 } from "./styles";
 import { FirstSignInDialog } from "../FirstSignInDialog/FirstSignInDialog";
-import { saveData } from '../../api/axios';
+import { saveData } from "../../api/axios";
 import { SHA256 } from "crypto-js";
 import { useUser } from "../../contexts/userContext";
 
@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
     {}
   );
   const [isFirstTime, setIsFirstTime] = useState<boolean>(false);
-  const {login} = useUser();
+  const { login } = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,13 +64,15 @@ const SignIn: React.FC = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const user = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
-      
-      if(!user.first_sign_in){
-        login(user)
+      const user = await saveData("http://localhost:8000/users/signin", {
+        email: formData.email,
+        password: SHA256(formData.password).toString(),
+      });
+
+      if (!user.first_sign_in) {
+        login(user);
       }
       setIsFirstTime(user.first_sign_in);
-    
     } else {
       console.log("לטופס יש שגיאות");
     }
@@ -82,7 +84,6 @@ const SignIn: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f5f5f5",
         direction: "rtl",
       }}
     >
@@ -94,7 +95,7 @@ const SignIn: React.FC = () => {
             width: "19vw",
             padding: "1.5vw",
             backgroundColor: "white",
-            borderRadius: "8px",
+            borderRadius: "12px",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
           }}
         >
@@ -134,7 +135,11 @@ const SignIn: React.FC = () => {
               התחבר
             </Button>
           </Box>
-          <FirstSignInDialog email={formData.email} open={isFirstTime} onClose={() => setIsFirstTime(false)} />
+          <FirstSignInDialog
+            email={formData.email}
+            open={isFirstTime}
+            onClose={() => setIsFirstTime(false)}
+          />
           <Box sx={{ marginTop: "10px", textAlign: "center" }}>
             <Link href="#" variant="body2" sx={forgotPasswordStyle}>
               שכחת את הסיסמה?

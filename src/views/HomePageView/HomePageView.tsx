@@ -5,6 +5,8 @@ import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
 import { SignUpFamilyDialog } from "../../components/SignUpFamilyDialog/SignUpFamilyDialog";
 import { SignUpVolunteerDialog } from "../../components/SignUpVolunteerDialog/SignUpVolunteerDialog";
+import bgImage from "../../assets/signBackground.png";
+
 
 const HomePageView: React.FC = () => {
   const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
@@ -34,6 +36,8 @@ const HomePageView: React.FC = () => {
       >
         <Box>
         </Box>
+        <Typography variant="h3">יד תמר</Typography>
+        <Typography variant="h5">תמיכה במשפחות חולי סרטן ובמצבי משבר</Typography>
         <img src=".\public\menu-logo-small.png" width={"5%"} />
       </Toolbar>
     <Stack
@@ -44,7 +48,8 @@ const HomePageView: React.FC = () => {
         alignItems: "center",
         height: "90vh",
         gap: "10vh",
-        background: "linear-gradient(to bottom,rgb(242, 251, 255),rgb(74, 176, 245))",
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "100% 100%",
       }}
     >
       <Box
