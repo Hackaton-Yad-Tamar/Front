@@ -1,10 +1,17 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box, Container, Divider, Paper, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { themeColors } from "../../../App";
 import NewRequestForm from "../components/newRequestDialog";
+import { useUser } from "../../../contexts/userContext";
+import { mockUser } from "../../../mockUser";
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    login(mockUser)
+    },[])
+    
+    const { login } = useUser();
   return (
     <>
       {/* Hero Section */}

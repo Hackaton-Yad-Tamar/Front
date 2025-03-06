@@ -9,6 +9,8 @@ import {
   signInTextFieldStyle,
 } from "./styles";
 import { FirstSignInDialog } from "../FirstSignInDialog/FirstSignInDialog";
+import { saveData } from '../../api/axios';
+import { SHA256 } from "crypto-js";
 
 interface SignInForm {
   email: string;
@@ -56,13 +58,13 @@ const SignIn: React.FC = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
+      const isFirst = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
       console.log("הטופס הוגש בהצלחה");
-      setIsFirstTime(true);
-      // Perform sign-in logic here (e.g., make API calls)
+      setIsFirstTime(isFirst);
     } else {
       console.log("לטופס יש שגיאות");
     }
