@@ -5,6 +5,7 @@ import Home from "./views/FamilyView/pages/Home";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
 import HomePageView from "./views/HomePageView/HomePageView";
 import ProfileView from "./views/ProfileView/ProfileView";
+import Leaderboard from "./views/Leaderboard/Leaderboard";
 import NewPassword from "./views/ChangePassword/NewPassword";
 import ChangePassword from "./views/ChangePassword/ChangePassword";
 import ResetPassword from "./views/ChangePassword/ForgotPassword";
@@ -15,6 +16,7 @@ export enum Route {
   volunteer = "/nvoluteer",
   requests = "/requests",
   profile = "/profile",
+  community = "/community",
   resetPassword = "/reset-password",
   changePassword = "/change-password",
   forgotPassword = "/forgot-password",
@@ -40,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: Route.profile,
         element: <ProfileView user={mockUser} />,
+      },
+      {
+        path: Route.community,
+        element: <Leaderboard />,
       },
       {
         path: Route.resetPassword,

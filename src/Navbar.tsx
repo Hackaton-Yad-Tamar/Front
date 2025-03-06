@@ -68,8 +68,25 @@ const Navbar: React.FC = () => {
           >
             הפרופיל שלי
           </Button>
+          <Button
+            sx={{
+              color: themeColors.darkBlue,
+              fontWeight: "bold",
+              fontSize: "2.5vh",
+              px: 2,
+              borderRadius: "20px",
+              '&:hover': {
+                backgroundColor: themeColors.lightGreen,
+                color: "white",
+              }
+            }}
+            component={Link}
+            to="/community"
+          >
+            קהילה
+          </Button>
         </Box>
-        <img src=".\public\menu-logo-small.png" width={"5%"} />
+        <img src="/menu-logo-small.png" width={"5%"} />
       </Toolbar>
     </AppBar>
   );
