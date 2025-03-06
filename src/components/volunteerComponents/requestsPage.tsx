@@ -151,7 +151,7 @@ const RequestPage = () => {
     });
 
     return (
-        <Box sx={{ display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
+        <Box sx={{ width: "100%", display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
             <Box sx={{ width: "50%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#F3FBFF", borderWidth: "10px" }}>
                 <div id="map" style={{
                     width: "70%", height: "90%", borderRadius: "10px", borderColor: "white",
