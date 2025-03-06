@@ -11,16 +11,10 @@ import OSM from "ol/source/OSM";
 import VectorSource from "ol/source/Vector";
 import React, { useEffect, useState } from "react";
 import RequestsList from "./requestsList";
+import { regularRequests } from "./mock";
 
 const RequestPage = () => {
-    const [regularRequests, setRegularRequests] = useState([
-        { name: "צ'רלי בראון", isUrgent: true, emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל", sos: true },
-        { name: "דיויד מילר", isUrgent: false, emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
-        { name: "אמה וילסון", isUrgent: false, emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
-        { name: "צ'רלי בראון", isUrgent: true, emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },
-        { name: "דיויד מילר", isUrgent: true, emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
-        { name: "אמה וילסון", isUrgent: true, emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
-    ]);
+
 
     const [isAiClicked, setIsAiClicked] = useState(false); // Track if the AI button is clicked
 
@@ -36,13 +30,6 @@ const RequestPage = () => {
 
     const [map, setMap] = useState<Map | null>(null);
     const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
-    // const filteredRequests = regularRequests.filter((request) => {
-    //     const isCategoryMatch = category ? request.emergencyType === category : true;
-    //     const isAreaMatch = area ? request.location === area : true;
-    //     // const isDateMatch = selectedDate ? new Date(request.date).toLocaleDateString() === selectedDate : true;
-        
-    //     return isCategoryMatch && isAreaMatch;
-    // });
 
     useEffect(() => {
         const israelCenter = fromLonLat([34.8516, 31.0461]);
@@ -68,7 +55,6 @@ const RequestPage = () => {
         setMap(newMap);
         setVectorSource(newVectorSource);
 
-        
         return () => newMap.setTarget(null);
     }, []);
 
@@ -123,6 +109,14 @@ const RequestPage = () => {
         }
     }, [map, regularRequests, vectorSource]);
 
+    // Filter requests based on selected filters inside useEffect or inline when rendering
+    const filteredRequests = regularRequests.filter((request) => {
+        const isCategoryMatch = category ? request.request_type === category : true;
+        const isAreaMatch = area ? request.city === area : true;
+
+        return isCategoryMatch && isAreaMatch;
+    });
+
     return (
         <Box sx={{ display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
             <Box sx={{ width: "50%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#F3FBFF", borderWidth: "10px" }}>
@@ -165,9 +159,9 @@ const RequestPage = () => {
                                 }}
                             >
                                 <MenuItem value=""><em>לא נבחר</em></MenuItem>
-                                <MenuItem value="work">אינסטלטור</MenuItem>
-                                <MenuItem value="w">טכנאי</MenuItem>
-                                <MenuItem value="w2">רופא</MenuItem>
+                                <MenuItem value="אינסלטור">אינסטלטור</MenuItem>
+                                <MenuItem value="טכנאי">טכנאי</MenuItem>
+                                <MenuItem value="רופא">רופא</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -213,9 +207,9 @@ const RequestPage = () => {
                                 }}
                             >
                                 <MenuItem value=""><em>לא נבחר</em></MenuItem>
-                                <MenuItem value="work">ראשון לציון</MenuItem>
-                                <MenuItem value="w">תל אביב</MenuItem>
-                                <MenuItem value="w2">נס ציונה</MenuItem>
+                                <MenuItem value="ראשון לציון">ראשון לציון</MenuItem>
+                                <MenuItem value="תל אביב">תל אביב</MenuItem>
+                                <MenuItem value="נס ציונה">נס ציונה</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -225,12 +219,10 @@ const RequestPage = () => {
                         <FormControl fullWidth>
                             <TextField
                                 id="date-picker"
-                                label="תאריך"
                                 type="date"
                                 value={selectedDate}
                                 onChange={handleDateChange}
-                                disabled={isAiClicked} // Disable when AI button is clicked
-                                InputLabelProps={{ shrink: true }}
+                                disabled={isAiClicked}
                                 sx={{
                                     backgroundColor: "white",
                                     borderRadius: "25px",
@@ -252,7 +244,6 @@ const RequestPage = () => {
                             />
                         </FormControl>
                     </Grid>
-
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "end" }}>
                         <Button
                             sx={{
@@ -280,12 +271,13 @@ const RequestPage = () => {
                         </Button>
                     </Box>
                 </Grid>
-                <Divider sx={{ mb: 0 }} />
-                <RequestsList requests={regularRequests} />
+
+                <Divider sx={{ borderBottomWidth: 2, marginY: 2 }} />
+
+
+                <RequestsList requests={filteredRequests} />
             </Box>
         </Box>
-
-
     );
 };
 

@@ -36,10 +36,7 @@ const RequestDialog: React.FC<RequestDialogProps> = ({ open, onClose, emergency:
 
   // Initialize or update the map only when the dialog opens and the component is mounted
   useEffect(() => {
-    console.log("Dialog open:", open);
-    console.log("Map ref:", mapRef.current);
-    console.log("Map instance:", mapInstance.current);
-    console.log("Is mounted:", isMounted);
+
 
     if (!open || !mapRef.current || !isMounted) {
       // Clean up if the dialog is closing or component isn’t mounted
