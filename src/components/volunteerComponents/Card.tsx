@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Card as MuiCard, CardContent, Typography, Stack, Box, Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+import { Box, CardContent, Card as MuiCard, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
 import './CardList.css';
 import RequestDialog from './requestDialog';
-import InfoIcon from '@mui/icons-material/Info';
-const Card = ({ title, subtitle, description, location, onClick, isUrgent }) => {
+const Card = ({ title, last_name, description, location, onClick, is_urgent, requires_vehical }) => {
   return (
     <MuiCard
       sx={{
@@ -18,7 +18,7 @@ const Card = ({ title, subtitle, description, location, onClick, isUrgent }) => 
       onClick={onClick} // Handle card click
     >
       <CardContent>
-      {isUrgent && <Typography
+      {is_urgent && <Typography
           variant="h4"
           sx={{
             position: 'absolute',
@@ -105,7 +105,7 @@ const Card = ({ title, subtitle, description, location, onClick, isUrgent }) => 
               textOverflow: 'ellipsis',
             }}
           >
-            {subtitle}
+             משפחת {last_name}
           </Typography>
 
           <Typography
@@ -122,7 +122,7 @@ const Card = ({ title, subtitle, description, location, onClick, isUrgent }) => 
               textOverflow: 'ellipsis',
             }}
           >
-            {description}
+            {requires_vehical ? 'נדרש רכב' : "לא נדרש רכב"}
           </Typography>
         </Box>
       </CardContent>
@@ -161,12 +161,13 @@ const CardList = ({ cardsData }) => {
         {cardsData.map((card, index) => (
           <Card
             key={index}
-            title={card.name}
-            subtitle={card.emergencyType}
-            description={card.severity}
-            location={card.location}
+            title={card.request_type.type_name}
+            last_name={card.last_name}  
+            description={card.description}  
+            requires_vehical={card.requires_vehical}
+            location={card.city.city_name}
             onClick={() => handleCardClick(card)} // Pass the card data to the click handler
-            isUrgent={card.isUrgent}
+            is_urgent={card.request.is_urgent}
           />
         ))}
       </Stack>
