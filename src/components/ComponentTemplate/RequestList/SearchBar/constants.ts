@@ -11,4 +11,4 @@ export const CITIES = [
   "בת ים",
 ];
 
-export const USER_TYPES = ["משפחה", "מתנדב", "מנהל מערכת"];
+export const USER_TYPES = ["family", "volunteer", "admin"];
