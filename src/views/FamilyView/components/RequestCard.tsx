@@ -13,8 +13,7 @@ import { themeColors } from "../../../App";
 import { AllRequest } from "../../../types/request";
 import RequestDialog from "../components/RequestDialog";
 
-const RequestCard = ({ allRequest }: { allRequest: AllRequest }) => {
-    console.log(allRequest)
+const RequestCard = ({ allRequest, deleteRequest }: { allRequest: AllRequest, deleteRequest: (reqId: string) => void }) => {
     const [openRequestDialog, setOpenRequestDialog] = useState(false)
 
     const formatDateTime = (isoString: string) => {
@@ -23,7 +22,7 @@ const RequestCard = ({ allRequest }: { allRequest: AllRequest }) => {
 
     return (
         <Grid item xs={12} md={4} key={allRequest.request.id}>
-            <RequestDialog open={openRequestDialog} setOpen={setOpenRequestDialog} request={allRequest} />
+            <RequestDialog open={openRequestDialog} setOpen={setOpenRequestDialog} request={allRequest} deleteRequest={deleteRequest} />
             <Paper
                 sx={{
                     p: 3,
@@ -48,7 +47,7 @@ const RequestCard = ({ allRequest }: { allRequest: AllRequest }) => {
                         sx={{
                             alignSelf: "start",
                             borderRadius: "20px",
-                            backgroundColor: allRequest.status.status_color
+                            backgroundColor: '#' + allRequest.status.status_color
                         }}
                     >
                         {allRequest.status.status_name}

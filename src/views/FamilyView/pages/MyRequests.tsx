@@ -1,23 +1,20 @@
 import {
     Box,
-    Button,
     Checkbox,
-    Divider,
     FormControlLabel,
     Grid,
     MenuItem,
-    Paper,
     TextField,
-    Typography,
+    Typography
 } from "@mui/material";
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { themeColors } from "../../../App";
-import { AccessTimeOutlined, CarCrash, DescriptionOutlined } from "@mui/icons-material";
 import axiosInstance from "../../../axios";
-import { AllRequest, MyRequest, RequestStatus, RequestType } from "../../../types/request";
-import dayjs from "dayjs";
-import RequestDialog from "../components/RequestDialog";
+import { AllRequest, RequestStatus, RequestType } from "../../../types/request";
 import RequestCard from "../components/RequestCard";
+import { useUser } from "../../../contexts/userContext";
+
 
 const MyRequests: React.FC = () => {
     const [requests, setRequests] = useState<AllRequest[]>([]);
@@ -28,36 +25,42 @@ const MyRequests: React.FC = () => {
     const [filterType, setFilterType] = useState<string>("");
     const [showOpenRequests, setShowOpenRequests] = useState<boolean>(false);
 
+    const { user } = useUser();
+
     useEffect(() => {
-        axiosInstance.get<AllRequest[]>("/request")
+        axiosInstance.get<AllRequest[]>("/api/request")
             .then((response) => {
-                setRequests(response.data);
-                setFilteredRequests(response.data);
+                user && setRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
+                user && setFilteredRequests(response.data.filter((request) => request.request.family_id.includes(user.id)));
             })
             .catch((error) => console.error(error));
 
-        axiosInstance.get<RequestType[]>("/request_type")
+        axiosInstance.get<RequestType[]>("/api/request_type")
             .then((response) => {
                 setTypes(response.data);
             })
             .catch((error) => console.error(error));
 
-        axiosInstance.get<RequestStatus[]>("/request_status")
+        axiosInstance.get<RequestStatus[]>("/api/request_status")
             .then((response) => {
                 setStatuses(response.data);
             })
             .catch((error) => console.error(error));
-    }, []);
+    }, [user]);
 
     useEffect(() => {
-        const filterRequests = requests.filter((request) => {
+        const filterRequests = [...requests].filter((request) => {
             return (
                 (!filterDate || dayjs(request.request.created_at).format("YYYY-MM-DD") === filterDate) &&
-                (!filterType || request.request_type.id.toString() === filterType)
+                (!filterType || request.request_type.id.toString() === filterType) && (!showOpenRequests || request.status.id !== 3)
             );
         });
         setFilteredRequests(filterRequests);
-    }, [filterDate, filterType, requests]);
+    }, [filterDate, filterType, requests, showOpenRequests]);
+
+    const deleteRequest = (reqId: string) => {
+        axiosInstance.delete('request/' + reqId).then().catch((error) => console.error(error));
+    }
 
 
     return (
@@ -122,7 +125,7 @@ const MyRequests: React.FC = () => {
                 {/* הצגת רשימת בקשות */}
                 <Grid container spacing={3}>
                     {filteredRequests.map((request, index) =>
-                        <RequestCard key={index} allRequest={request} />
+                        <RequestCard key={index} allRequest={request} deleteRequest={deleteRequest} />
                     )}
                 </Grid>
             </Box>

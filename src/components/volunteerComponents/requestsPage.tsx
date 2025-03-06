@@ -11,41 +11,74 @@ import OSM from "ol/source/OSM";
 import VectorSource from "ol/source/Vector";
 import React, { useEffect, useState } from "react";
 import RequestsList from "./requestsList";
+import { regularRequests } from "./mock";
+import { getAllCities, getAllRequests, getAllRequestTypes } from "./api";
 
 const RequestPage = () => {
-    const [regularRequests, setRegularRequests] = useState([
-        { name: "צ'רלי בראון", isUrgent: true, emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל", sos: true },
-        { name: "דיויד מילר", isUrgent: false, emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
-        { name: "אמה וילסון", isUrgent: false, emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
-        { name: "צ'רלי בראון", isUrgent: true, emergencyType: "פציעה משריפה", location: "בת ים", severity: "בינוני", responseStatus: "טופל" },
-        { name: "דיויד מילר", isUrgent: true, emergencyType: "טביעה", location: "ראשון לציון", severity: "קריטי", responseStatus: "ממתין" },
-        { name: "אמה וילסון", isUrgent: true, emergencyType: "שבר", location: "נס ציונה", severity: "קל", responseStatus: "בתהליך" },
-    ]);
 
+    const [requestTypes, setRequestTypes] = useState([]);
+    const [request, setRequests] = useState([]);
+    const [cities, setCities] = useState([]);
+
+    useEffect(() => {
+        const fetchRequestTypes = async () => {
+            const types = await getAllRequestTypes();
+            setRequestTypes(types);
+        };
+
+        const fetchAllRequest = async () => {
+            const reqs = await getAllRequests();
+            // console.log(reqs)
+            const sortedRequests = (reqs as []).sort((a, b) => {
+                // Compare is_urgent values inside request object
+                if (a.request.is_urgent === b.request.is_urgent) {
+                    return 0; // If both have the same urgency, leave unchanged
+                }
+                return a.request.is_urgent ? -1 : 1; // Urgent first, non-urgent later
+            });
+            setRequests(sortedRequests);
+        };
+
+        const fetchAllCities = async () => {
+            const cities = await getAllCities();
+            setCities(cities);
+        };
+
+        fetchAllCities()
+        fetchAllRequest()
+        fetchRequestTypes();
+    }, []);
     const [isAiClicked, setIsAiClicked] = useState(false); // Track if the AI button is clicked
 
     const handleAiButtonClick = () => {
         setIsAiClicked((prevState) => !prevState); // Toggle AI button state
         if (!isAiClicked) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                    },
+                    (error) => {
+                        console.error("Error getting location:", error);
+                    }
+                );
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
             // Reset fields when turning on the AI mode
             setCategory('');
-            setArea('');
             setSelectedDate('');
+            setArea('נתניה');
         }
     };
 
     const [map, setMap] = useState<Map | null>(null);
     const [vectorSource, setVectorSource] = useState<VectorSource | null>(null);
-    // const filteredRequests = regularRequests.filter((request) => {
-    //     const isCategoryMatch = category ? request.emergencyType === category : true;
-    //     const isAreaMatch = area ? request.location === area : true;
-    //     // const isDateMatch = selectedDate ? new Date(request.date).toLocaleDateString() === selectedDate : true;
-        
-    //     return isCategoryMatch && isAreaMatch;
-    // });
 
     useEffect(() => {
-        const israelCenter = fromLonLat([34.8516, 31.0461]);
+        const israelCenter = fromLonLat([34.8513687, 32.2782612]);
         const newVectorSource = new VectorSource();
         const vectorLayer = new VectorLayer({
             source: newVectorSource,
@@ -61,14 +94,13 @@ const RequestPage = () => {
             ],
             view: new View({
                 center: israelCenter,
-                zoom: 7,
+                zoom: 12,
             }),
         });
 
         setMap(newMap);
         setVectorSource(newVectorSource);
 
-        
         return () => newMap.setTarget(null);
     }, []);
 
@@ -119,12 +151,21 @@ const RequestPage = () => {
 
     useEffect(() => {
         if (map && vectorSource) {
-            regularRequests.forEach((request) => addLocationToMap(request.location));
+            regularRequests.forEach((request) => addLocationToMap(request.city.city_name));
         }
     }, [map, regularRequests, vectorSource]);
 
+    // Filter requests based on selected filters inside useEffect or inline when rendering
+    const filteredRequests = request.filter((request) => {
+        const isCategoryMatch = category ? request.request_type.type_name === category : true;
+        const isAreaMatch = area ? request.city.city_name === area : true;
+
+        return isCategoryMatch && isAreaMatch;
+        // return true
+    });
+
     return (
-        <Box sx={{ display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
+        <Box sx={{ width: "100%", display: "flex", height: "86vh", overflow: "hidden", direction: 'ltr' }}>
             <Box sx={{ width: "50%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#F3FBFF", borderWidth: "10px" }}>
                 <div id="map" style={{
                     width: "70%", height: "90%", borderRadius: "10px", borderColor: "white",
@@ -141,7 +182,7 @@ const RequestPage = () => {
                             <Select
                                 labelId="category-label"
                                 value={category}
-                                onChange={handleChangeCategory}
+                                onChange={(event) => setCategory(event.target.value)} // Handle selection change
                                 disabled={isAiClicked} // Disable when AI button is clicked
                                 sx={{
                                     backgroundColor: "white",
@@ -165,11 +206,12 @@ const RequestPage = () => {
                                 }}
                             >
                                 <MenuItem value=""><em>לא נבחר</em></MenuItem>
-                                <MenuItem value="work">אינסטלטור</MenuItem>
-                                <MenuItem value="w">טכנאי</MenuItem>
-                                <MenuItem value="w2">רופא</MenuItem>
+                                {requestTypes.map((type) => (
+                                    <MenuItem key={type.type_name} value={type.type_name}>{type.type_name}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
+
                     </Grid>
 
                     <Grid item xs={12} sm={4} md={3}>
@@ -212,25 +254,27 @@ const RequestPage = () => {
                                     },
                                 }}
                             >
+                                {/* <MenuItem value=""><em>לא נבחר</em></MenuItem>
+                                <MenuItem value="ראשון לציון">ראשון לציון</MenuItem>
+                                <MenuItem value="תל אביב">תל אביב</MenuItem>
+                                <MenuItem value="נס ציונה">נס ציונה</MenuItem> */}
                                 <MenuItem value=""><em>לא נבחר</em></MenuItem>
-                                <MenuItem value="work">ראשון לציון</MenuItem>
-                                <MenuItem value="w">תל אביב</MenuItem>
-                                <MenuItem value="w2">נס ציונה</MenuItem>
+                                {cities.map((city) => (
+                                    <MenuItem key={city.city_name} value={city.city_name}>{city.city_name}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </Grid>
 
                     {/* תאריך */}
                     <Grid item xs={12} sm={4} md={3}>
-                        <FormControl fullWidth>
+                        {/* <FormControl fullWidth>
                             <TextField
                                 id="date-picker"
-                                label="תאריך"
                                 type="date"
                                 value={selectedDate}
                                 onChange={handleDateChange}
-                                disabled={isAiClicked} // Disable when AI button is clicked
-                                InputLabelProps={{ shrink: true }}
+                                disabled={isAiClicked}
                                 sx={{
                                     backgroundColor: "white",
                                     borderRadius: "25px",
@@ -250,9 +294,8 @@ const RequestPage = () => {
                                     },
                                 }}
                             />
-                        </FormControl>
+                        </FormControl> */}
                     </Grid>
-
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "end" }}>
                         <Button
                             sx={{
@@ -280,12 +323,13 @@ const RequestPage = () => {
                         </Button>
                     </Box>
                 </Grid>
-                <Divider sx={{ mb: 0 }} />
-                <RequestsList requests={regularRequests} />
+
+                <Divider sx={{ borderBottomWidth: 2, marginY: 2 }} />
+
+
+                <RequestsList requests={filteredRequests} />
             </Box>
         </Box>
-
-
     );
 };
 

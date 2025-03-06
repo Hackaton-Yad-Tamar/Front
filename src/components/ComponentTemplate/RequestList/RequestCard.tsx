@@ -26,21 +26,15 @@ export const RequestCard: FC<RequestCardProps> = ({
           <Typography variant="h6">{` ${request.firstName} ${request.lastName}`}</Typography>
         </Stack>
         <Stack direction="column">
-          <Typography sx={{ textDecoration: "underline" }}>
-            עיר מגורים:
-          </Typography>
+          <Typography sx={{ textDecoration: "underline" }}>עיר מגורים:</Typography>
           <Typography variant="h6">{` ${request.city}`}</Typography>
         </Stack>
         <Stack direction="column">
-          <Typography sx={{ textDecoration: "underline" }}>
-            מספר טלפון:
-          </Typography>
+          <Typography sx={{ textDecoration: "underline" }}>מספר טלפון:</Typography>
           <Typography variant="h6">{` ${request.phoneNumber}`}</Typography>
         </Stack>
         <Stack direction="column">
-          <Typography sx={{ textDecoration: "underline" }}>
-            מבקש להיות:
-          </Typography>
+          <Typography sx={{ textDecoration: "underline" }}>מבקש להיות:</Typography>
           <Typography variant="h6">{` ${request.userType}`}</Typography>
         </Stack>
       </Stack>

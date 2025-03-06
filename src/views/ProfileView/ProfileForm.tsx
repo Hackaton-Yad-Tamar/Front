@@ -20,8 +20,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import type React from "react";
 import { useRef, useState } from "react";
-import { User, UserType, VehicleType } from "../../types/userType";
 import { themeColors } from "../../App";
+import { User, UserType, VehicleType } from "../../types/userType";
 
 interface ProfileFormProps {
   user: User;
@@ -81,7 +81,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${formData.first_name.charAt(0)}${formData.last_name.charAt(0)}`;
+    return `${formData.firstName.charAt(0)}${formData.lastName.charAt(0)}`;
   };
 
   // Handle stats changes
@@ -355,7 +355,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
 
                 {/* Reviews section - typically this would be read-only in a real app */}
                 {formData.reviews && formData.reviews.length > 0 && (
-                  <Grid item xs={12} sx={{ paddingRight: "15rem"}}>
+                  <Grid item xs={12} sx={{ paddingRight: "15rem" }}>
                     <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
                       מילים מאת המשפחות
                     </Typography>
@@ -372,7 +372,8 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                         minHeight: "200px",
                         display: "flex",
                         flexDirection: "column",
-                        width: "35rem"}}
+                        width: "35rem",
+                      }}
                     >
                       {/* Current review */}
                       <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
@@ -461,7 +462,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
           </Grid>
         </CardContent>
         <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
-          <Button variant="outlined" onClick={onCancel} sx={{ mr: 1}}>
+          <Button variant="outlined" onClick={onCancel} sx={{ mr: 1 }}>
             ביטול
           </Button>
           <Button variant="contained" type="submit">

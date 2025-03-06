@@ -1,16 +1,15 @@
-import React, { useState } from "react";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { TextField, Button, Box, Typography, Link } from "@mui/material";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import rtlPlugin from "stylis-plugin-rtl";
-import { Link } from "react-router-dom";
 import {
     forgotPasswordStyle,
     signInButtonStyle,
     signInTextFieldStyle,
 } from "./styles";
 import { FirstSignInDialog } from "../FirstSignInDialog/FirstSignInDialog";
-import { saveData } from '../../api/axios';
+import { saveData } from "../../api/axios";
 import { SHA256 } from "crypto-js";
 import { useUser } from "../../contexts/userContext";
 import { useNavigate } from "react-router-dom";
@@ -35,8 +34,11 @@ const SignIn: React.FC = () => {
     );
     const [isFirstTime, setIsFirstTime] = useState<boolean>(false);
     const { login } = useUser();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        localStorage.removeItem("user");
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -68,14 +70,30 @@ const SignIn: React.FC = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            const user = await saveData(`${import.meta.env["VITE_HOST_URL"]}/users/signin`, { email: formData.email, password: SHA256(formData.password).toString() });
+            try {
+                const user = await saveData(
+                    `${import.meta.env["VITE_HOST_URL"]}/users/signin`,
+                    {
+                        email: formData.email,
+                        password: SHA256(formData.password).toString(),
+                    }
+                );
 
-            if (!user.first_sign_in) {
-                login(user)
-                navigate("/home")
+                if (!user.first_sign_in) {
+                    login(user);
+                    if (user.user_type == 2) {
+                        navigate("/volunteer")
+                    } else if (user.user_type == 1) {
+                        navigate("/home")
+                    } else {
+                        navigate("/dashboard")
+                    }
+                }
+                setIsFirstTime(user.first_sign_in);
+            } catch (error) {
+                console.error("Error signing in:", error);
+                setErrors({ email: "שגיאה בכניסה", password: "שגיאה בכניסה" });
             }
-            setIsFirstTime(user.first_sign_in);
-
         } else {
             console.log("לטופס יש שגיאות");
         }
@@ -87,7 +105,6 @@ const SignIn: React.FC = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "#f5f5f5",
                 direction: "rtl",
             }}
         >
@@ -96,16 +113,19 @@ const SignIn: React.FC = () => {
                     component="form"
                     onSubmit={handleSubmit}
                     sx={{
-                        width: "19vw",
-                        padding: "1.5vw",
+                        width: { xs: "80%", sm: "100%", md: "30vw" }, // Adjusts width for responsiveness
+                        padding: "1% 3%",
                         backgroundColor: "white",
-                        borderRadius: "8px",
+                        borderRadius: "12px",
                         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+                        textAlign: "center",
                     }}
                 >
                     <Typography
                         variant="h5"
-                        sx={{ marginBottom: "4vh", textAlign: "center" }}
+                        sx={{
+                            mb: "10px"
+                        }}
                     >
                         כניסה למשתמש קיים
                     </Typography>
@@ -119,7 +139,10 @@ const SignIn: React.FC = () => {
                         onChange={handleChange}
                         error={!!errors.email}
                         helperText={errors.email}
-                        sx={signInTextFieldStyle}
+                        sx={{
+                            ...signInTextFieldStyle,
+                            marginBottom: { xs: "2vh", sm: "3vh" },
+                        }}
                     />
 
                     <TextField
@@ -134,12 +157,28 @@ const SignIn: React.FC = () => {
                         helperText={errors.password}
                         sx={signInTextFieldStyle}
                     />
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <Button variant="contained" type="submit" sx={signInButtonStyle}>
+
+                    <Box
+                        sx={{ display: "flex", justifyContent: "center", marginTop: "3vh" }}
+                    >
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            sx={{
+                                ...signInButtonStyle,
+                                width: { xs: "100%", sm: "auto" },
+                            }}
+                        >
                             התחבר
                         </Button>
                     </Box>
-                    <FirstSignInDialog email={formData.email} open={isFirstTime} onClose={() => setIsFirstTime(false)} />
+
+                    <FirstSignInDialog
+                        email={formData.email}
+                        open={isFirstTime}
+                        onClose={() => setIsFirstTime(false)}
+                    />
+
                     <Box sx={{ marginTop: "10px", textAlign: "center" }}>
                         <Link href="#" variant="body2" sx={forgotPasswordStyle}>
                             שכחת את הסיסמה?
