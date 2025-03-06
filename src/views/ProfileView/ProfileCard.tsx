@@ -58,7 +58,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
+    return `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
   };
 
   // Get the appropriate vehicle icon
@@ -309,7 +309,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                     {/* Current review */}
                     <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                        <Avatar sx={{ bgcolor: "#00AEEE", mr: 2 }}>
+                        <Avatar sx={{ bgcolor: themeColors.darkBlue, mr: 2 }}>
                           <FamilyRestroomIcon />
                         </Avatar>
                         <Box sx={{ paddingRight: 2 }}>
