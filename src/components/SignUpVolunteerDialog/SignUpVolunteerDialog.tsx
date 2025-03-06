@@ -26,15 +26,15 @@ const rtlCache = createCache({
 });
 
 const fetchCities = async () => {
-  return await getData('http://localhost:8000/users/cities');
+  return await getData(`${import.meta.env["VITE_HOST_URL"]}/users/cities`);
 };
 
 const fetchSkills = async () => {
-  return await getData('http://localhost:8000/users/skills');
+  return await getData(`${import.meta.env["VITE_HOST_URL"]}/users/skills`);
 };
 
 const fetchLicenses = async () => {
-  return await getData('http://localhost:8000/users/licenses');
+  return await getData(`${import.meta.env["VITE_HOST_URL"]}/users/licenses`);
 };
 
 type Props = {
@@ -76,7 +76,7 @@ export const SignUpVolunteerDialog = ({ open, onClose }: Props) => {
 
     try {
       console.log(formData);
-      await saveData('http://localhost:8000/users/signup/vulenteer', formData);
+      await saveData(`${import.meta.env["VITE_HOST_URL"]}/users/signup/vulenteer`, formData);
       console.log('המשתמש נשמר בהצלחה!');
       onClose();
     } catch (error) {
