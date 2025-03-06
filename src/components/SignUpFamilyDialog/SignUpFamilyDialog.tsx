@@ -28,7 +28,7 @@ const rtlCache = createCache({
 });
 
 const fetchCities = async () => {
-    return await getData('http://localhost:8000/users/cities');
+    return await getData(`${import.meta.env["VITE_HOST_URL"]}/users/cities`);
 };
 
 type Props = {
@@ -61,7 +61,7 @@ export const SignUpFamilyDialog = ({ open, onClose }: Props) => {
 
         try {
             console.log(formData);
-            await saveData('http://localhost:8000/users/signup/family', formData);
+            await saveData(`${import.meta.env["VITE_HOST_URL"]}/users/signup/family`, formData);
             console.log('המשתמש נשמר בהצלחה!');
             onClose();
         } catch (error) {

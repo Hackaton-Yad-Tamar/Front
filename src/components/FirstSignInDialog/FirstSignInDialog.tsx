@@ -43,7 +43,7 @@ export const FirstSignInDialog = ({ open, onClose, email }: Props) => {
       return;
     }
 
-    const user = await saveData("http://localhost:8000/users/update-password", {
+    const user = await saveData(`${import.meta.env["VITE_HOST_URL"]}/users/update-password`, {
       password: SHA256(password).toString(),
       email,
     });

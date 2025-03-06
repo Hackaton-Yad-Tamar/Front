@@ -68,7 +68,7 @@ const SignIn: React.FC = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            const user = await saveData('http://localhost:8000/users/signin', { email: formData.email, password: SHA256(formData.password).toString() });
+            const user = await saveData(`${import.meta.env["VITE_HOST_URL"]}/users/signin`, { email: formData.email, password: SHA256(formData.password).toString() });
 
             if (!user.first_sign_in) {
                 login(user)
