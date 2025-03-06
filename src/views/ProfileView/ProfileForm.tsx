@@ -21,6 +21,7 @@ import Typography from "@mui/material/Typography";
 import type React from "react";
 import { useRef, useState } from "react";
 import { User, UserType, VehicleType } from "../../types/userType";
+import { themeColors } from "../../App";
 
 interface ProfileFormProps {
   user: User;
@@ -80,7 +81,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
 
   // Get initials for avatar fallback
   const getInitials = () => {
-    return `${formData.firstName.charAt(0)}${formData.lastName.charAt(0)}`;
+    return `${formData.first_name.charAt(0)}${formData.last_name.charAt(0)}`;
   };
 
   // Handle stats changes
@@ -354,7 +355,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
 
                 {/* Reviews section - typically this would be read-only in a real app */}
                 {formData.reviews && formData.reviews.length > 0 && (
-                  <Grid item xs={12}>
+                  <Grid item xs={12} sx={{ paddingRight: "15rem"}}>
                     <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
                       מילים מאת המשפחות
                     </Typography>
@@ -371,22 +372,22 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                         minHeight: "200px",
                         display: "flex",
                         flexDirection: "column",
-                      }}
+                        width: "35rem"}}
                     >
                       {/* Current review */}
                       <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
                         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                          <Avatar sx={{ bgcolor: "#00AEEE", mr: 2 }}>
+                          <Avatar sx={{ bgcolor: themeColors.darkBlue, mr: 2 }}>
                             <FamilyRestroomIcon />
                           </Avatar>
-                          <Box>
+                          <Box sx={{ paddingRight: 2 }}>
                             <Typography
                               variant="subtitle1"
-                              sx={{ color: "#00AEEE", fontWeight: "medium" }}
+                              sx={{ color: "black", fontWeight: "medium" }}
                             >
                               {formData.reviews[activeReviewIndex].familyName}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="black">
                               {new Date(
                                 formData.reviews[activeReviewIndex].date
                               ).toLocaleDateString()}
@@ -405,7 +406,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                           variant="body1"
                           component="div"
                           sx={{
-                            color: "#00AEEE",
+                            color: "black",
                             flex: 1,
                             mb: 2,
                           }}
@@ -437,7 +438,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                             sx={{ color: "#00AEEE" }}
                           >
                             הבא
-                            <KeyboardArrowRight />
+                            <KeyboardArrowLeft />
                           </Button>
                         }
                         backButton={
@@ -447,7 +448,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
                             disabled={maxReviews <= 1}
                             sx={{ color: "#00AEEE" }}
                           >
-                            <KeyboardArrowLeft />
+                            <KeyboardArrowRight />
                             הקודם
                           </Button>
                         }
@@ -460,7 +461,7 @@ export function ProfileForm({ user, onSave, onCancel }: ProfileFormProps) {
           </Grid>
         </CardContent>
         <CardActions sx={{ justifyContent: "flex-end", p: 2 }}>
-          <Button variant="outlined" onClick={onCancel} sx={{ mr: 1 }}>
+          <Button variant="outlined" onClick={onCancel} sx={{ mr: 1}}>
             ביטול
           </Button>
           <Button variant="contained" type="submit">

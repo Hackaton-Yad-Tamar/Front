@@ -15,10 +15,10 @@ const Home: React.FC = () => {
           alignItems: "center",
           justifyContent: "center",
           height: "30vh",
+          width: "100%",
           minHeight: "200px",
           background: "linear-gradient(to bottom, #a5ddf7, #78c2f2)",
           borderRadius: "0 0 12px 12px",
-          p: 3,
         }}
       >
         <Typography
