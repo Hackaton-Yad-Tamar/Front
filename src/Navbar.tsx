@@ -124,6 +124,23 @@ const Navbar: React.FC = () => {
           >
             דאשבורד
           </Button>}
+          {user?.user_type == 2 &&<Button
+            sx={{
+              color: themeColors.darkBlue,
+              fontWeight: "bold",
+              fontSize: "2.5vh",
+              px: 2,
+              borderRadius: "20px",
+              "&:hover": {
+                backgroundColor: themeColors.lightGreen,
+                color: "white",
+              },
+            }}
+            component={Link}
+            to="/volunteer"
+          >
+            ההתנדבות שלי
+          </Button>}
         </Box>
         <Box
           sx={{
