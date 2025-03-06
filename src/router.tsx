@@ -5,11 +5,12 @@ import Home from "./views/FamilyView/pages/Home";
 import MyRequests from "./views/FamilyView/pages/MyRequests";
 import HomePageView from "./views/HomePageView/HomePageView";
 import ProfileView from "./views/ProfileView/ProfileView";
+import RequestPage from "./components/volunteerComponents/requestsPage";
 
 export enum Route {
   login = "/login",
   home = "home",
-  volunteer = "/nvoluteer",
+  volunteer = "/volunteer",
   requests = "/requests",
   profile = "/profile",
 }
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: Route.profile,
         element: <ProfileView user={mockUser} />,
       },
+      {
+        path: Route.volunteer,
+        element: <RequestPage />
+      }
     ],
   },
   {
