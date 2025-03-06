@@ -7,8 +7,8 @@ import { Route } from "./router";
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
-  
-  
+
+
   return (
     <AppBar
       position="fixed"
@@ -93,12 +93,8 @@ const Navbar: React.FC = () => {
         <Box
           sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "1rem" }}
         >
-          <Typography>
-            שלום, <Typography fontWeight="bold">{user?.firstName}</Typography>
-          </Typography>
-          <img src=".\public\menu-logo-small.png" width={"30%"} />
+          <Typography>שלום {user?.first_name}</Typography>
         </Box>
-        <Typography>שלום {user?.first_name}</Typography>
         <img src=".\public\menu-logo-small.png" width={"5%"} />
       </Toolbar>
     </AppBar>
