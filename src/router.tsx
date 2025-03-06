@@ -12,7 +12,7 @@ import ResetPassword from "./views/ChangePassword/ForgotPassword";
 export enum Route {
   login = "/login",
   home = "home",
-  volunteer = "/volunteer",
+  volunteer = "/nvoluteer",
   requests = "/requests",
   profile = "/profile",
   resetPassword = "/reset-password",

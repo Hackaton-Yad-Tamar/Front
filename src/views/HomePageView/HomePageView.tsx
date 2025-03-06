@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
+import React, { useState } from "react";
 import { HomePageImage } from "../../components/HomePageImage/HomePageImage";
 import SignIn from "../../components/SignIn/SignIn";
 import SignUp from "../../components/SignUp/SignUp";
-import { SignUpVolunteerDialog } from "../../components/SignUpVolunteerDialog/SignUpVolunteerDialog";
 import { SignUpFamilyDialog } from "../../components/SignUpFamilyDialog/SignUpFamilyDialog";
+import { SignUpVolunteerDialog } from "../../components/SignUpVolunteerDialog/SignUpVolunteerDialog";
 
 const HomePageView: React.FC = () => {
   const [volunteerDialogOpen, setVolunteerDialogOpen] = useState(false);
@@ -30,7 +30,6 @@ const HomePageView: React.FC = () => {
         background: "linear-gradient(to bottom,rgb(242, 251, 255),rgb(74, 176, 245))",
       }}
     >
-      <HomePageImage />
       <Box
         sx={{
           display: "flex",
@@ -42,7 +41,10 @@ const HomePageView: React.FC = () => {
       >
         <SignIn />
         <SignUp OpenVolunteerSignUp={OpenVolunteerSignUp} OpenFamilySignUp={OpenFamilySignUp} />
-        <SignUpVolunteerDialog open={volunteerDialogOpen} onClose={() => setVolunteerDialogOpen(false)} />
+        <SignUpVolunteerDialog
+          open={volunteerDialogOpen}
+          onClose={() => setVolunteerDialogOpen(false)}
+        />
         <SignUpFamilyDialog open={familyDialogOpen} onClose={() => setFamilyDialogOpen(false)} />
       </Box>
       <HomePageImage />
