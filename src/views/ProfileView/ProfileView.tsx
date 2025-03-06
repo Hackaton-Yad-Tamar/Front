@@ -1,7 +1,8 @@
 import { Edit } from "@mui/icons-material";
 import { Box, Button, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { useFamilyRequests } from "../../api/requestsService";
 import MUICalendar from "../../components/CalendarComponent";
 import { useUser } from "../../contexts/userContext";
 import { Route } from "../../router";
@@ -14,6 +15,11 @@ type ProfileViewProps = {};
 function ProfileView({}: ProfileViewProps) {
   const [isEditing, setIsEditing] = useState(false);
   const { user } = useUser();
+  const { data: familyRequests } = useFamilyRequests(user?.id);
+
+  useEffect(() => {
+    console.log(familyRequests);
+  }, [familyRequests]);
 
   const handleSave = (updatedUser: User) => {
     // In a real app, you would save this to your backend
