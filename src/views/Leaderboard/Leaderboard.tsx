@@ -4,6 +4,12 @@ import { Box, Container, IconButton, Typography } from "@mui/material";
 import { themeColors } from "../../App";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import eventImage from "../../assets/event.jpg";
+import man1 from "../../assets/man1.jpg";
+import man2 from "../../assets/man2.jpg";
+import man3 from "../../assets/man3.jpg";
+import man4 from "../../assets/man4.jpg";
+import man5 from "../../assets/man5.jpg";
+import man6 from "../../assets/man6.jpg";
 
 const categoryDescriptions = {
     "המתנדב החרוץ": "שעות התנדבות",
@@ -17,37 +23,37 @@ const categoryDescriptions = {
     const fakeData = [
     {
         achievement_name: "המתנדב החרוץ",
-        image: "https://via.placeholder.com/100",
+        image: `${man1}`,
         volunteer_name: "ישראל ישראלי",
         value: 35
     },
     {
         achievement_name: "המתנדב רחב ההשפעה",
-        image: "https://via.placeholder.com/100",
-        volunteer_name: "שמעון",
+        image: `${man2}`,
+        volunteer_name: "שמעון פרץ",
         value: 40
     },
     {
         achievement_name: "המתנדב המהיר",
-        image: "https://via.placeholder.com/100",
+        image: `${man3}`,
         volunteer_name: "דוד לוי",
         value: 15
     },
     {
         achievement_name: "המתנדב מרחיק הלכת",
-        image: "https://via.placeholder.com/100",
+        image: `${man4}`,
         volunteer_name: "רון כהן",
         value: 300
     },
     {
         achievement_name: "המתנדב הרב-תחומי",
-        image: "https://via.placeholder.com/100",
+        image: `${man5}`,
         volunteer_name: "מאיה רוזן",
         value: 5
     },
     {
         achievement_name: "המתנדב המקצועי",
-        image: "https://via.placeholder.com/100",
+        image: `${man6}`,
         volunteer_name: "יעל אבקסיס",
         value: 4.8
     }
